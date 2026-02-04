@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vantage Method - Landing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #0a0a0a;
+            --color-text-muted: #666666;
+            --color-border: #e5e5e5;
+            --color-accent: #007c87;
+            --spacing-md: 4rem;
+            --spacing-lg: 6rem;
+            --spacing-xl: 8rem;
+            --max-width: 1200px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 32px;
+        }
+
+        nav a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--color-accent);
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--color-bg);
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            position: relative;
+            min-height: 200px;
+        }
+
+        .rotating-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.5s cubic-bezier(0.75, 0, 0.25, 1);
+        }
+
+        .hero-subtext {
+            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            color: var(--color-text-muted);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+            max-width: 900px;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--color-accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 1.125rem;
+            transition: all 0.3s;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 124, 135, 0.3);
+            background: #006672;
+        }
+
+        /* Mountain Sections */
+        .mountain-top,
+        .mountain-middle {
+            background: transparent;
+            position: relative;
+        }
+
+        .mountain-bottom {
+            background: #f5f5f5;
+            position: relative;
+        }
+
+        .section-label {
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--color-text-muted);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Center Mountain */
+        .center-mountain-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 300vh; /* Spans all 3 mountain sections */
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .center-mountain {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Side Mountains */
+        .side-mountains-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .left-mountain,
+        .right-mountain {
+            position: absolute;
+            bottom: 0;
+            height: 100vh;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .left-mountain {
+            left: 0;
+        }
+
+        .right-mountain {
+            right: 0;
+        }
+
+        /* AI Tools Section */
+        .ai-tools-section {
+            background: var(--color-bg);
+            padding: var(--spacing-xl) 0;
+        }
+
+        .ai-tools-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            letter-spacing: -0.02em;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .tool-card {
+            background: #f8f8f8;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: var(--spacing-md);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.75, 0, 0.25, 1);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--color-accent);
+        }
+
+        .tool-card h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--color-bg);
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+        }
+
+        .cta h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .cta-questions {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        .cta-questions p {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            margin: 1rem 0;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--color-accent);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 124, 135, 0.3);
+            background: #006672;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <img src="Rsources/Vantage-Method-Dark.png" alt="Vantage Method" class="logo">
+            <nav>
+                <a href="#contact">Start Here</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>
+                    <span class="rotating-text" data-text="Data first.">Data first.</span>
+                    <span class="rotating-text" data-text="Automation where it belongs.">Automation where it belongs.</span>
+                    <span class="rotating-text" data-text="Humans where it matters.">Humans where it matters.</span>
+                </h1>
+                <p class="hero-subtext">
+                    We design and operate agentic marketing systems that automate the boring work, measure what matters, and keep you focused on closing highly qualified leads.
+                </p>
+                <a href="#contact" class="hero-cta">Start Here</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Top of Mountain Section -->
+    <section class="mountain-top">
+        <div class="side-mountains-container" id="sideMountains">
+            <img src="Rsources/Mountains/left-mountain.png" alt="Left Mountain" class="left-mountain" id="leftMountain">
+            <img src="Rsources/Mountains/righ-mountain.png" alt="Right Mountain" class="right-mountain" id="rightMountain">
+        </div>
+        <div class="center-mountain-container">
+            <img src="Rsources/Mountains/center-mountain.png" alt="Center Mountain" class="center-mountain">
+        </div>
+        <div class="container">
+            <p class="section-label">Top of Mountain</p>
+        </div>
+    </section>
+
+    <!-- 3. Middle of Mountain Section -->
+    <section class="mountain-middle">
+        <div class="container">
+            <p class="section-label">Middle of Mountain</p>
+        </div>
+    </section>
+
+    <!-- 4. Bottom of Mountain Section -->
+    <section class="mountain-bottom">
+        <div class="container">
+            <p class="section-label">Bottom of Mountain</p>
+        </div>
+    </section>
+
+    <!-- 5. AI Tools Section -->
+    <section class="ai-tools-section">
+        <div class="container">
+            <h2>Our AI Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h3>Tool 1</h3>
+                </div>
+                <div class="tool-card">
+                    <h3>Tool 2</h3>
+                </div>
+                <div class="tool-card">
+                    <h3>Tool 3</h3>
+                </div>
+                <div class="tool-card">
+                    <h3>Tool 4</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CTA Section -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2>Start Here</h2>
+            <p class="cta-subtitle">This is a working conversation. Not a pitch.</p>
+            <div class="cta-questions">
+                <p>Where does marketing feel heavier than it should?</p>
+                <p>Where are decisions unclear?</p>
+                <p>Where is time being wasted?</p>
+            </div>
+            <a href="mailto:hello@vantagemethod.com" class="cta-button">Let's Talk</a>
+        </div>
+    </section>
+
+    <script>
+        // Rotating text animation
+        const rotatingTexts = document.querySelectorAll('.rotating-text');
+        let currentIndex = 0;
+
+        function rotateText() {
+            rotatingTexts[currentIndex].style.opacity = '0';
+            rotatingTexts[currentIndex].style.transform = 'translateY(-20px)';
+            
+            currentIndex = (currentIndex + 1) % rotatingTexts.length;
+            
+            setTimeout(() => {
+                rotatingTexts[currentIndex].style.opacity = '1';
+                rotatingTexts[currentIndex].style.transform = 'translateY(0)';
+            }, 500);
+        }
+
+        rotatingTexts[0].style.opacity = '1';
+        setInterval(rotateText, 3000);
+
+        // Background mountains scroll animation
+        const leftMountain = document.getElementById('leftMountain');
+        const rightMountain = document.getElementById('rightMountain');
+        const mountainTopSection = document.querySelector('.mountain-top');
+
+        function updateBackgroundMountains() {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            const sectionTop = mountainTopSection.offsetTop;
+            const sectionHeight = mountainTopSection.offsetHeight;
+            
+            // Calculate scroll progress through the top mountain section
+            const scrollProgress = Math.max(0, Math.min(1, (scrollY - sectionTop + windowHeight) / (sectionHeight + windowHeight)));
+            
+            // Mountains start higher (-100px) and move down to final position (-600px)
+            const startPosition = -100;
+            const endPosition = -600;
+            const currentPosition = startPosition + (scrollProgress * (endPosition - startPosition));
+            
+            leftMountain.style.bottom = `${currentPosition}px`;
+            rightMountain.style.bottom = `${currentPosition}px`;
+        }
+
+        window.addEventListener('scroll', updateBackgroundMountains, { passive: true });
+        updateBackgroundMountains();
+    </script>
+</body>
+</html>

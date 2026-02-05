@@ -6,315 +6,8 @@
     <title>Vantage Method - Landing</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --color-bg: #ffffff;
-            --color-text: #0a0a0a;
-            --color-text-muted: #666666;
-            --color-border: #e5e5e5;
-            --color-accent: #007c87;
-            --spacing-md: 4rem;
-            --spacing-lg: 6rem;
-            --spacing-xl: 8rem;
-            --max-width: 1200px;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--color-bg);
-            color: var(--color-text);
-            line-height: 1.6;
-            font-size: 17px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            height: 32px;
-        }
-
-        nav a {
-            color: var(--color-text);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--color-accent);
-        }
-
-        .container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: var(--color-bg);
-        }
-
-        .hero-content {
-            max-width: 900px;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 300;
-            margin-bottom: 2rem;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            position: relative;
-            min-height: 200px;
-        }
-
-        .rotating-text {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.5s cubic-bezier(0.75, 0, 0.25, 1);
-        }
-
-        .hero-subtext {
-            font-size: clamp(1.125rem, 2vw, 1.375rem);
-            color: var(--color-text-muted);
-            line-height: 1.6;
-            margin-bottom: var(--spacing-md);
-            max-width: 900px;
-        }
-
-        .hero-cta {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--color-accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 500;
-            font-size: 1.125rem;
-            transition: all 0.3s;
-        }
-
-        .hero-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 124, 135, 0.3);
-            background: #006672;
-        }
-
-        /* Mountain Sections */
-        .mountain-top,
-        .mountain-middle {
-            background: transparent;
-            position: relative;
-        }
-
-        .mountain-bottom {
-            background: #f5f5f5;
-            position: relative;
-        }
-
-        .section-label {
-            font-size: 2rem;
-            font-weight: 300;
-            color: var(--color-text-muted);
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Center Mountain */
-        .center-mountain-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 300vh; /* Spans all 3 mountain sections */
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .center-mountain {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            height: 100%;
-            width: auto;
-            object-fit: contain;
-        }
-
-        /* Side Mountains */
-        .side-mountains-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .left-mountain,
-        .right-mountain {
-            position: absolute;
-            bottom: 0;
-            height: 100vh;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .left-mountain {
-            left: 0;
-        }
-
-        .right-mountain {
-            right: 0;
-        }
-
-        /* AI Tools Section */
-        .ai-tools-section {
-            background: var(--color-bg);
-            padding: var(--spacing-xl) 0;
-        }
-
-        .ai-tools-section h2 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 300;
-            text-align: center;
-            margin-bottom: var(--spacing-lg);
-            letter-spacing: -0.02em;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--spacing-md);
-        }
-
-        .tool-card {
-            background: #f8f8f8;
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            padding: var(--spacing-md);
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s cubic-bezier(0.75, 0, 0.25, 1);
-        }
-
-        .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-            border-color: var(--color-accent);
-        }
-
-        .tool-card h3 {
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: var(--color-text-muted);
-        }
-
-        /* CTA Section */
-        .cta {
-            background: var(--color-bg);
-            text-align: center;
-            padding: var(--spacing-xl) 0;
-        }
-
-        .cta h2 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 300;
-            margin-bottom: 2rem;
-            letter-spacing: -0.02em;
-        }
-
-        .cta-subtitle {
-            font-size: 1.25rem;
-            color: var(--color-text-muted);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .cta-questions {
-            max-width: 600px;
-            margin: 0 auto var(--spacing-md);
-        }
-
-        .cta-questions p {
-            font-size: 1.1rem;
-            color: var(--color-text-muted);
-            margin: 1rem 0;
-            line-height: 1.7;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--color-accent);
-            color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 124, 135, 0.3);
-            background: #006672;
-        }
-
-        @media (max-width: 768px) {
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="landing.css">
 </head>
 <body>
     <!-- Header -->
@@ -322,7 +15,7 @@
         <div class="container">
             <img src="Rsources/Vantage-Method-Dark.png" alt="Vantage Method" class="logo">
             <nav>
-                <a href="#contact">Start Here</a>
+                <a href="#contact">Book a call</a>
             </nav>
         </div>
     </header>
@@ -332,50 +25,108 @@
         <div class="container">
             <div class="hero-content">
                 <h1>
-                    <span class="rotating-text" data-text="Data first.">Data first.</span>
-                    <span class="rotating-text" data-text="Automation where it belongs.">Automation where it belongs.</span>
-                    <span class="rotating-text" data-text="Humans where it matters.">Humans where it matters.</span>
+                    NEW <span class="hero-rotating-wrapper">
+                        <span class="hero-rotating-phrase">CUSTOMERS.</span>
+                        <span class="hero-rotating-phrase">LEADS.</span>
+                        <span class="hero-rotating-phrase">OPPORTUNITIES.</span>
+                    </span><br>
+                    At a cost your business can actually support.
                 </h1>
                 <p class="hero-subtext">
-                    We design and operate agentic marketing systems that automate the boring work, measure what matters, and keep you focused on closing highly qualified leads.
+                    We design and operate agentic marketing systems that automate the boring work, measure what matters, and keep you focused on your company.
                 </p>
-                <a href="#contact" class="hero-cta">Start Here</a>
+                <div class="hero-buttons">
+                    <a href="#contact" class="hero-cta">Book A Call</a>
+                    <a href="#top-mountain" class="hero-cta-secondary">Our Approach</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 2. Top of Mountain Section -->
-    <section class="mountain-top">
+    <section class="mountain-top" id="top-mountain">
         <div class="side-mountains-container" id="sideMountains">
             <img src="Rsources/Mountains/left-mountain.png" alt="Left Mountain" class="left-mountain" id="leftMountain">
             <img src="Rsources/Mountains/righ-mountain.png" alt="Right Mountain" class="right-mountain" id="rightMountain">
         </div>
         <div class="center-mountain-container">
-            <img src="Rsources/Mountains/center-mountain.png" alt="Center Mountain" class="center-mountain">
+            <img src="Rsources/Mountains/center-mountain-back.png" alt="Center Mountain Back" class="center-mountain" style="z-index: 0;">
+            <img src="Rsources/Mountains/center-mountain-middle.png" alt="Center Mountain Middle" class="center-mountain center-mountain-middle" id="centerMountainMiddle" style="z-index: 1;">
+            <img src="Rsources/Mountains/center-mountain-front.png" alt="Center Mountain Front" class="center-mountain" style="z-index: 2;">
         </div>
-        <div class="container">
-            <p class="section-label">Top of Mountain</p>
+        <div class="outcome-block" id="outcomeBlock">
+            <div class="outcome-title">The Goal</div>
+            <div class="outcome-content">
+                <div class="outcome-section">
+                    <p>Not more <span class="rotating-wrapper">
+                        <span class="rotating-phrase">leads.</span>
+                        <span class="rotating-phrase">customers.</span>
+                        <span class="rotating-phrase">opportunities.</span>
+                    </span></p>
+                    <p><span class="highlight-text">Better ones</span> — at the right price.</p>
+                </div>
+                <div class="outcome-divider"></div>
+                <div class="outcome-section">
+                    <ul>
+                        <li class="icon-demand">Predictable demand</li>
+                        <li class="icon-attribution">Clear attribution</li>
+                        <li class="icon-opportunities">Qualified opportunities</li>
+                    </ul>
+                </div>
+            </div>
+            <a href="#middle-mountain" class="outcome-cta">How we get there</a>
         </div>
     </section>
 
     <!-- 3. Middle of Mountain Section -->
-    <section class="mountain-middle">
-        <div class="container">
-            <p class="section-label">Middle of Mountain</p>
+    <section class="mountain-middle" id="middle-mountain">
+        <div class="how-block" id="howBlock">
+            <div class="how-title">How We Get There</div>
+            <div class="how-content">
+                <div class="how-section">
+                    <p>We don't start with ads.</p>
+                    <p><span class="highlight-text">We start with the business.</span></p>
+                </div>
+                <div class="how-divider"></div>
+                <div class="how-section">
+                    <p>Marketing only works when it fits inside:</p>
+                    <ul>
+                        <li class="icon-margins">margins</li>
+                        <li class="icon-capacity">capacity</li>
+                        <li class="icon-systems">systems</li>
+                    </ul>
+                </div>
+            </div>
+            <a href="#bottom-mountain" class="how-cta">Where we start</a>
         </div>
     </section>
 
     <!-- 4. Bottom of Mountain Section -->
-    <section class="mountain-bottom">
-        <div class="container">
-            <p class="section-label">Bottom of Mountain</p>
+    <section class="mountain-bottom" id="bottom-mountain">
+        <div class="where-block" id="whereBlock">
+            <div class="where-title">Where We Start</div>
+            <div class="where-content">
+                <div class="where-section">
+                    <p>Before we spend a dollar on marketing, we reverse-engineer how <span class="highlight-text">your business makes money</span> — and whether marketing can responsibly accelerate it.</p>
+                </div>
+                <div class="where-divider"></div>
+                <div class="where-section">
+                    <p>This is where:</p>
+                    <ul>
+                        <li class="icon-waste">waste is removed</li>
+                        <li class="icon-automation">automation is applied</li>
+                        <li class="icon-humans">humans stay in their wheelhouse</li>
+                    </ul>
+                </div>
+            </div>
+            <a href="#ai-tools" class="where-cta">Principles</a>
         </div>
     </section>
 
-    <!-- 5. AI Tools Section -->
-    <section class="ai-tools-section">
+    <!-- 5. Our Principles Section -->
+    <section class="ai-tools-section" id="ai-tools">
         <div class="container">
-            <h2>Our AI Tools</h2>
+            <h2>Our Principles</h2>
             <div class="tools-grid">
                 <div class="tool-card">
                     <h3>Tool 1</h3>
@@ -408,25 +159,6 @@
     </section>
 
     <script>
-        // Rotating text animation
-        const rotatingTexts = document.querySelectorAll('.rotating-text');
-        let currentIndex = 0;
-
-        function rotateText() {
-            rotatingTexts[currentIndex].style.opacity = '0';
-            rotatingTexts[currentIndex].style.transform = 'translateY(-20px)';
-            
-            currentIndex = (currentIndex + 1) % rotatingTexts.length;
-            
-            setTimeout(() => {
-                rotatingTexts[currentIndex].style.opacity = '1';
-                rotatingTexts[currentIndex].style.transform = 'translateY(0)';
-            }, 500);
-        }
-
-        rotatingTexts[0].style.opacity = '1';
-        setInterval(rotateText, 3000);
-
         // Background mountains scroll animation
         const leftMountain = document.getElementById('leftMountain');
         const rightMountain = document.getElementById('rightMountain');
@@ -453,6 +185,216 @@
 
         window.addEventListener('scroll', updateBackgroundMountains, { passive: true });
         updateBackgroundMountains();
+
+        // Middle mountain layer bottom-to-top reveal with soft gradient
+        const centerMountainMiddle = document.getElementById('centerMountainMiddle');
+        const mountainMiddleSection = document.querySelector('.mountain-middle');
+        const mountainBottomSection = document.querySelector('.mountain-bottom');
+
+        function updateMiddleMountainReveal() {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            const sectionTop = mountainTopSection.offsetTop;
+            const bottomSectionBottom = mountainBottomSection.offsetTop + mountainBottomSection.offsetHeight;
+            
+            // Start revealing when top mountain section reaches center of viewport
+            const triggerPoint = sectionTop - (windowHeight / 2);
+            
+            // Complete reveal at bottom of mountain bottom section
+            const endPoint = bottomSectionBottom - windowHeight;
+            
+            // Calculate reveal progress (0 = fully hidden, 1 = fully visible)
+            const totalRevealDistance = endPoint - triggerPoint;
+            const scrollProgress = Math.max(0, Math.min(1, (scrollY - triggerPoint) / totalRevealDistance));
+            
+            // Update CSS variable for mask gradient (0-100%)
+            const revealPercent = scrollProgress * 100;
+            centerMountainMiddle.style.setProperty('--reveal-progress', `${revealPercent}%`);
+        }
+
+        window.addEventListener('scroll', updateMiddleMountainReveal, { passive: true });
+        updateMiddleMountainReveal();
+
+        // Outcome block animation
+        const outcomeBlock = document.getElementById('outcomeBlock');
+        let outcomeBlockTriggered = false;
+
+        function updateOutcomeBlock() {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            const sectionTop = mountainTopSection.offsetTop;
+            const sectionHeight = mountainTopSection.offsetHeight;
+            const sectionCenter = sectionTop + (sectionHeight / 2);
+            
+            // Show outcome block when section is centered in viewport
+            if (!outcomeBlockTriggered && scrollY + (windowHeight / 2) > sectionCenter - 100) {
+                outcomeBlock.classList.add('visible');
+                outcomeBlockTriggered = true;
+            }
+            
+            // Optional: fade out when scrolling past
+            if (scrollY > sectionTop + sectionHeight - 100) {
+                outcomeBlock.style.opacity = '0';
+            } else if (outcomeBlockTriggered) {
+                outcomeBlock.style.opacity = '1';
+            }
+        }
+
+        window.addEventListener('scroll', updateOutcomeBlock, { passive: true });
+        updateOutcomeBlock();
+
+        // How block animation
+        const howBlock = document.getElementById('howBlock');
+        let howBlockTriggered = false;
+
+        function updateHowBlock() {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            const sectionTop = mountainMiddleSection.offsetTop;
+            const sectionHeight = mountainMiddleSection.offsetHeight;
+            const sectionCenter = sectionTop + (sectionHeight / 2);
+            
+            // Show how block when section is centered in viewport
+            if (!howBlockTriggered && scrollY + (windowHeight / 2) > sectionCenter - 100) {
+                howBlock.classList.add('visible');
+                howBlockTriggered = true;
+            }
+            
+            // Optional: fade out when scrolling past
+            if (scrollY > sectionTop + sectionHeight - 100) {
+                howBlock.style.opacity = '0';
+            } else if (howBlockTriggered) {
+                howBlock.style.opacity = '1';
+            }
+        }
+
+        window.addEventListener('scroll', updateHowBlock, { passive: true });
+        updateHowBlock();
+
+        // Where block animation
+        const whereBlock = document.getElementById('whereBlock');
+        let whereBlockTriggered = false;
+
+        function updateWhereBlock() {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            const sectionTop = mountainBottomSection.offsetTop;
+            const sectionHeight = mountainBottomSection.offsetHeight;
+            const sectionCenter = sectionTop + (sectionHeight / 2);
+            
+            // Show where block when section is centered in viewport
+            if (!whereBlockTriggered && scrollY + (windowHeight / 2) > sectionCenter - 100) {
+                whereBlock.classList.add('visible');
+                whereBlockTriggered = true;
+            }
+            
+            // Optional: fade out when scrolling past
+            if (scrollY > sectionTop + sectionHeight - 100) {
+                whereBlock.style.opacity = '0';
+            } else if (whereBlockTriggered) {
+                whereBlock.style.opacity = '1';
+            }
+        }
+
+        window.addEventListener('scroll', updateWhereBlock, { passive: true });
+        updateWhereBlock();
+
+        // Rotating text for outcome block
+        const rotatingPhrases = document.querySelectorAll('.rotating-phrase');
+        let currentPhraseIndex = 0;
+
+        function rotatePhrase() {
+            rotatingPhrases[currentPhraseIndex].classList.remove('active');
+            
+            setTimeout(() => {
+                currentPhraseIndex = (currentPhraseIndex + 1) % rotatingPhrases.length;
+                rotatingPhrases[currentPhraseIndex].classList.add('active');
+            }, 500);
+        }
+
+        // Initialize first phrase
+        if (rotatingPhrases.length > 0) {
+            rotatingPhrases[0].classList.add('active');
+            setInterval(rotatePhrase, 3500);
+        }
+
+        // Rotating text for hero section
+        const heroRotatingPhrases = document.querySelectorAll('.hero-rotating-phrase');
+        let currentHeroPhraseIndex = 0;
+
+        function rotateHeroPhrase() {
+            heroRotatingPhrases[currentHeroPhraseIndex].classList.remove('active');
+            
+            setTimeout(() => {
+                currentHeroPhraseIndex = (currentHeroPhraseIndex + 1) % heroRotatingPhrases.length;
+                heroRotatingPhrases[currentHeroPhraseIndex].classList.add('active');
+            }, 500);
+        }
+
+        // Initialize first hero phrase
+        if (heroRotatingPhrases.length > 0) {
+            heroRotatingPhrases[0].classList.add('active');
+            setInterval(rotateHeroPhrase, 3500);
+        }
+    </script>
+
+    <!-- Hero Trapezoids Background -->
+    <script src="hero-trapezoids.js"></script>
+    <!-- Vanta.js Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.trunk.min.js"></script>
+    <script>
+        // Only initialize Vanta.js on screens wider than 768px
+        let vantaEffect;
+        
+        function initVanta() {
+            if (window.innerWidth > 768) {
+                if (!vantaEffect) {
+                    vantaEffect = VANTA.TRUNK({
+                        el: ".hero",
+                        mouseControls: true,
+                        touchControls: true,
+                        gyroControls: false,
+                        minHeight: 200.00,
+                        minWidth: 200.00,
+                        scale: 1.50,
+                        scaleMobile: 1.50,
+                        color: 0x14b1ab,
+                        backgroundColor: 0xffffff,
+                        spacing: 5.00,
+                        chaos: 8.00,
+                        speed: 0.2
+                    });
+                    
+                    // Move camera to position center much higher
+                    setTimeout(() => {
+                        if (vantaEffect && vantaEffect.camera) {
+                            vantaEffect.camera.position.y = 150;
+                        }
+                    }, 100);
+                }
+            } else {
+                // Destroy Vanta effect on mobile
+                if (vantaEffect) {
+                    vantaEffect.destroy();
+                    vantaEffect = null;
+                }
+            }
+        }
+        
+        // Initialize on load
+        initVanta();
+        
+        // Reinitialize on resize (with debounce)
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(initVanta, 250);
+        });
     </script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+{
+  "name": "vantage-3.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "animations.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harveycreative/vantage-3.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/harveycreative/vantage-3.0/issues"
+  },
+  "homepage": "https://github.com/harveycreative/vantage-3.0#readme"
+}

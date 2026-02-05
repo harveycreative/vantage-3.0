@@ -34,3 +34,8 @@ Rsources/Reference\ Websites/
 *.njsproj
 *.sln
 *.sw?
+
+# Node
+node_modules/
+npm-debug.log*
+package-lock.json

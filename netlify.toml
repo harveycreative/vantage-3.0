@@ -2,9 +2,9 @@
   # No build command needed for static HTML site
   publish = "."
 
-# Redirect all traffic to landing-v2.html
+# Redirect only root to landing-v2.html
 [[redirects]]
-  from = "/*"
+  from = "/"
   to = "/landing-v2.html"
   status = 200
 

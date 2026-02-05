@@ -1140,6 +1140,9 @@ section {
     height: 100%;
     border-radius: 50%;
     background: linear-gradient(135deg, #007c87 0%, #006672 100%);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
     border: 3px solid white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);

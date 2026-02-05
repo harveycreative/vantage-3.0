@@ -1202,6 +1202,12 @@ section {
     box-shadow: 0 12px 32px rgba(0, 124, 135, 0.4);
 }
 
+/* Randy's hover image swap */
+.team-member:hover .randy-photo,
+.team-member.active .randy-photo {
+    background-image: url('Rsources/Team/randy-3.png') !important;
+}
+
 .team-bio-card {
     position: absolute;
     width: 280px;

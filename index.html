@@ -1351,6 +1351,70 @@
                 teamMembersContainer.classList.remove('paused');
             }
         }
+
+        // Drag functionality to reposition team members
+        let isDragging = false;
+        let draggedMember = null;
+        let draggedIndex = -1;
+
+        teamMembers.forEach((member, index) => {
+            member.addEventListener('mousedown', function(e) {
+                e.preventDefault();
+                isDragging = true;
+                draggedMember = member;
+                draggedIndex = index;
+                
+                // Pause rotation during drag
+                if (teamMembersContainer) {
+                    teamMembersContainer.classList.add('paused');
+                }
+                
+                // Hide bio card while dragging
+                bioCard.classList.remove('active');
+                
+                // Add dragging class for cursor
+                member.style.cursor = 'grabbing';
+            });
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging || !draggedMember) return;
+            
+            // Get orbit container position
+            const container = document.querySelector('.team-orbit-container');
+            const containerRect = container.getBoundingClientRect();
+            const centerX = containerRect.left + containerRect.width / 2;
+            const centerY = containerRect.top + containerRect.height / 2;
+            
+            // Calculate angle from center to mouse
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const angle = Math.atan2(mouseY - centerY, mouseX - centerX);
+            
+            // Convert to degrees and adjust (0 degrees = top, clockwise)
+            let degrees = (angle * 180 / Math.PI) + 90;
+            if (degrees < 0) degrees += 360;
+            
+            // Snap to nearest 45-degree interval
+            const snapAngle = Math.round(degrees / 45) * 45;
+            
+            // Update member's transform
+            draggedMember.style.transform = `rotate(${snapAngle}deg) translateY(-220px)`;
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (isDragging && draggedMember) {
+                isDragging = false;
+                draggedMember.style.cursor = 'pointer';
+                draggedMember = null;
+                draggedIndex = -1;
+                
+                // Resume rotation
+                if (teamMembersContainer) {
+                    teamMembersContainer.classList.remove('paused');
+                }
+            }
+        });
     </script>
 
 

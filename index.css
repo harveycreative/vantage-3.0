@@ -1111,6 +1111,16 @@ section {
     }
 }
 
+/* Counter-rotate photos to stay upright during orbit animation */
+@keyframes counterRotatePhoto {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
 .team-member {
     position: absolute;
     top: 50%;
@@ -1125,14 +1135,34 @@ section {
     z-index: 15;
 }
 
-.team-member:nth-child(1) { transform: rotate(0deg) translateY(-220px) rotate(0deg); }
-.team-member:nth-child(2) { transform: rotate(45deg) translateY(-220px) rotate(-45deg); }
-.team-member:nth-child(3) { transform: rotate(90deg) translateY(-220px) rotate(-90deg); }
-.team-member:nth-child(4) { transform: rotate(135deg) translateY(-220px) rotate(-135deg); }
-.team-member:nth-child(5) { transform: rotate(180deg) translateY(-220px) rotate(-180deg); }
-.team-member:nth-child(6) { transform: rotate(225deg) translateY(-220px) rotate(-225deg); }
-.team-member:nth-child(7) { transform: rotate(270deg) translateY(-220px) rotate(-270deg); }
-.team-member:nth-child(8) { transform: rotate(315deg) translateY(-220px) rotate(-315deg); }
+.team-member:nth-child(1) { transform: rotate(0deg) translateY(-220px); }
+.team-member:nth-child(2) { transform: rotate(45deg) translateY(-220px); }
+.team-member:nth-child(3) { transform: rotate(90deg) translateY(-220px); }
+.team-member:nth-child(4) { transform: rotate(135deg) translateY(-220px); }
+.team-member:nth-child(5) { transform: rotate(180deg) translateY(-220px); }
+.team-member:nth-child(6) { transform: rotate(225deg) translateY(-220px); }
+.team-member:nth-child(7) { transform: rotate(270deg) translateY(-220px); }
+.team-member:nth-child(8) { transform: rotate(315deg) translateY(-220px); }
+
+/* Apply counter-rotation animation to keep photos upright */
+.team-member .member-photo {
+    animation: counterRotatePhoto 60s linear infinite;
+}
+
+/* Offset each photo's starting rotation to match their position */
+.team-member:nth-child(1) .member-photo { animation-delay: 0s; }
+.team-member:nth-child(2) .member-photo { animation-delay: -7.5s; }
+.team-member:nth-child(3) .member-photo { animation-delay: -15s; }
+.team-member:nth-child(4) .member-photo { animation-delay: -22.5s; }
+.team-member:nth-child(5) .member-photo { animation-delay: -30s; }
+.team-member:nth-child(6) .member-photo { animation-delay: -37.5s; }
+.team-member:nth-child(7) .member-photo { animation-delay: -45s; }
+.team-member:nth-child(8) .member-photo { animation-delay: -52.5s; }
+
+/* Pause counter-rotation when orbit is paused */
+.team-members.paused .member-photo {
+    animation-play-state: paused;
+}
 
 .member-photo {
     display: block;
@@ -1821,14 +1851,14 @@ section {
         margin-top: -35px;
     }
     
-    .team-member:nth-child(1) { transform: rotate(0deg) translateY(-160px) rotate(0deg); }
-    .team-member:nth-child(2) { transform: rotate(45deg) translateY(-160px) rotate(-45deg); }
-    .team-member:nth-child(3) { transform: rotate(90deg) translateY(-160px) rotate(-90deg); }
-    .team-member:nth-child(4) { transform: rotate(135deg) translateY(-160px) rotate(-135deg); }
-    .team-member:nth-child(5) { transform: rotate(180deg) translateY(-160px) rotate(-180deg); }
-    .team-member:nth-child(6) { transform: rotate(225deg) translateY(-160px) rotate(-225deg); }
-    .team-member:nth-child(7) { transform: rotate(270deg) translateY(-160px) rotate(-270deg); }
-    .team-member:nth-child(8) { transform: rotate(315deg) translateY(-160px) rotate(-315deg); }
+    .team-member:nth-child(1) { transform: rotate(0deg) translateY(-160px); }
+    .team-member:nth-child(2) { transform: rotate(45deg) translateY(-160px); }
+    .team-member:nth-child(3) { transform: rotate(90deg) translateY(-160px); }
+    .team-member:nth-child(4) { transform: rotate(135deg) translateY(-160px); }
+    .team-member:nth-child(5) { transform: rotate(180deg) translateY(-160px); }
+    .team-member:nth-child(6) { transform: rotate(225deg) translateY(-160px); }
+    .team-member:nth-child(7) { transform: rotate(270deg) translateY(-160px); }
+    .team-member:nth-child(8) { transform: rotate(315deg) translateY(-160px); }
     
     .team-member:hover .member-photo,
     .team-member.active .member-photo {
@@ -1994,14 +2024,14 @@ section {
         margin-top: -30px;
     }
     
-    .team-member:nth-child(1) { transform: rotate(0deg) translateY(-140px) rotate(0deg); }
-    .team-member:nth-child(2) { transform: rotate(45deg) translateY(-140px) rotate(-45deg); }
-    .team-member:nth-child(3) { transform: rotate(90deg) translateY(-140px) rotate(-90deg); }
-    .team-member:nth-child(4) { transform: rotate(135deg) translateY(-140px) rotate(-135deg); }
-    .team-member:nth-child(5) { transform: rotate(180deg) translateY(-140px) rotate(-180deg); }
-    .team-member:nth-child(6) { transform: rotate(225deg) translateY(-140px) rotate(-225deg); }
-    .team-member:nth-child(7) { transform: rotate(270deg) translateY(-140px) rotate(-270deg); }
-    .team-member:nth-child(8) { transform: rotate(315deg) translateY(-140px) rotate(-315deg); }
+    .team-member:nth-child(1) { transform: rotate(0deg) translateY(-140px); }
+    .team-member:nth-child(2) { transform: rotate(45deg) translateY(-140px); }
+    .team-member:nth-child(3) { transform: rotate(90deg) translateY(-140px); }
+    .team-member:nth-child(4) { transform: rotate(135deg) translateY(-140px); }
+    .team-member:nth-child(5) { transform: rotate(180deg) translateY(-140px); }
+    .team-member:nth-child(6) { transform: rotate(225deg) translateY(-140px); }
+    .team-member:nth-child(7) { transform: rotate(270deg) translateY(-140px); }
+    .team-member:nth-child(8) { transform: rotate(315deg) translateY(-140px); }
     
     .team-member:hover .member-photo,
     .team-member.active .member-photo {

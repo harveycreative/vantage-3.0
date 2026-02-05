@@ -1110,22 +1110,26 @@
                         const alphaMultiplier = boltNum === 0 ? 1.0 : 0.6;
                         const widthMultiplier = boltNum === 0 ? 1.0 : 0.75;
                         
-                        // Rainbow colors for Randy (index 3), teal for others
-                        let strokeColor, shadowColor;
+                        // Rainbow gradient for Randy (index 3), teal for others
                         if (closestIndex === 3) {
-                            // Smooth rainbow gradient: violet → cyan → pink (matching reference)
-                            const rainbowColors = ['#9B59FF', '#00CED1', '#FF69B4']; // Violet, Cyan, Pink
-                            strokeColor = rainbowColors[boltNum];
-                            shadowColor = rainbowColors[boltNum];
+                            // Create rainbow gradient from start to end of lightning bolt
+                            const gradient = ctx.createLinearGradient(centerEdgeX, centerEdgeY, memberEdgeX, memberEdgeY);
+                            gradient.addColorStop(0, '#FF0000');    // Red
+                            gradient.addColorStop(0.2, '#FF7F00');  // Orange
+                            gradient.addColorStop(0.4, '#FFFF00');  // Yellow
+                            gradient.addColorStop(0.6, '#00FF00');  // Green
+                            gradient.addColorStop(0.8, '#0000FF');  // Blue
+                            gradient.addColorStop(1, '#9400D3');    // Violet
+                            
+                            ctx.strokeStyle = gradient;
+                            ctx.shadowColor = '#FF00FF'; // Purple glow
                         } else {
-                            strokeColor = '#007c87';
-                            shadowColor = '#007c87';
+                            ctx.strokeStyle = '#007c87';
+                            ctx.shadowColor = '#007c87';
                         }
                         
-                        ctx.strokeStyle = strokeColor;
                         ctx.lineWidth = 2 * widthMultiplier;
                         ctx.globalAlpha = (0.15 + 0.35 * intensity) * alphaMultiplier;
-                        ctx.shadowColor = shadowColor;
                         ctx.shadowBlur = 12 * intensity * alphaMultiplier;
                         ctx.stroke();
                     }
@@ -1351,111 +1355,6 @@
                 teamMembersContainer.classList.remove('paused');
             }
         }
-
-        // Drag functionality to manually spin the entire circle
-        let isDragging = false;
-        let startAngle = 0;
-        let currentRotation = 0;
-        let lastMouseAngle = 0;
-
-        teamMembers.forEach((member, index) => {
-            member.addEventListener('mousedown', function(e) {
-                e.preventDefault();
-                isDragging = true;
-                
-                // Pause rotation during drag
-                if (teamMembersContainer) {
-                    teamMembersContainer.classList.add('paused');
-                }
-                
-                // Hide bio card while dragging
-                bioCard.classList.remove('active');
-                
-                // Get current rotation from the container
-                const computedStyle = window.getComputedStyle(teamMembersContainer);
-                const transform = computedStyle.transform;
-                if (transform !== 'none') {
-                    const values = transform.split('(')[1].split(')')[0].split(',');
-                    const a = values[0];
-                    const b = values[1];
-                    currentRotation = Math.atan2(b, a) * (180 / Math.PI);
-                }
-                
-                // Get orbit container position
-                const container = document.querySelector('.team-orbit-container');
-                const containerRect = container.getBoundingClientRect();
-                const centerX = containerRect.left + containerRect.width / 2;
-                const centerY = containerRect.top + containerRect.height / 2;
-                
-                // Calculate initial angle from center to mouse
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
-                lastMouseAngle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
-                startAngle = currentRotation;
-            });
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            
-            // Get orbit container position
-            const container = document.querySelector('.team-orbit-container');
-            const containerRect = container.getBoundingClientRect();
-            const centerX = containerRect.left + containerRect.width / 2;
-            const centerY = containerRect.top + containerRect.height / 2;
-            
-            // Calculate current angle from center to mouse
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
-            const currentMouseAngle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
-            
-            // Calculate the difference in angle
-            const angleDiff = currentMouseAngle - lastMouseAngle;
-            
-            // Update rotation
-            currentRotation = startAngle + angleDiff;
-            
-            // Apply rotation to the entire team-members container
-            if (teamMembersContainer) {
-                teamMembersContainer.style.animation = 'none';
-                teamMembersContainer.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-                
-                // Counter-rotate all photos to keep them upright during drag
-                teamMembers.forEach((member, idx) => {
-                    const photo = member.querySelector('.member-photo');
-                    if (photo) {
-                        const baseAngle = idx * 45; // Each member's starting position
-                        const totalRotation = currentRotation + baseAngle;
-                        photo.style.animation = 'none';
-                        photo.style.transform = `rotate(${-totalRotation}deg)`;
-                    }
-                });
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            if (isDragging) {
-                isDragging = false;
-                
-                // Resume rotation with the new angle
-                if (teamMembersContainer) {
-                    // Re-enable animation from current position
-                    const currentDeg = currentRotation % 360;
-                    teamMembersContainer.style.animation = `rotateTeam 60s linear infinite`;
-                    teamMembersContainer.style.transform = `translate(-50%, -50%) rotate(${currentDeg}deg)`;
-                    teamMembersContainer.classList.remove('paused');
-                    
-                    // Re-enable counter-rotation animation on all photos
-                    teamMembers.forEach((member) => {
-                        const photo = member.querySelector('.member-photo');
-                        if (photo) {
-                            photo.style.animation = 'counterRotatePhoto 60s linear infinite';
-                            photo.style.transform = '';
-                        }
-                    });
-                }
-            }
-        });
     </script>
 
 

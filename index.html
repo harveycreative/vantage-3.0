@@ -1088,21 +1088,6 @@
                     const prevComp = ctx.globalCompositeOperation;
                     ctx.globalCompositeOperation = 'lighter';
                     
-                    // Check if this is Randy (index 3) for rainbow colors
-                    const isRandy = closestIndex === 3;
-                    
-                    // Create rainbow gradient for Randy
-                    let rainbowGradient = null;
-                    if (isRandy) {
-                        rainbowGradient = ctx.createLinearGradient(centerEdgeX, centerEdgeY, memberEdgeX, memberEdgeY);
-                        rainbowGradient.addColorStop(0, '#FF0080');    // Pink
-                        rainbowGradient.addColorStop(0.2, '#FF8000');  // Orange
-                        rainbowGradient.addColorStop(0.4, '#FFFF00');  // Yellow
-                        rainbowGradient.addColorStop(0.6, '#00FF00');  // Green
-                        rainbowGradient.addColorStop(0.8, '#0080FF');  // Blue
-                        rainbowGradient.addColorStop(1, '#8000FF');    // Purple
-                    }
-                    
                     // Draw THREE lightning bolts with variations
                     for (let boltNum = 0; boltNum < 3; boltNum++) {
                         // Generate lightning path from center to member circle edge
@@ -1125,17 +1110,22 @@
                         const alphaMultiplier = boltNum === 0 ? 1.0 : 0.6;
                         const widthMultiplier = boltNum === 0 ? 1.0 : 0.75;
                         
-                        // Use rainbow gradient for Randy, teal for others
-                        if (isRandy) {
-                            ctx.strokeStyle = rainbowGradient;
-                            ctx.shadowColor = '#FF00FF'; // Magenta glow for rainbow
+                        // Rainbow colors for Randy (index 3), teal for others
+                        let strokeColor, shadowColor;
+                        if (closestIndex === 3) {
+                            // Rainbow colors for Randy's lightning
+                            const rainbowColors = ['#FF1493', '#9B30FF', '#00CED1']; // Hot pink, purple, turquoise
+                            strokeColor = rainbowColors[boltNum];
+                            shadowColor = rainbowColors[boltNum];
                         } else {
-                            ctx.strokeStyle = '#007c87';
-                            ctx.shadowColor = '#007c87';
+                            strokeColor = '#007c87';
+                            shadowColor = '#007c87';
                         }
                         
+                        ctx.strokeStyle = strokeColor;
                         ctx.lineWidth = 2 * widthMultiplier;
                         ctx.globalAlpha = (0.15 + 0.35 * intensity) * alphaMultiplier;
+                        ctx.shadowColor = shadowColor;
                         ctx.shadowBlur = 12 * intensity * alphaMultiplier;
                         ctx.stroke();
                     }

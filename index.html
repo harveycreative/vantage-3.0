@@ -1113,8 +1113,8 @@
                         // Rainbow colors for Randy (index 3), teal for others
                         let strokeColor, shadowColor;
                         if (closestIndex === 3) {
-                            // Full rainbow spectrum for Randy's lightning (red, yellow, blue)
-                            const rainbowColors = ['#FF0000', '#FFFF00', '#0080FF']; // Red, Yellow, Blue
+                            // Smooth rainbow gradient: violet → cyan → pink (matching reference)
+                            const rainbowColors = ['#9B59FF', '#00CED1', '#FF69B4']; // Violet, Cyan, Pink
                             strokeColor = rainbowColors[boltNum];
                             shadowColor = rainbowColors[boltNum];
                         } else {
@@ -1419,6 +1419,17 @@
             if (teamMembersContainer) {
                 teamMembersContainer.style.animation = 'none';
                 teamMembersContainer.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+                
+                // Counter-rotate all photos to keep them upright during drag
+                teamMembers.forEach((member, idx) => {
+                    const photo = member.querySelector('.member-photo');
+                    if (photo) {
+                        const baseAngle = idx * 45; // Each member's starting position
+                        const totalRotation = currentRotation + baseAngle;
+                        photo.style.animation = 'none';
+                        photo.style.transform = `rotate(${-totalRotation}deg)`;
+                    }
+                });
             }
         });
 
@@ -1433,6 +1444,15 @@
                     teamMembersContainer.style.animation = `rotateTeam 60s linear infinite`;
                     teamMembersContainer.style.transform = `translate(-50%, -50%) rotate(${currentDeg}deg)`;
                     teamMembersContainer.classList.remove('paused');
+                    
+                    // Re-enable counter-rotation animation on all photos
+                    teamMembers.forEach((member) => {
+                        const photo = member.querySelector('.member-photo');
+                        if (photo) {
+                            photo.style.animation = 'counterRotatePhoto 60s linear infinite';
+                            photo.style.transform = '';
+                        }
+                    });
                 }
             }
         });

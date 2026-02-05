@@ -1351,6 +1351,91 @@
                 teamMembersContainer.classList.remove('paused');
             }
         }
+
+        // Drag functionality to manually spin the entire circle
+        let isDragging = false;
+        let startAngle = 0;
+        let currentRotation = 0;
+        let lastMouseAngle = 0;
+
+        teamMembers.forEach((member, index) => {
+            member.addEventListener('mousedown', function(e) {
+                e.preventDefault();
+                isDragging = true;
+                
+                // Pause rotation during drag
+                if (teamMembersContainer) {
+                    teamMembersContainer.classList.add('paused');
+                }
+                
+                // Hide bio card while dragging
+                bioCard.classList.remove('active');
+                
+                // Get current rotation from the container
+                const computedStyle = window.getComputedStyle(teamMembersContainer);
+                const transform = computedStyle.transform;
+                if (transform !== 'none') {
+                    const values = transform.split('(')[1].split(')')[0].split(',');
+                    const a = values[0];
+                    const b = values[1];
+                    currentRotation = Math.atan2(b, a) * (180 / Math.PI);
+                }
+                
+                // Get orbit container position
+                const container = document.querySelector('.team-orbit-container');
+                const containerRect = container.getBoundingClientRect();
+                const centerX = containerRect.left + containerRect.width / 2;
+                const centerY = containerRect.top + containerRect.height / 2;
+                
+                // Calculate initial angle from center to mouse
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                lastMouseAngle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
+                startAngle = currentRotation;
+            });
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            
+            // Get orbit container position
+            const container = document.querySelector('.team-orbit-container');
+            const containerRect = container.getBoundingClientRect();
+            const centerX = containerRect.left + containerRect.width / 2;
+            const centerY = containerRect.top + containerRect.height / 2;
+            
+            // Calculate current angle from center to mouse
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const currentMouseAngle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
+            
+            // Calculate the difference in angle
+            const angleDiff = currentMouseAngle - lastMouseAngle;
+            
+            // Update rotation
+            currentRotation = startAngle + angleDiff;
+            
+            // Apply rotation to the entire team-members container
+            if (teamMembersContainer) {
+                teamMembersContainer.style.animation = 'none';
+                teamMembersContainer.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (isDragging) {
+                isDragging = false;
+                
+                // Resume rotation with the new angle
+                if (teamMembersContainer) {
+                    // Re-enable animation from current position
+                    const currentDeg = currentRotation % 360;
+                    teamMembersContainer.style.animation = `rotateTeam 60s linear infinite`;
+                    teamMembersContainer.style.transform = `translate(-50%, -50%) rotate(${currentDeg}deg)`;
+                    teamMembersContainer.classList.remove('paused');
+                }
+            }
+        });
     </script>
 
 

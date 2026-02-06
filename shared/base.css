@@ -267,6 +267,10 @@ section {
         font-size: 1.0625rem;
     }
 
+    .highlight-text {
+        padding: 0.15rem 0.4rem;
+    }
+
     .section-nav-button {
         padding: 0.75rem 2rem;
         font-size: 0.9375rem;

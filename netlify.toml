@@ -22,13 +22,24 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Cache CSS and JS
+# Cache section CSS and JS
 [[headers]]
-  for = "/assets/css/*"
+  for = "/sections/*/*.css"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/assets/js/*"
+  for = "/sections/*/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache shared CSS and JS
+[[headers]]
+  for = "/shared/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/shared/*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"

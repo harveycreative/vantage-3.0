@@ -50,6 +50,11 @@
             layout.lastBottom = lastRect.top + scrollY + last.offsetHeight;
         }
 
+        if (pricingSection) {
+            var pRect = pricingSection.getBoundingClientRect();
+            layout.pricingTop = pRect.top + scrollY;
+        }
+
         layout.windowHeight = window.innerHeight;
         layout.isMobile = window.innerWidth <= 768;
 
@@ -105,23 +110,39 @@
         centerMountainMiddle.style.setProperty('--reveal-progress', percent + '%');
     }
 
-    // --- Vanta background fade-out as you scroll through mountains ---
+    // --- Vanta background fade: out through mountains, back in at pricing ---
     var vantaBg = document.getElementById('vantaBg');
+    var pricingSection = document.getElementById('pricing');
     var lastVantaOpacity = -1;
 
     function updateVantaFade(scrollY) {
         if (!vantaBg || !layout.firstTop) return;
 
-        // Fully visible until mountains start, then fade out across the mountain sections
-        var fadeStart = layout.firstTop;
-        var fadeEnd = layout.lastBottom - layout.windowHeight;
-        var fadeDistance = fadeEnd - fadeStart;
+        var opacity = 1;
 
-        if (fadeDistance <= 0) return;
+        // Phase 1: fade out as you scroll through the mountain sections
+        var fadeOutStart = layout.firstTop;
+        var fadeOutEnd = layout.lastBottom - layout.windowHeight;
+        var fadeOutDist = fadeOutEnd - fadeOutStart;
 
-        var progress = Math.max(0, Math.min(1, (scrollY - fadeStart) / fadeDistance));
-        var opacity = Math.round((1 - progress) * 100) / 100;
+        if (fadeOutDist > 0 && scrollY >= fadeOutStart) {
+            var outProgress = Math.min(1, (scrollY - fadeOutStart) / fadeOutDist);
+            opacity = 1 - outProgress;
+        }
 
+        // Phase 2: fade back in as pricing section enters viewport
+        if (pricingSection && layout.pricingTop) {
+            var fadeInStart = layout.pricingTop - layout.windowHeight;
+            var fadeInEnd = layout.pricingTop;
+            var fadeInDist = fadeInEnd - fadeInStart;
+
+            if (fadeInDist > 0 && scrollY >= fadeInStart) {
+                var inProgress = Math.min(1, (scrollY - fadeInStart) / fadeInDist);
+                opacity = Math.max(opacity, inProgress);
+            }
+        }
+
+        opacity = Math.round(opacity * 100) / 100;
         if (opacity === lastVantaOpacity) return;
         lastVantaOpacity = opacity;
 

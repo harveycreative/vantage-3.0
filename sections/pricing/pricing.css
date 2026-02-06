@@ -10,6 +10,16 @@
     z-index: 1;
 }
 
+/* White gradient overlay: matches hero — opaque at top, transparent at 75% */
+#pricing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, #ffffff 0%, #ffffff 25%, rgba(255, 255, 255, 0) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
 #pricing .container {
     position: relative;
     z-index: 3;

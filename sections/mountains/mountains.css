@@ -8,6 +8,7 @@
 .mountain-sections-wrapper {
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .mountain-section {

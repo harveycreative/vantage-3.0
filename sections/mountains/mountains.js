@@ -105,6 +105,29 @@
         centerMountainMiddle.style.setProperty('--reveal-progress', percent + '%');
     }
 
+    // --- Vanta background fade-out as you scroll through mountains ---
+    var vantaBg = document.getElementById('vantaBg');
+    var lastVantaOpacity = -1;
+
+    function updateVantaFade(scrollY) {
+        if (!vantaBg || !layout.firstTop) return;
+
+        // Fully visible until mountains start, then fade out across the mountain sections
+        var fadeStart = layout.firstTop;
+        var fadeEnd = layout.lastBottom - layout.windowHeight;
+        var fadeDistance = fadeEnd - fadeStart;
+
+        if (fadeDistance <= 0) return;
+
+        var progress = Math.max(0, Math.min(1, (scrollY - fadeStart) / fadeDistance));
+        var opacity = Math.round((1 - progress) * 100) / 100;
+
+        if (opacity === lastVantaOpacity) return;
+        lastVantaOpacity = opacity;
+
+        vantaBg.style.opacity = opacity;
+    }
+
     // --- Content block visibility ---
     var contentBlocks = [
         { element: document.getElementById('outcomeBlock'), section: document.getElementById('outcome'), triggered: false },
@@ -134,6 +157,7 @@
                 var scrollY = window.scrollY;
                 updateSideMountains(scrollY);
                 updateReveal(scrollY);
+                updateVantaFade(scrollY);
                 updateBlocks(scrollY);
                 ticking = false;
             });

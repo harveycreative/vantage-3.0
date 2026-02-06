@@ -31,10 +31,10 @@
     function initVanta() {
         if (typeof VANTA === 'undefined') return;
         
-        // Hero section Vanta effect
+        // Hero section Vanta effect — targets fixed background div
         if (!vantaHeroEffect) {
             vantaHeroEffect = VANTA.TRUNK({
-                el: ".hero",
+                el: "#vantaBg",
                 mouseControls: true,
                 touchControls: true,
                 gyroControls: false,

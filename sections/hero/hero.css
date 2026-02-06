@@ -3,30 +3,28 @@
    Full-screen hero with rotating text & Vanta.js
    ============================================ */
 
+/* Fixed Vanta.js background — stays in viewport behind hero + mountains */
+#vantaBg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    will-change: opacity;
+    transition: opacity 0.1s linear;
+}
+
+#vantaBg canvas {
+    pointer-events: none;
+}
+
 .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #ffffff !important;
+    background: transparent;
     position: relative;
-    overflow: hidden;
-}
-
-/* Fade out the Vanta.js canvas directly via mask — hero white bg shows through */
-.hero canvas {
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 80%) !important;
-    mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 80%) !important;
-}
-
-/* Belt-and-suspenders: gradient overlay also fades to white */
-.hero::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.85) 65%, #ffffff 80%);
     z-index: 1;
-    pointer-events: none;
 }
 
 .hero .container {

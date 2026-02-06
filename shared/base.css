@@ -160,6 +160,7 @@ section {
     padding: var(--spacing-xl) 0;
     background: var(--color-bg);
     position: relative;
+    z-index: 1;
 }
 
 .content-section.alt-bg {

@@ -1,35 +1,32 @@
 /* ============================================
    PRINCIPLES SECTION JS
-   Card reveal animation on scroll
+   Card reveal — triggers as soon as section enters viewport
    ============================================ */
 
 (function() {
-    const principleCards = document.querySelectorAll('.principle-card');
-    let principleCardsTriggered = false;
+    var principleCards = document.querySelectorAll('.principle-card');
+    var principlesSection = document.getElementById('principles');
+    var triggered = false;
 
-    function updatePrincipleCards() {
-        if (principleCardsTriggered || principleCards.length === 0) return;
+    if (!principlesSection || principleCards.length === 0) return;
 
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const principlesSection = document.getElementById('principles');
-        
-        if (principlesSection) {
-            const sectionTop = principlesSection.offsetTop;
-            const sectionHeight = principlesSection.offsetHeight;
-            const sectionCenter = sectionTop + (sectionHeight / 2);
+    function revealCards() {
+        if (triggered) return;
 
-            if (scrollY + (windowHeight / 2) > sectionCenter - 100) {
-                principleCards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('visible');
-                    }, index * 200);
-                });
-                principleCardsTriggered = true;
-            }
+        var rect = principlesSection.getBoundingClientRect();
+        var windowHeight = window.innerHeight;
+
+        // Trigger when the top of the section is 80% down the viewport
+        if (rect.top < windowHeight * 0.85) {
+            triggered = true;
+            principleCards.forEach(function(card, i) {
+                setTimeout(function() {
+                    card.classList.add('visible');
+                }, i * 120);
+            });
         }
     }
 
-    window.addEventListener('scroll', updatePrincipleCards, { passive: true });
-    updatePrincipleCards();
+    window.addEventListener('scroll', revealCards, { passive: true });
+    revealCards();
 })();

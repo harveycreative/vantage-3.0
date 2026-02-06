@@ -5,23 +5,27 @@
 
 .principles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-top: 3rem;
-    position: relative;
 }
 
+/* --- Card --- */
 .principle-card {
-    text-align: center;
-    padding: 2.5rem 2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
     position: relative;
-    border: 2px solid transparent;
-    border-radius: 0;
-    z-index: 1;
-    background: transparent;
+    text-align: center;
+    padding: 2.5rem 2rem 2rem;
+    background: #ffffff;
+    border: 1px solid rgba(0, 124, 135, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
 }
 
 .principle-card.visible {
@@ -29,159 +33,435 @@
     transform: translateY(0);
 }
 
-.principle-card.visible:hover {
-    transform: translateY(-8px);
+.principle-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 124, 135, 0.10), 0 2px 8px rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 124, 135, 0.2);
+    transform: translateY(-4px);
 }
 
-/* Diagonal line pattern box offset behind cards */
+/* Large watermark number */
+.principle-card::before {
+    content: attr(data-number);
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    font-family: var(--font-display);
+    font-size: 7rem;
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(0, 124, 135, 0.04);
+    pointer-events: none;
+    z-index: 0;
+    transition: color 0.35s ease;
+}
+
+.principle-card:hover::before {
+    color: rgba(0, 124, 135, 0.07);
+}
+
+/* Accent bar at top of card */
 .principle-card::after {
     content: '';
     position: absolute;
-    top: 10px;
-    left: 10px;
-    right: -10px;
-    bottom: -10px;
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 8px,
-        #fafafa 8px,
-        #fafafa 11px
-    );
-    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent), rgba(0, 124, 135, 0.3));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.principle-card.visible::after {
+    transform: scaleX(1);
+}
+
+/* --- Visual / Animation Area --- */
+.principle-visual {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.principle-anim {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* === DATA FIRST — Animated bar chart + line === */
+.anim-data {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 1rem 10px;
+}
+
+.data-bar {
+    width: 14px;
+    height: 0;
+    background: linear-gradient(to top, var(--color-accent), rgba(0, 124, 135, 0.4));
+    border-radius: 4px 4px 0 0;
     opacity: 0;
-    pointer-events: none;
+    transition: none;
 }
 
-.principle-card:nth-child(1).visible::after { animation: fadeInDiagonalBg 0.3s ease-out 0.6s forwards; }
-.principle-card:nth-child(2).visible::after { animation: fadeInDiagonalBg 0.3s ease-out 1.15s forwards; }
-.principle-card:nth-child(3).visible::after { animation: fadeInDiagonalBg 0.3s ease-out 1.7s forwards; }
-
-@keyframes fadeInDiagonalBg {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+.principle-card.visible .data-bar {
+    animation: barGrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+               barPulse 3s ease-in-out infinite;
+    animation-delay: var(--d), calc(var(--d) + 1s);
 }
 
-/* Border drawing animation */
-.principle-card::before {
-    content: '';
+@keyframes barGrow {
+    0% { height: 0; opacity: 0; }
+    100% { height: var(--h); opacity: 1; }
+}
+
+@keyframes barPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.65; }
+}
+
+.data-line-svg {
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border-radius: 0;
-    background: 
-        linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 0% 2px no-repeat,
-        linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 0% no-repeat,
-        linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 0% 2px no-repeat,
-        linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 0% no-repeat;
+    top: 10px;
+    left: 1rem;
+    right: 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - 20px);
+    overflow: visible;
 }
 
-.principle-card:nth-child(1).visible::before { animation: drawBorderClockwise 0.4s ease-out forwards; animation-delay: 0.2s; }
-.principle-card:nth-child(2).visible::before { animation: drawBorderClockwise 0.4s ease-out forwards; animation-delay: 0.75s; }
-.principle-card:nth-child(3).visible::before { animation: drawBorderClockwise 0.4s ease-out forwards; animation-delay: 1.3s; }
-
-@keyframes drawBorderClockwise {
-    0% {
-        background: 
-            linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 0% 2px no-repeat,
-            linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 0% no-repeat,
-            linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 0% 2px no-repeat,
-            linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 0% no-repeat;
-    }
-    25% {
-        background: 
-            linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 100% 2px no-repeat,
-            linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 0% no-repeat,
-            linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 0% 2px no-repeat,
-            linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 0% no-repeat;
-    }
-    50% {
-        background: 
-            linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 100% 2px no-repeat,
-            linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 100% no-repeat,
-            linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 0% 2px no-repeat,
-            linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 0% no-repeat;
-    }
-    75% {
-        background: 
-            linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 100% 2px no-repeat,
-            linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 100% no-repeat,
-            linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 100% 2px no-repeat,
-            linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 0% no-repeat;
-    }
-    100% {
-        background: 
-            linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 100% 2px no-repeat,
-            linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 100% no-repeat,
-            linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 100% 2px no-repeat,
-            linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 100% no-repeat;
-    }
+.data-line {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    filter: drop-shadow(0 0 4px rgba(0, 124, 135, 0.3));
 }
 
-@keyframes drawLine {
-    0% { transform: translateY(-50%) scaleX(0); }
-    100% { transform: translateY(-50%) scaleX(1); }
+.principle-card.visible .data-line {
+    animation: drawDataLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
 }
 
-/* Hide connecting lines when cards wrap to multiple rows */
-@media (max-width: 950px) {
-    .principle-card::after {
-        display: none;
-    }
+@keyframes drawDataLine {
+    to { stroke-dashoffset: 0; }
 }
 
-.principle-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1.5rem;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+/* === AUTOMATE EVERYTHING — Orbital rings === */
+.anim-automate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orbit {
+    position: absolute;
+    border: 1px solid rgba(0, 124, 135, 0.15);
+    border-radius: 50%;
     opacity: 0;
 }
 
-.principle-card.visible .principle-icon {
-    animation: iconZoomIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.principle-card.visible .orbit {
+    animation: orbitAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.orbit-1 {
+    width: 140px;
+    height: 140px;
+    animation-delay: 0.1s;
+}
+
+.orbit-2 {
+    width: 100px;
+    height: 100px;
     animation-delay: 0.2s;
 }
 
-@keyframes iconZoomIn {
+.orbit-3 {
+    width: 60px;
+    height: 60px;
+    animation-delay: 0.3s;
+}
+
+.principle-card.visible .orbit-1 { animation-delay: 0.1s; }
+.principle-card.visible .orbit-2 { animation-delay: 0.2s; }
+.principle-card.visible .orbit-3 { animation-delay: 0.3s; }
+
+@keyframes orbitAppear {
     0% { opacity: 0; transform: scale(0.5); }
     100% { opacity: 1; transform: scale(1); }
 }
 
-.principle-icon.icon-data {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007c87' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='20' x2='12' y2='10'/%3E%3Cline x1='18' y1='20' x2='18' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='16'/%3E%3C/svg%3E");
+/* Orbit nodes */
+.orbit-node {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    top: -5px;
+    left: 50%;
+    margin-left: -5px;
+    box-shadow: 0 0 10px rgba(0, 124, 135, 0.4);
 }
 
-.principle-icon.icon-automate {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007c87' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cellipse cx='12' cy='12' rx='10' ry='4' transform='rotate(45 12 12)'/%3E%3Cellipse cx='12' cy='12' rx='10' ry='4' transform='rotate(-45 12 12)'/%3E%3Cpath d='M12 8v8M8 12h8' stroke-width='0.5'/%3E%3C/svg%3E");
+.orbit-1 {
+    animation: spin 8s linear infinite;
 }
 
-.principle-icon.icon-focus {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007c87' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Ccircle cx='12' cy='12' r='6'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3C/svg%3E");
+.orbit-2 {
+    animation: spinReverse 6s linear infinite;
 }
 
+.orbit-3 {
+    animation: spin 4s linear infinite;
+}
+
+/* Only apply spin after card is visible */
+.principle-card:not(.visible) .orbit {
+    animation: none !important;
+}
+
+.principle-card.visible .orbit-1 {
+    animation: orbitAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards,
+               spin 8s linear 0.7s infinite;
+}
+
+.principle-card.visible .orbit-2 {
+    animation: orbitAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards,
+               spinReverse 6s linear 0.8s infinite;
+}
+
+.principle-card.visible .orbit-3 {
+    animation: orbitAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards,
+               spin 4s linear 0.9s infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spinReverse {
+    to { transform: rotate(-360deg); }
+}
+
+.core-dot {
+    width: 16px;
+    height: 16px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px rgba(0, 124, 135, 0.5), 0 0 40px rgba(0, 124, 135, 0.2);
+    opacity: 0;
+}
+
+.principle-card.visible .core-dot {
+    animation: coreAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards,
+               corePulse 2.5s ease-in-out 0.7s infinite;
+}
+
+@keyframes coreAppear {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes corePulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 124, 135, 0.5), 0 0 40px rgba(0, 124, 135, 0.2);
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 124, 135, 0.7), 0 0 60px rgba(0, 124, 135, 0.3);
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+}
+
+/* === SWEET SPOT — Pulsing concentric rings === */
+.anim-focus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.focus-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0, 124, 135, 0.2);
+    opacity: 0;
+}
+
+.ring-1 {
+    width: 140px;
+    height: 140px;
+}
+
+.ring-2 {
+    width: 100px;
+    height: 100px;
+}
+
+.ring-3 {
+    width: 60px;
+    height: 60px;
+}
+
+.principle-card.visible .focus-ring {
+    animation: ringPulse 3s ease-in-out infinite;
+}
+
+.principle-card.visible .ring-1 {
+    animation: ringAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards,
+               ringPulse 3s ease-in-out 0.6s infinite;
+}
+
+.principle-card.visible .ring-2 {
+    animation: ringAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards,
+               ringPulse 3s ease-in-out 0.7s infinite;
+    animation-direction: normal, reverse;
+}
+
+.principle-card.visible .ring-3 {
+    animation: ringAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards,
+               ringPulse 3s ease-in-out 0.8s infinite;
+}
+
+@keyframes ringAppear {
+    0% { opacity: 0; transform: scale(0.3); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ringPulse {
+    0%, 100% {
+        transform: scale(1);
+        border-color: rgba(0, 124, 135, 0.2);
+    }
+    50% {
+        transform: scale(1.08);
+        border-color: rgba(0, 124, 135, 0.4);
+    }
+}
+
+.focus-center {
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, var(--color-accent) 40%, rgba(0, 124, 135, 0.6) 100%);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    box-shadow: 0 0 20px rgba(0, 124, 135, 0.5), 0 0 50px rgba(0, 124, 135, 0.15);
+}
+
+.principle-card.visible .focus-center {
+    animation: focusCenterAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards,
+               focusCenterGlow 2.5s ease-in-out 0.8s infinite;
+}
+
+@keyframes focusCenterAppear {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes focusCenterGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 124, 135, 0.5), 0 0 50px rgba(0, 124, 135, 0.15);
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 124, 135, 0.7), 0 0 70px rgba(0, 124, 135, 0.25);
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+/* --- Text --- */
 .principle-title {
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+    position: relative;
+    z-index: 1;
 }
 
 .principle-description {
     font-size: 1.0625rem;
     line-height: 1.7;
     color: var(--color-text-muted);
+    position: relative;
+    z-index: 1;
 }
 
 /* ---- Responsive ---- */
-@media (max-width: 768px) {
+@media (max-width: 968px) {
     .principles-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
+        max-width: 440px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .principles-grid {
+        gap: 1.25rem;
+        margin-top: 2rem;
+    }
+
+    .principle-card {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+
+    .principle-visual {
+        height: 120px;
+        margin-bottom: 1rem;
+    }
+
+    .principle-card::before {
+        font-size: 5rem;
+        top: -6px;
+        right: 8px;
+    }
+
+    .orbit-1, .ring-1 { width: 110px; height: 110px; }
+    .orbit-2, .ring-2 { width: 78px; height: 78px; }
+    .orbit-3, .ring-3 { width: 46px; height: 46px; }
+
+    .data-bar { width: 10px; }
+}
+
+@media (max-width: 480px) {
+    .principle-card {
+        padding: 1.5rem 1.25rem 1.25rem;
+    }
+
+    .principle-visual {
+        height: 100px;
+        margin-bottom: 0.75rem;
+    }
+
+    .principle-title {
+        font-size: 1.25rem;
+    }
+
+    .principle-description {
+        font-size: 0.9375rem;
     }
 }

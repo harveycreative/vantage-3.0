@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="sections/how-we-work/how-we-work.css">
     <link rel="stylesheet" href="sections/what-we-do/what-we-do.css">
     <link rel="stylesheet" href="sections/team/team.css">
+    <link rel="stylesheet" href="sections/portfolio/portfolio.css">
     <link rel="stylesheet" href="sections/pricing/pricing.css">
     <link rel="stylesheet" href="sections/cta/cta.css">
 </head>
@@ -45,6 +46,7 @@
                 <a href="#how-we-work">How We Work</a>
                 <a href="#what-we-do">What We Do</a>
                 <a href="#team">Team</a>
+                <a href="#portfolio">Portfolio</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#contact" class="nav-cta">Book a Call</a>
             </nav>
@@ -220,171 +222,429 @@
 
     <!-- ============================================
          HOW WE WORK SECTION
-         Interactive canvas animations
+         Dark immersive section with animated steps
          ============================================ -->
-    <section class="content-section alt-bg" id="how-we-work">
+    <section class="hww-section" id="how-we-work">
+        <div class="hww-bg-grid"></div>
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">How We Work</h2>
-                <p class="section-subtitle">Discipline. Constraints. Reality.</p>
+            <div class="hww-header">
+                <p class="hww-eyebrow">How We Work</p>
+                <h2 class="hww-headline">Most marketing fails because it ignores the business.</h2>
+                <p class="hww-subline">Discipline. Constraints. Reality.</p>
             </div>
-            <div class="how-work-content">
-                <div class="how-work-statement">
-                    <h3 class="statement-headline">Most marketing fails because it ignores the business.</h3>
+
+            <div class="hww-steps">
+                <!-- Step 1 -->
+                <div class="hww-step" data-step="01">
+                    <div class="hww-step-visual">
+                        <div class="hww-anim anim-blueprint">
+                            <div class="bp-node bp-center"></div>
+                            <div class="bp-node bp-top"></div>
+                            <div class="bp-node bp-left"></div>
+                            <div class="bp-node bp-right"></div>
+                            <div class="bp-node bp-bottom-l"></div>
+                            <div class="bp-node bp-bottom-r"></div>
+                            <svg class="bp-lines" viewBox="0 0 200 200">
+                                <line x1="100" y1="100" x2="100" y2="30" class="bp-line" />
+                                <line x1="100" y1="100" x2="30" y2="100" class="bp-line" />
+                                <line x1="100" y1="100" x2="170" y2="100" class="bp-line" />
+                                <line x1="100" y1="100" x2="55" y2="160" class="bp-line" />
+                                <line x1="100" y1="100" x2="145" y2="160" class="bp-line" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="hww-step-content">
+                        <h3 class="hww-step-title">Business Model Analysis</h3>
+                        <p class="hww-step-text">We reverse-engineer your business model, identify where marketing fits, and apply automation where it replaces wasted effort.</p>
+                    </div>
+                    <div class="hww-connector"></div>
                 </div>
-                
-                <div class="how-work-approach">
-                    <div class="approach-block">
-                        <div class="approach-animation">
-                            <canvas class="animation-canvas" id="engineerCanvas"></canvas>
-                        </div>
-                        <div class="approach-content">
-                            <h4>Business Model Analysis</h4>
-                            <p>We reverse-engineer your business model, identify where marketing fits, and apply automation where it replaces wasted effort.</p>
+
+                <!-- Step 2 -->
+                <div class="hww-step" data-step="02">
+                    <div class="hww-step-visual">
+                        <div class="hww-anim anim-system">
+                            <div class="sys-channel">
+                                <div class="sys-particle" style="--delay: 0s"></div>
+                                <div class="sys-particle" style="--delay: 0.6s"></div>
+                                <div class="sys-particle" style="--delay: 1.2s"></div>
+                            </div>
+                            <div class="sys-channel ch-2">
+                                <div class="sys-particle" style="--delay: 0.3s"></div>
+                                <div class="sys-particle" style="--delay: 0.9s"></div>
+                                <div class="sys-particle" style="--delay: 1.5s"></div>
+                            </div>
+                            <div class="sys-channel ch-3">
+                                <div class="sys-particle" style="--delay: 0.15s"></div>
+                                <div class="sys-particle" style="--delay: 0.75s"></div>
+                                <div class="sys-particle" style="--delay: 1.35s"></div>
+                            </div>
+                            <div class="sys-gate gate-1"></div>
+                            <div class="sys-gate gate-2"></div>
                         </div>
                     </div>
-                    
-                    <div class="approach-block">
-                        <div class="approach-animation">
-                            <canvas class="animation-canvas" id="systemCanvas"></canvas>
-                        </div>
-                        <div class="approach-content">
-                            <h4>Critical System Design</h4>
-                            <p>We design marketing systems the same way you'd design any critical system: with discipline, constraints, and respect for reality.</p>
+                    <div class="hww-step-content">
+                        <h3 class="hww-step-title">Critical System Design</h3>
+                        <p class="hww-step-text">We design marketing systems the same way you'd design any critical system: with discipline, constraints, and respect for reality.</p>
+                    </div>
+                    <div class="hww-connector"></div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="hww-step" data-step="03">
+                    <div class="hww-step-visual">
+                        <div class="hww-anim anim-ai">
+                            <div class="ai-core"></div>
+                            <div class="ai-arc arc-1"></div>
+                            <div class="ai-arc arc-2"></div>
+                            <div class="ai-arc arc-3"></div>
+                            <div class="ai-pulse"></div>
+                            <div class="ai-dot dot-1"></div>
+                            <div class="ai-dot dot-2"></div>
+                            <div class="ai-dot dot-3"></div>
+                            <div class="ai-dot dot-4"></div>
                         </div>
                     </div>
-                    
-                    <div class="approach-block">
-                        <div class="approach-animation">
-                            <canvas class="animation-canvas" id="aiCanvas"></canvas>
-                            <img src="assets/images/brand/Vantage-Method-Light.png" class="animation-logo" alt="Vantage Method">
-                        </div>
-                        <div class="approach-content">
-                            <h4>AI is used deliberately.</h4>
-                            <p>We use it where it excels — repetition, analysis, orchestration. We keep humans involved where judgment, creativity, and accountability matter.</p>
-                        </div>
+                    <div class="hww-step-content">
+                        <h3 class="hww-step-title">AI is used deliberately.</h3>
+                        <p class="hww-step-text">We use it where it excels — repetition, analysis, orchestration. We keep humans involved where judgment, creativity, and accountability matter.</p>
                     </div>
                 </div>
             </div>
-            <a href="#what-we-do" class="section-nav-button">What We Do</a>
+
+            <a href="#what-we-do" class="section-nav-button hww-nav-btn">What We Do</a>
         </div>
     </section>
 
     <!-- ============================================
          WHAT WE DO SECTION
-         Three pillar cards
+         Three pillars with animated reveals
          ============================================ -->
-    <section class="content-section" id="what-we-do">
+    <section class="wwd-section" id="what-we-do">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">What We Do</h2>
-                <p class="section-subtitle">Analyze. Execute. Partner.</p>
+            <div class="wwd-header">
+                <p class="wwd-eyebrow">What We Do</p>
+                <h2 class="wwd-headline">Analyze. Execute. Partner.</h2>
             </div>
-            <div class="pillars-grid">
-                <div class="pillar-card">
-                    <div class="pillar-number">Pillar 1</div>
-                    <h3 class="pillar-title">Business Analysis & AI Discovery</h3>
-                    <p class="pillar-description">Before we execute, we evaluate whether marketing can responsibly accelerate your business.</p>
-                    <div class="block-divider"></div>
-                    <ul class="pillar-list">
-                        <li>Company profile and executive summary</li>
-                        <li>Revenue and margin analysis</li>
-                        <li>Customer avatar and buying journey</li>
-                        <li>Lead-to-close process review</li>
+
+            <div class="wwd-pillars">
+                <!-- Pillar 1 -->
+                <div class="wwd-pillar" data-pillar="01">
+                    <div class="wwd-pillar-accent"></div>
+                    <div class="wwd-pillar-icon">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="22" cy="22" r="14" stroke="currentColor" stroke-width="2" class="icon-ring"/>
+                            <line x1="32" y1="32" x2="42" y2="42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="icon-handle"/>
+                            <path d="M16 22h12M22 16v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="icon-cross"/>
+                        </svg>
+                    </div>
+                    <h3 class="wwd-pillar-title">Business Analysis &amp; AI Discovery</h3>
+                    <p class="wwd-pillar-desc">We evaluate whether marketing can responsibly accelerate your business — and where automation fits.</p>
+                    <ul class="wwd-pillar-list">
+                        <li>Revenue &amp; margin analysis</li>
+                        <li>Customer journey mapping</li>
                         <li>Marketing budget feasibility</li>
                     </ul>
-                    <div class="block-divider"></div>
-                    <p class="pillar-note">The outcome is clarity — on what to automate, what to measure, and whether a partnership makes sense.</p>
+                    <p class="wwd-pillar-note">The outcome is clarity — on what to automate, what to measure, and whether a partnership makes sense.</p>
                 </div>
 
-                <div class="pillar-card">
-                    <div class="pillar-number">Pillar 2</div>
-                    <h3 class="pillar-title">End-to-End Marketing Systems</h3>
-                    <p class="pillar-description">Once the foundation is sound, we build and operate marketing systems from strategy through execution.</p>
-                    <div class="block-divider"></div>
-                    <ul class="pillar-list">
-                        <li>Brand positioning and messaging</li>
-                        <li>Website and conversion optimization</li>
-                        <li>Paid advertising across channels</li>
-                        <li>Email and lifecycle campaigns</li>
-                        <li>Lead qualification and handoff systems</li>
+                <!-- Pillar 2 -->
+                <div class="wwd-pillar" data-pillar="02">
+                    <div class="wwd-pillar-accent"></div>
+                    <div class="wwd-pillar-icon">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="2" class="icon-gear-outer"/>
+                            <circle cx="24" cy="24" r="4" stroke="currentColor" stroke-width="2" class="icon-gear-inner"/>
+                            <line x1="24" y1="4" x2="24" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-spoke"/>
+                            <line x1="24" y1="36" x2="24" y2="44" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-spoke"/>
+                            <line x1="4" y1="24" x2="12" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-spoke"/>
+                            <line x1="36" y1="24" x2="44" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-spoke"/>
+                        </svg>
+                    </div>
+                    <h3 class="wwd-pillar-title">End-to-End Marketing Systems</h3>
+                    <p class="wwd-pillar-desc">We build and operate complete marketing systems — from brand positioning through lead delivery.</p>
+                    <ul class="wwd-pillar-list">
+                        <li>Website &amp; conversion optimization</li>
+                        <li>Paid advertising &amp; email campaigns</li>
+                        <li>Lead qualification &amp; handoff</li>
                     </ul>
-                    <div class="block-divider"></div>
-                    <p class="pillar-note">Marketing does not stop at traffic. It ends when a qualified opportunity is delivered to the business.</p>
+                    <p class="wwd-pillar-note">Marketing doesn't stop at traffic. It ends when a qualified opportunity reaches the business.</p>
                 </div>
 
-                <div class="pillar-card">
-                    <div class="pillar-number">Pillar 3</div>
-                    <h3 class="pillar-title">Marketing for Equity (Selective)</h3>
-                    <p class="pillar-description">For businesses with strong fundamentals but limited capital, we offer a long-term partnership model.</p>
-                    <div class="block-divider"></div>
-                    <ul class="pillar-list">
+                <!-- Pillar 3 -->
+                <div class="wwd-pillar" data-pillar="03">
+                    <div class="wwd-pillar-accent"></div>
+                    <div class="wwd-pillar-icon">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 28c-4 0-6 2-6 4v4h16v-4c0-2-2-4-6-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-hand-l"/>
+                            <path d="M34 28c4 0 6 2 6 4v4H24v-4c0-2 2-4 6-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-hand-r"/>
+                            <circle cx="18" cy="20" r="5" stroke="currentColor" stroke-width="2" class="icon-head-l"/>
+                            <circle cx="30" cy="20" r="5" stroke="currentColor" stroke-width="2" class="icon-head-r"/>
+                        </svg>
+                    </div>
+                    <h3 class="wwd-pillar-title">Marketing for Equity</h3>
+                    <p class="wwd-pillar-desc">For businesses with strong fundamentals but limited capital, we offer a long-term partnership model.</p>
+                    <ul class="wwd-pillar-list">
                         <li>Full marketing function operation</li>
-                        <li>Long-term partnership alignment</li>
-                        <li>Equity and/or profit participation</li>
-                        <li>Application and formal evaluation</li>
-                        <li>Clear product-market fit required</li>
+                        <li>Equity &amp; profit participation</li>
+                        <li>Product-market fit required</li>
                     </ul>
-                    <div class="block-divider"></div>
-                    <p class="pillar-note">We only partner where we believe deeply in the outcome and where shared incentives align.</p>
+                    <p class="wwd-pillar-note">We only partner where shared incentives align and we believe deeply in the outcome.</p>
                 </div>
             </div>
+
             <a href="#team" class="section-nav-button">Meet The Team</a>
         </div>
     </section>
 
     <!-- ============================================
          TEAM SECTION
-         Orbiting team with lightning & bio cards
+         Premium dark orbiting team with expanded bios
          ============================================ -->
-    <section class="content-section alt-bg" id="team">
+    <section class="tm-section" id="team">
+        <div class="tm-bg-radial"></div>
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">The Team</h2>
-                <p class="section-subtitle">The team bringing your vision to life.</p>
+            <div class="tm-header">
+                <p class="tm-eyebrow">The Team</p>
+                <h2 class="tm-headline">The team bringing your vision to life.</h2>
             </div>
-            <div class="team-orbit-container">
-                <canvas id="teamConnectionLines" class="team-connection-canvas"></canvas>
-                
-                <div class="team-center-text">
-                    Your Company
-                    <span class="team-center-subtext">Find out more</span>
+
+            <div class="tm-layout" id="tmLayout">
+                <!-- Left: orbit -->
+                <div class="tm-orbit-stage" id="tmOrbitStage">
+                    <svg class="tm-orbit-track" viewBox="0 0 600 600">
+                        <circle cx="300" cy="300" r="220" class="tm-track-ring" />
+                    </svg>
+                    <div class="tm-hub">
+                        <div class="tm-hub-pulse"></div>
+                        <div class="tm-hub-ring ring-1"></div>
+                        <div class="tm-hub-ring ring-2"></div>
+                        <span class="tm-hub-label">Your Company</span>
+                    </div>
+                    <canvas id="tmConnectionCanvas" class="tm-connection-canvas"></canvas>
+                    <div class="tm-ring" id="tmRing">
+                        <div class="tm-member" data-idx="0" data-name="Westin" data-title="Strategy & Growth" data-bio="Designs go-to-market systems that align with business fundamentals. Westin brings years of experience building marketing infrastructure for companies at every stage — from pre-revenue startups to established enterprises." data-img="assets/images/team/Westin.jpg">
+                            <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Westin.jpg');"></div><span class="tm-name">Westin</span></div>
+                        </div>
+                        <div class="tm-member" data-idx="1" data-name="Daniel" data-title="Brand & Design" data-bio="Oversees visual identity and creative execution across all channels. Daniel ensures every touchpoint reflects the brand's positioning and resonates with the target audience." data-img="assets/images/team/Daniel.jpg">
+                            <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Daniel.jpg');"></div><span class="tm-name">Daniel</span></div>
+                        </div>
+                        <div class="tm-member" data-idx="2" data-name="Matthew" data-title="AI & Systems" data-bio="Builds and maintains automation infrastructure for efficiency at scale. Matthew architects the AI-driven workflows that eliminate repetitive tasks and keep the human touch where it matters." data-img="assets/images/team/Matthew.jpg">
+                            <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Matthew.jpg');"></div><span class="tm-name">Matthew</span></div>
+                        </div>
+                        <div class="tm-member" data-idx="3" data-name="Randy" data-title="Trans Activist" data-bio="Manages paid acquisition channels and conversion optimization. Randy combines analytical rigor with creative instinct to maximize return across every advertising dollar spent." data-img="assets/images/team/Randy 2.jpg">
+                            <div class="tm-inner"><div class="tm-photo randy-photo" style="background-image: url('assets/images/team/Randy 2.jpg');"></div><span class="tm-name">Randy</span></div>
+                        </div>
+                        <div class="tm-member" data-idx="4" data-name="Scott" data-title="Content & SEO" data-bio="Develops content strategy and organic growth initiatives. Scott builds sustainable traffic engines through thoughtful content that ranks, converts, and compounds over time." data-img="assets/images/team/Scott.jpg">
+                            <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Scott.jpg');"></div><span class="tm-name">Scott</span></div>
+                        </div>
+                        <div class="tm-member" data-idx="5" data-name="Kenny" data-title="Data & Insights" data-bio="Tracks performance metrics and ensures data-driven decision making. Kenny translates raw numbers into actionable insights that guide strategy and prove ROI." data-img="assets/images/team/Kenny.jpg">
+                            <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Kenny.jpg');"></div><span class="tm-name">Kenny</span></div>
+                        </div>
+                        <div class="tm-member" data-idx="6" data-name="Zach" data-title="Project Management" data-bio="Coordinates workflows and ensures timely delivery across all projects. Zach keeps every initiative on track, on budget, and aligned with the broader business objectives." data-img="assets/images/team/Zach.jpg">
+                            <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Zach.jpg');"></div><span class="tm-name">Zach</span></div>
+                        </div>
+                        <div class="tm-member" data-idx="7" data-name="Dwight" data-title="Technical Implementation" data-bio="Handles technical integrations and custom development requirements. Dwight bridges the gap between marketing strategy and the technical systems that power it." data-img="assets/images/team/Dwight.jpg">
+                            <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Dwight.jpg');"></div><span class="tm-name">Dwight</span></div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="team-members">
-                    <div class="team-member" data-member="0" data-name="Westin" data-title="Strategy & Growth" data-bio="Designs go-to-market systems that align with business fundamentals.">
-                        <a href="#" class="member-photo" style="background-image: url('assets/images/team/Westin.jpg');"></a>
-                    </div>
-                    <div class="team-member" data-member="1" data-name="Daniel" data-title="Brand & Design" data-bio="Oversees visual identity and creative execution across all channels.">
-                        <a href="#" class="member-photo" style="background-image: url('assets/images/team/Daniel.jpg');"></a>
-                    </div>
-                    <div class="team-member" data-member="2" data-name="Matthew" data-title="AI & Systems" data-bio="Builds and maintains automation infrastructure for efficiency at scale.">
-                        <a href="#" class="member-photo" style="background-image: url('assets/images/team/Matthew.jpg');"></a>
-                    </div>
-                    <div class="team-member" data-member="3" data-name="Randy" data-title="Trans Activist" data-bio="Manages paid acquisition channels and conversion optimization.">
-                        <a href="#" class="member-photo randy-photo" style="background-image: url('assets/images/team/Randy 2.jpg');"></a>
-                    </div>
-                    <div class="team-member" data-member="4" data-name="Scott" data-title="Content & SEO" data-bio="Develops content strategy and organic growth initiatives.">
-                        <a href="#" class="member-photo" style="background-image: url('assets/images/team/Scott.jpg');"></a>
-                    </div>
-                    <div class="team-member" data-member="5" data-name="Kenny" data-title="Data & Insights" data-bio="Tracks performance metrics and ensures data-driven decision making.">
-                        <a href="#" class="member-photo" style="background-image: url('assets/images/team/Kenny.jpg');"></a>
-                    </div>
-                    <div class="team-member" data-member="6" data-name="Zach" data-title="Project Management" data-bio="Coordinates workflows and ensures timely delivery across all projects.">
-                        <a href="#" class="member-photo" style="background-image: url('assets/images/team/Zach.jpg');"></a>
-                    </div>
-                    <div class="team-member" data-member="7" data-name="Dwight" data-title="Technical Implementation" data-bio="Handles technical integrations and custom development requirements.">
-                        <a href="#" class="member-photo" style="background-image: url('assets/images/team/Dwight.jpg');"></a>
-                    </div>
-                </div>
-                
-                <div class="team-bio-card" id="teamBioCard">
-                    <h4 class="bio-name"></h4>
-                    <p class="bio-title"></p>
-                    <p class="bio-description"></p>
+
+                <!-- Right: expanded bio panel -->
+                <div class="tm-panel" id="tmPanel">
+                    <button class="tm-panel-close" id="tmPanelClose" aria-label="Close">&times;</button>
+                    <div class="tm-panel-photo" id="tmPanelPhoto"></div>
+                    <h3 class="tm-panel-name" id="tmPanelName"></h3>
+                    <p class="tm-panel-role" id="tmPanelRole"></p>
+                    <div class="tm-panel-divider"></div>
+                    <p class="tm-panel-bio" id="tmPanelBio"></p>
                 </div>
             </div>
-            <a href="#pricing" class="section-nav-button">Partnership & Pricing</a>
+
+            <a href="#portfolio" class="section-nav-button tm-nav-btn">Our Work</a>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PORTFOLIO SECTION
+         Horizontal scrolling mixed-media showcase
+         ============================================ -->
+    <section class="pf-section" id="portfolio">
+        <div class="pf-noise"></div>
+        <div class="container">
+            <div class="pf-header">
+                <p class="pf-eyebrow">Our Work</p>
+                <h2 class="pf-headline">Results that speak for themselves.</h2>
+                <p class="pf-subline">Scroll to explore campaigns, creative, and outcomes.</p>
+            </div>
+            <div class="pf-filters" id="pfFilters">
+                <button class="pf-pill active" data-filter="all">All</button>
+                <button class="pf-pill" data-filter="video">Video</button>
+                <button class="pf-pill" data-filter="design">Design</button>
+                <button class="pf-pill" data-filter="campaigns">Campaigns</button>
+                <button class="pf-pill" data-filter="apps">Apps</button>
+            </div>
+        </div>
+
+        <!-- Full-width horizontal gallery -->
+        <div class="pf-gallery" id="pfGallery">
+            <div class="pf-track" id="pfTrack">
+
+                <!-- 1. VIDEO — Brand Campaign -->
+                <div class="pf-card pf-card--wide pf-card--video" data-cat="video">
+                    <video class="pf-video" src="Rsources/Videos/12742138_1920_1080_30fps.mp4" muted loop playsinline preload="metadata"></video>
+                    <div class="pf-card-overlay">
+                        <span class="pf-card-tag">Video Production</span>
+                        <h3 class="pf-card-title">Brand Campaign</h3>
+                        <p class="pf-card-sub">Full-funnel video strategy for SaaS launch</p>
+                    </div>
+                    <div class="pf-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+                </div>
+
+                <!-- 2. METRIC — ROI -->
+                <div class="pf-card pf-card--metric" data-cat="campaigns">
+                    <div class="pf-metric-inner">
+                        <span class="pf-metric-value" data-target="340" data-suffix="%">0%</span>
+                        <span class="pf-metric-label">Return on Ad Spend</span>
+                        <div class="pf-metric-bar"><div class="pf-metric-fill" style="--fill: 85%"></div></div>
+                        <p class="pf-metric-detail">B2B SaaS · 6-month engagement</p>
+                    </div>
+                </div>
+
+                <!-- 3. DESIGN — Brand Identity -->
+                <div class="pf-card pf-card--image" data-cat="design">
+                    <div class="pf-img" style="background: linear-gradient(135deg, #007c87 0%, #004d54 40%, #0a0a0a 100%);"></div>
+                    <div class="pf-card-overlay">
+                        <span class="pf-card-tag">Brand Identity</span>
+                        <h3 class="pf-card-title">Visual System</h3>
+                        <p class="pf-card-sub">Logo, typography &amp; color system</p>
+                    </div>
+                </div>
+
+                <!-- 4. VIDEO — Product Launch -->
+                <div class="pf-card pf-card--tall pf-card--video" data-cat="video">
+                    <video class="pf-video" src="Rsources/Videos/4779866-hd_1920_1080_30fps.mp4" muted loop playsinline preload="metadata"></video>
+                    <div class="pf-card-overlay">
+                        <span class="pf-card-tag">Product Video</span>
+                        <h3 class="pf-card-title">Product Launch</h3>
+                        <p class="pf-card-sub">Launch day hero content</p>
+                    </div>
+                    <div class="pf-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+                </div>
+
+                <!-- 5. METRIC — Impressions -->
+                <div class="pf-card pf-card--metric pf-card--accent" data-cat="campaigns">
+                    <div class="pf-metric-inner">
+                        <span class="pf-metric-value" data-target="2.4" data-suffix="M" data-decimal="1">0</span>
+                        <span class="pf-metric-label">Monthly Impressions</span>
+                        <div class="pf-metric-bar"><div class="pf-metric-fill" style="--fill: 72%"></div></div>
+                        <p class="pf-metric-detail">Multi-channel paid media</p>
+                    </div>
+                </div>
+
+                <!-- 6. DESIGN — Website -->
+                <div class="pf-card pf-card--wide pf-card--image" data-cat="design">
+                    <div class="pf-img" style="background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);"></div>
+                    <div class="pf-card-overlay">
+                        <span class="pf-card-tag">Web Design</span>
+                        <h3 class="pf-card-title">Website Redesign</h3>
+                        <p class="pf-card-sub">Conversion-optimized marketing site</p>
+                    </div>
+                </div>
+
+                <!-- 7. APP — Dashboard -->
+                <div class="pf-card pf-card--image" data-cat="apps">
+                    <div class="pf-img" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a2a2c 50%, #007c87 100%);"></div>
+                    <div class="pf-card-overlay">
+                        <span class="pf-card-tag">Application</span>
+                        <h3 class="pf-card-title">Marketing Dashboard</h3>
+                        <p class="pf-card-sub">Real-time campaign analytics</p>
+                    </div>
+                </div>
+
+                <!-- 8. METRIC — CAC -->
+                <div class="pf-card pf-card--metric" data-cat="campaigns">
+                    <div class="pf-metric-inner">
+                        <span class="pf-metric-value" data-target="47" data-suffix="%" data-prefix="-">0%</span>
+                        <span class="pf-metric-label">Customer Acquisition Cost</span>
+                        <div class="pf-metric-bar"><div class="pf-metric-fill" style="--fill: 65%"></div></div>
+                        <p class="pf-metric-detail">E-commerce · 90-day sprint</p>
+                    </div>
+                </div>
+
+                <!-- 9. VIDEO — Social -->
+                <div class="pf-card pf-card--video" data-cat="video">
+                    <video class="pf-video" src="Rsources/Videos/8597293-uhd_3840_2160_30fps.mp4" muted loop playsinline preload="metadata"></video>
+                    <div class="pf-card-overlay">
+                        <span class="pf-card-tag">Social Media</span>
+                        <h3 class="pf-card-title">Social Campaign</h3>
+                        <p class="pf-card-sub">Organic + paid social content</p>
+                    </div>
+                    <div class="pf-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+                </div>
+
+                <!-- 10. DESIGN — Ad Creative -->
+                <div class="pf-card pf-card--tall pf-card--image" data-cat="design">
+                    <div class="pf-img" style="background: linear-gradient(180deg, #2d1b69 0%, #11001c 50%, #007c87 100%);"></div>
+                    <div class="pf-card-overlay">
+                        <span class="pf-card-tag">Ad Creative</span>
+                        <h3 class="pf-card-title">Display &amp; Social Ads</h3>
+                        <p class="pf-card-sub">Multi-format creative suite</p>
+                    </div>
+                </div>
+
+                <!-- 11. METRIC — ROAS -->
+                <div class="pf-card pf-card--metric pf-card--accent" data-cat="campaigns">
+                    <div class="pf-metric-inner">
+                        <span class="pf-metric-value" data-target="12" data-suffix="x">0</span>
+                        <span class="pf-metric-label">Return on Ad Spend</span>
+                        <div class="pf-metric-bar"><div class="pf-metric-fill" style="--fill: 92%"></div></div>
+                        <p class="pf-metric-detail">DTC brand · Paid social</p>
+                    </div>
+                </div>
+
+                <!-- 12. APP — Lead Tool -->
+                <div class="pf-card pf-card--wide pf-card--image" data-cat="apps">
+                    <div class="pf-img" style="background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #007c87 100%);"></div>
+                    <div class="pf-card-overlay">
+                        <span class="pf-card-tag">Application</span>
+                        <h3 class="pf-card-title">Lead Scoring Engine</h3>
+                        <p class="pf-card-sub">AI-powered qualification system</p>
+                    </div>
+                </div>
+
+                <!-- 13. METRIC — Conversion -->
+                <div class="pf-card pf-card--metric" data-cat="campaigns">
+                    <div class="pf-metric-inner">
+                        <span class="pf-metric-value" data-target="186" data-suffix="%">0%</span>
+                        <span class="pf-metric-label">Conversion Rate Lift</span>
+                        <div class="pf-metric-bar"><div class="pf-metric-fill" style="--fill: 78%"></div></div>
+                        <p class="pf-metric-detail">Landing page optimization</p>
+                    </div>
+                </div>
+
+                <!-- 14. VIDEO — Testimonial -->
+                <div class="pf-card pf-card--video" data-cat="video">
+                    <video class="pf-video" src="Rsources/Videos/12676758_3840_2160_30fps.mp4" muted loop playsinline preload="metadata"></video>
+                    <div class="pf-card-overlay">
+                        <span class="pf-card-tag">Testimonial</span>
+                        <h3 class="pf-card-title">Client Stories</h3>
+                        <p class="pf-card-sub">Real outcomes, real businesses</p>
+                    </div>
+                    <div class="pf-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Scroll hint -->
+        <div class="pf-scroll-hint">
+            <span>Drag to explore</span>
+            <svg width="32" height="16" viewBox="0 0 32 16"><path d="M0 8h28M22 2l6 6-6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="container">
+            <a href="#pricing" class="section-nav-button pf-nav-btn">Partnership &amp; Pricing</a>
         </div>
     </section>
 
@@ -458,6 +718,7 @@
     <script src="sections/how-we-work/how-we-work.js"></script>
     <script src="sections/what-we-do/what-we-do.js"></script>
     <script src="sections/team/team.js"></script>
+    <script src="sections/portfolio/portfolio.js"></script>
     <script src="sections/cta/cta.js"></script>
 
 </body>

@@ -292,64 +292,87 @@ section {
         display: block;
     }
 
+    /* Hamburger lines turn white when menu is open */
+    .mobile-menu-toggle.active span {
+        background: #ffffff;
+    }
+
+    /* --- Mobile nav: hidden by default --- */
     nav {
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(255, 255, 255, 0.97);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 0;
-        z-index: 999;
+        display: flex;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.35s ease, visibility 0.35s ease;
+        pointer-events: none;
+        background: #0a0a0a;
+        z-index: 998;
     }
 
     nav.open {
         opacity: 1;
         visibility: visible;
+        pointer-events: auto;
     }
 
     nav a {
         font-family: var(--font-display);
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        color: var(--color-text);
-        padding: 0.875rem 0;
+        color: rgba(255, 255, 255, 0.7);
+        padding: 1rem 0;
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(16px);
         transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s;
+    }
+
+    nav a:hover {
+        color: #ffffff;
+    }
+
+    /* --- When menu is open, header becomes full-screen --- */
+    body.menu-open {
+        overflow: hidden;
+    }
+
+    body.menu-open header {
+        bottom: 0;
+        background: #0a0a0a;
+        border-bottom: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    body.menu-open .logo {
+        filter: brightness(0) invert(1);
     }
 
     /* Staggered entrance for nav links */
     nav.open a { opacity: 1; transform: translateY(0); }
-    nav.open a:nth-child(1) { transition-delay: 0.05s; }
-    nav.open a:nth-child(2) { transition-delay: 0.1s; }
-    nav.open a:nth-child(3) { transition-delay: 0.15s; }
-    nav.open a:nth-child(4) { transition-delay: 0.2s; }
-    nav.open a:nth-child(5) { transition-delay: 0.25s; }
-    nav.open a:nth-child(6) { transition-delay: 0.3s; }
-    nav.open a:nth-child(7) { transition-delay: 0.35s; }
+    nav.open a:nth-child(1) { transition-delay: 0.04s; }
+    nav.open a:nth-child(2) { transition-delay: 0.08s; }
+    nav.open a:nth-child(3) { transition-delay: 0.12s; }
+    nav.open a:nth-child(4) { transition-delay: 0.16s; }
+    nav.open a:nth-child(5) { transition-delay: 0.2s; }
+    nav.open a:nth-child(6) { transition-delay: 0.24s; }
+    nav.open a:nth-child(7) { transition-delay: 0.28s; }
 
     /* "Book a Call" CTA in mobile menu */
     nav .nav-cta {
-        margin-top: 1.5rem;
-        padding: 0.875rem 2.5rem;
+        margin-top: 2rem;
+        padding: 1rem 2.5rem;
         font-size: 1.125rem;
         border-radius: 4px;
-    }
-
-    /* Prevent body scroll when menu is open */
-    body.menu-open {
-        overflow: hidden;
+        color: #ffffff !important;
     }
 }
 
@@ -359,12 +382,12 @@ section {
     }
 
     nav a {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         padding: 0.75rem 0;
     }
 
     nav .nav-cta {
         font-size: 1rem;
-        padding: 0.75rem 2rem;
+        padding: 0.875rem 2rem;
     }
 }

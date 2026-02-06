@@ -1,51 +1,64 @@
-<!-- TEAM SECTION: Orbiting team with lightning & bio cards -->
-<section class="content-section alt-bg" id="team">
+<!-- TEAM SECTION: Premium dark orbiting team with expanded bios -->
+<section class="tm-section" id="team">
+    <div class="tm-bg-radial"></div>
     <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">The Team</h2>
-            <p class="section-subtitle">The team bringing your vision to life.</p>
+        <div class="tm-header">
+            <p class="tm-eyebrow">The Team</p>
+            <h2 class="tm-headline">The team bringing your vision to life.</h2>
         </div>
-        <div class="team-orbit-container">
-            <canvas id="teamConnectionLines" class="team-connection-canvas"></canvas>
-            
-            <div class="team-center-text">
-                Your Company
-                <span class="team-center-subtext">Find out more</span>
+
+        <div class="tm-layout" id="tmLayout">
+            <!-- Left: orbit -->
+            <div class="tm-orbit-stage" id="tmOrbitStage">
+                <svg class="tm-orbit-track" viewBox="0 0 600 600">
+                    <circle cx="300" cy="300" r="220" class="tm-track-ring" />
+                </svg>
+                <div class="tm-hub">
+                    <div class="tm-hub-pulse"></div>
+                    <div class="tm-hub-ring ring-1"></div>
+                    <div class="tm-hub-ring ring-2"></div>
+                    <span class="tm-hub-label">Your Company</span>
+                </div>
+                <canvas id="tmConnectionCanvas" class="tm-connection-canvas"></canvas>
+                <div class="tm-ring" id="tmRing">
+                    <div class="tm-member" data-idx="0" data-name="Westin" data-title="Strategy & Growth" data-bio="Designs go-to-market systems that align with business fundamentals. Westin brings years of experience building marketing infrastructure for companies at every stage — from pre-revenue startups to established enterprises." data-img="assets/images/team/Westin.jpg">
+                        <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Westin.jpg');"></div><span class="tm-name">Westin</span></div>
+                    </div>
+                    <div class="tm-member" data-idx="1" data-name="Daniel" data-title="Brand & Design" data-bio="Oversees visual identity and creative execution across all channels. Daniel ensures every touchpoint reflects the brand's positioning and resonates with the target audience." data-img="assets/images/team/Daniel.jpg">
+                        <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Daniel.jpg');"></div><span class="tm-name">Daniel</span></div>
+                    </div>
+                    <div class="tm-member" data-idx="2" data-name="Matthew" data-title="AI & Systems" data-bio="Builds and maintains automation infrastructure for efficiency at scale. Matthew architects the AI-driven workflows that eliminate repetitive tasks and keep the human touch where it matters." data-img="assets/images/team/Matthew.jpg">
+                        <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Matthew.jpg');"></div><span class="tm-name">Matthew</span></div>
+                    </div>
+                    <div class="tm-member" data-idx="3" data-name="Randy" data-title="Trans Activist" data-bio="Manages paid acquisition channels and conversion optimization. Randy combines analytical rigor with creative instinct to maximize return across every advertising dollar spent." data-img="assets/images/team/Randy 2.jpg">
+                        <div class="tm-inner"><div class="tm-photo randy-photo" style="background-image: url('assets/images/team/Randy 2.jpg');"></div><span class="tm-name">Randy</span></div>
+                    </div>
+                    <div class="tm-member" data-idx="4" data-name="Scott" data-title="Content & SEO" data-bio="Develops content strategy and organic growth initiatives. Scott builds sustainable traffic engines through thoughtful content that ranks, converts, and compounds over time." data-img="assets/images/team/Scott.jpg">
+                        <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Scott.jpg');"></div><span class="tm-name">Scott</span></div>
+                    </div>
+                    <div class="tm-member" data-idx="5" data-name="Kenny" data-title="Data & Insights" data-bio="Tracks performance metrics and ensures data-driven decision making. Kenny translates raw numbers into actionable insights that guide strategy and prove ROI." data-img="assets/images/team/Kenny.jpg">
+                        <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Kenny.jpg');"></div><span class="tm-name">Kenny</span></div>
+                    </div>
+                    <div class="tm-member" data-idx="6" data-name="Zach" data-title="Project Management" data-bio="Coordinates workflows and ensures timely delivery across all projects. Zach keeps every initiative on track, on budget, and aligned with the broader business objectives." data-img="assets/images/team/Zach.jpg">
+                        <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Zach.jpg');"></div><span class="tm-name">Zach</span></div>
+                    </div>
+                    <div class="tm-member" data-idx="7" data-name="Dwight" data-title="Technical Implementation" data-bio="Handles technical integrations and custom development requirements. Dwight bridges the gap between marketing strategy and the technical systems that power it." data-img="assets/images/team/Dwight.jpg">
+                        <div class="tm-inner"><div class="tm-photo" style="background-image: url('assets/images/team/Dwight.jpg');"></div><span class="tm-name">Dwight</span></div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="team-members">
-                <div class="team-member" data-member="0" data-name="Westin" data-title="Strategy & Growth" data-bio="Designs go-to-market systems that align with business fundamentals.">
-                    <a href="#" class="member-photo" style="background-image: url('assets/images/team/Westin.jpg');"></a>
-                </div>
-                <div class="team-member" data-member="1" data-name="Daniel" data-title="Brand & Design" data-bio="Oversees visual identity and creative execution across all channels.">
-                    <a href="#" class="member-photo" style="background-image: url('assets/images/team/Daniel.jpg');"></a>
-                </div>
-                <div class="team-member" data-member="2" data-name="Matthew" data-title="AI & Systems" data-bio="Builds and maintains automation infrastructure for efficiency at scale.">
-                    <a href="#" class="member-photo" style="background-image: url('assets/images/team/Matthew.jpg');"></a>
-                </div>
-                <div class="team-member" data-member="3" data-name="Randy" data-title="Trans Activist" data-bio="Manages paid acquisition channels and conversion optimization.">
-                    <a href="#" class="member-photo randy-photo" style="background-image: url('assets/images/team/Randy 2.jpg');"></a>
-                </div>
-                <div class="team-member" data-member="4" data-name="Scott" data-title="Content & SEO" data-bio="Develops content strategy and organic growth initiatives.">
-                    <a href="#" class="member-photo" style="background-image: url('assets/images/team/Scott.jpg');"></a>
-                </div>
-                <div class="team-member" data-member="5" data-name="Kenny" data-title="Data & Insights" data-bio="Tracks performance metrics and ensures data-driven decision making.">
-                    <a href="#" class="member-photo" style="background-image: url('assets/images/team/Kenny.jpg');"></a>
-                </div>
-                <div class="team-member" data-member="6" data-name="Zach" data-title="Project Management" data-bio="Coordinates workflows and ensures timely delivery across all projects.">
-                    <a href="#" class="member-photo" style="background-image: url('assets/images/team/Zach.jpg');"></a>
-                </div>
-                <div class="team-member" data-member="7" data-name="Dwight" data-title="Technical Implementation" data-bio="Handles technical integrations and custom development requirements.">
-                    <a href="#" class="member-photo" style="background-image: url('assets/images/team/Dwight.jpg');"></a>
-                </div>
-            </div>
-            
-            <div class="team-bio-card" id="teamBioCard">
-                <h4 class="bio-name"></h4>
-                <p class="bio-title"></p>
-                <p class="bio-description"></p>
+
+            <!-- Right: expanded bio panel -->
+            <div class="tm-panel" id="tmPanel">
+                <button class="tm-panel-close" id="tmPanelClose" aria-label="Close">&times;</button>
+                <div class="tm-panel-photo" id="tmPanelPhoto"></div>
+                <h3 class="tm-panel-name" id="tmPanelName"></h3>
+                <p class="tm-panel-role" id="tmPanelRole"></p>
+                <div class="tm-panel-divider"></div>
+                <p class="tm-panel-bio" id="tmPanelBio"></p>
             </div>
         </div>
-        <a href="#pricing" class="section-nav-button">Partnership & Pricing</a>
+
+        <a href="#pricing" class="section-nav-button tm-nav-btn">Partnership &amp; Pricing</a>
     </div>
 </section>

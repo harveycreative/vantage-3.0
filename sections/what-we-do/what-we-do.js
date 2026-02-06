@@ -1,30 +1,39 @@
 /* ============================================
    WHAT WE DO SECTION JS
-   Pillar card reveal animation on scroll
+   Scroll-triggered pillar reveals
    ============================================ */
 
-(function() {
-    const pillarCards = document.querySelectorAll('.pillar-card');
-    let pillarCardsTriggered = false;
+(function () {
+    const header  = document.querySelector('.wwd-header');
+    const pillars = document.querySelectorAll('.wwd-pillar');
+    if (!header || pillars.length === 0) return;
 
-    function updatePillarCards() {
-        if (pillarCardsTriggered || pillarCards.length === 0) return;
+    let headerRevealed = false;
+    const revealed = new Array(pillars.length).fill(false);
 
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const firstCard = pillarCards[0];
-        const cardTop = firstCard.offsetTop;
+    function reveal() {
+        const vh = window.innerHeight;
 
-        if (scrollY + windowHeight > cardTop + 100) {
-            pillarCards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('visible');
-                }, index * 150);
-            });
-            pillarCardsTriggered = true;
+        /* Header */
+        if (!headerRevealed) {
+            const hTop = header.getBoundingClientRect().top;
+            if (hTop < vh * 0.85) {
+                header.classList.add('visible');
+                headerRevealed = true;
+            }
         }
+
+        /* Pillar cards — staggered */
+        pillars.forEach((p, i) => {
+            if (revealed[i]) return;
+            const pTop = p.getBoundingClientRect().top;
+            if (pTop < vh * 0.82) {
+                setTimeout(() => p.classList.add('visible'), i * 200);
+                revealed[i] = true;
+            }
+        });
     }
 
-    window.addEventListener('scroll', updatePillarCards, { passive: true });
-    updatePillarCards();
+    window.addEventListener('scroll', reveal, { passive: true });
+    reveal();
 })();

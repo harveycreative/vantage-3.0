@@ -11,6 +11,8 @@
     background: #ffffff !important;
     position: relative;
     overflow: hidden;
+    margin-bottom: -1px;
+    padding-bottom: 1px;
 }
 
 .hero canvas {

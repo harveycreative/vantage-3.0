@@ -73,6 +73,12 @@
             border-radius: 3px;
             transition: width 0.3s ease;
         }
+        .loading-pct {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: rgba(0, 124, 135, 0.6);
+        }
         @keyframes loadPulse {
             0%, 100% { opacity: 0.4; transform: scale(0.96); }
             50% { opacity: 1; transform: scale(1); }
@@ -86,6 +92,7 @@
         <div class="loading-inner">
             <img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="loading-logo">
             <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+            <span class="loading-pct" id="loadingPct">0%</span>
         </div>
     </div>
 
@@ -881,17 +888,32 @@
     (function() {
         var splash = document.getElementById('loadingSplash');
         var fill = splash ? splash.querySelector('.loading-bar-fill') : null;
+        var pctEl = document.getElementById('loadingPct');
         if (!splash) return;
 
-        /* Animate progress bar as page loads */
-        var progress = 30;
-        if (fill) fill.style.width = progress + '%';
+        var displayPct = 0;
+        var targetPct = 30;
+        var animFrame;
 
-        /* Bump progress as scripts finish */
-        function bump(pct) {
-            progress = Math.min(pct, 100);
-            if (fill) fill.style.width = progress + '%';
+        /* Smoothly animate the displayed percentage toward target */
+        function animatePct() {
+            if (displayPct < targetPct) {
+                displayPct = Math.min(displayPct + 1, targetPct);
+                if (pctEl) pctEl.textContent = displayPct + '%';
+                if (fill) fill.style.width = displayPct + '%';
+                animFrame = requestAnimationFrame(animatePct);
+            }
         }
+
+        /* Set a new target and start animating toward it */
+        function bump(pct) {
+            targetPct = Math.min(pct, 100);
+            cancelAnimationFrame(animFrame);
+            animatePct();
+        }
+
+        /* Start at 30% */
+        bump(30);
 
         /* Scripts are loaded (we're at the bottom), bump to 70% */
         bump(70);
@@ -901,12 +923,10 @@
             bump(100);
             setTimeout(function() {
                 splash.classList.add('hidden');
-                /* Remove from DOM after transition */
                 setTimeout(function() { splash.remove(); }, 700);
-            }, 300);
+            }, 400);
         }
 
-        /* Use window.onload to wait for all resources (images, fonts, etc.) */
         if (document.readyState === 'complete') {
             dismiss();
         } else {

@@ -31,8 +31,63 @@
     <link rel="stylesheet" href="sections/portfolio/portfolio.css">
     <link rel="stylesheet" href="sections/pricing/pricing.css">
     <link rel="stylesheet" href="sections/cta/cta.css">
+    <!-- Inline splash screen styles (must load before anything else) -->
+    <style>
+        .loading-splash {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .loading-splash.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .loading-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+        }
+        .loading-logo {
+            width: 60px;
+            height: auto;
+            animation: loadPulse 1.8s ease-in-out infinite;
+        }
+        .loading-bar {
+            width: 160px;
+            height: 3px;
+            background: rgba(0, 124, 135, 0.12);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .loading-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #007c87, #00b4c6);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        @keyframes loadPulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.96); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Loading Splash Screen -->
+    <div id="loadingSplash" class="loading-splash">
+        <div class="loading-inner">
+            <img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="loading-logo">
+            <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+        </div>
+    </div>
 
     <!-- Fixed Vanta.js background — persists behind hero + mountains -->
     <div id="vantaBg"></div>
@@ -820,6 +875,45 @@
     <script src="sections/team/team.js"></script>
     <script src="sections/portfolio/portfolio.js"></script>
     <script src="sections/cta/cta.js"></script>
+
+    <!-- Dismiss loading splash once everything is ready -->
+    <script>
+    (function() {
+        var splash = document.getElementById('loadingSplash');
+        var fill = splash ? splash.querySelector('.loading-bar-fill') : null;
+        if (!splash) return;
+
+        /* Animate progress bar as page loads */
+        var progress = 30;
+        if (fill) fill.style.width = progress + '%';
+
+        /* Bump progress as scripts finish */
+        function bump(pct) {
+            progress = Math.min(pct, 100);
+            if (fill) fill.style.width = progress + '%';
+        }
+
+        /* Scripts are loaded (we're at the bottom), bump to 70% */
+        bump(70);
+
+        /* Wait for all images / fonts / Vanta canvas to be ready */
+        function dismiss() {
+            bump(100);
+            setTimeout(function() {
+                splash.classList.add('hidden');
+                /* Remove from DOM after transition */
+                setTimeout(function() { splash.remove(); }, 700);
+            }, 300);
+        }
+
+        /* Use window.onload to wait for all resources (images, fonts, etc.) */
+        if (document.readyState === 'complete') {
+            dismiss();
+        } else {
+            window.addEventListener('load', dismiss);
+        }
+    })();
+    </script>
 
 </body>
 </html>

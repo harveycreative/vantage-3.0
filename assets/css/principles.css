@@ -1,0 +1,187 @@
+/* ============================================
+   PRINCIPLES SECTION
+   Data First, Automate Everything, Sweet Spot
+   ============================================ */
+
+.principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    position: relative;
+}
+
+.principle-card {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 0;
+    z-index: 1;
+    background: transparent;
+}
+
+.principle-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.principle-card.visible:hover {
+    transform: translateY(-8px);
+}
+
+/* Diagonal line pattern box offset behind cards */
+.principle-card::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: -10px;
+    bottom: -10px;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 8px,
+        #fafafa 8px,
+        #fafafa 11px
+    );
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.principle-card:nth-child(1).visible::after { animation: fadeInDiagonalBg 0.3s ease-out 0.6s forwards; }
+.principle-card:nth-child(2).visible::after { animation: fadeInDiagonalBg 0.3s ease-out 1.15s forwards; }
+.principle-card:nth-child(3).visible::after { animation: fadeInDiagonalBg 0.3s ease-out 1.7s forwards; }
+
+@keyframes fadeInDiagonalBg {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Border drawing animation */
+.principle-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 0;
+    background: 
+        linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 0% 2px no-repeat,
+        linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 0% no-repeat,
+        linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 0% 2px no-repeat,
+        linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 0% no-repeat;
+}
+
+.principle-card:nth-child(1).visible::before { animation: drawBorderClockwise 0.4s ease-out forwards; animation-delay: 0.2s; }
+.principle-card:nth-child(2).visible::before { animation: drawBorderClockwise 0.4s ease-out forwards; animation-delay: 0.75s; }
+.principle-card:nth-child(3).visible::before { animation: drawBorderClockwise 0.4s ease-out forwards; animation-delay: 1.3s; }
+
+@keyframes drawBorderClockwise {
+    0% {
+        background: 
+            linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 0% 2px no-repeat,
+            linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 0% no-repeat,
+            linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 0% 2px no-repeat,
+            linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 0% no-repeat;
+    }
+    25% {
+        background: 
+            linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 100% 2px no-repeat,
+            linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 0% no-repeat,
+            linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 0% 2px no-repeat,
+            linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 0% no-repeat;
+    }
+    50% {
+        background: 
+            linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 100% 2px no-repeat,
+            linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 100% no-repeat,
+            linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 0% 2px no-repeat,
+            linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 0% no-repeat;
+    }
+    75% {
+        background: 
+            linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 100% 2px no-repeat,
+            linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 100% no-repeat,
+            linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 100% 2px no-repeat,
+            linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 0% no-repeat;
+    }
+    100% {
+        background: 
+            linear-gradient(to left, var(--color-accent) 0%, var(--color-accent) 100%) top right / 100% 2px no-repeat,
+            linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 100%) top left / 2px 100% no-repeat,
+            linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) bottom left / 100% 2px no-repeat,
+            linear-gradient(to top, var(--color-accent) 0%, var(--color-accent) 100%) bottom right / 2px 100% no-repeat;
+    }
+}
+
+@keyframes drawLine {
+    0% { transform: translateY(-50%) scaleX(0); }
+    100% { transform: translateY(-50%) scaleX(1); }
+}
+
+/* Hide connecting lines when cards wrap to multiple rows */
+@media (max-width: 950px) {
+    .principle-card::after {
+        display: none;
+    }
+}
+
+.principle-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+}
+
+.principle-card.visible .principle-icon {
+    animation: iconZoomIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes iconZoomIn {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.principle-icon.icon-data {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007c87' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='20' x2='12' y2='10'/%3E%3Cline x1='18' y1='20' x2='18' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='16'/%3E%3C/svg%3E");
+}
+
+.principle-icon.icon-automate {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007c87' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cellipse cx='12' cy='12' rx='10' ry='4' transform='rotate(45 12 12)'/%3E%3Cellipse cx='12' cy='12' rx='10' ry='4' transform='rotate(-45 12 12)'/%3E%3Cpath d='M12 8v8M8 12h8' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+
+.principle-icon.icon-focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007c87' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Ccircle cx='12' cy='12' r='6'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3C/svg%3E");
+}
+
+.principle-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-accent);
+}
+
+.principle-description {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .principles-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}

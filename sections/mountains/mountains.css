@@ -399,7 +399,7 @@
         transform: translate(-50%, -40%);
         max-width: 320px;
         width: calc(100% - 2.5rem);
-        padding: 1rem 1rem;
+        padding: 1.5rem 1.25rem;
         background: rgba(255, 255, 255, 0.88);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
@@ -472,7 +472,7 @@
     .content-block {
         max-width: 280px;
         width: calc(100% - 2rem);
-        padding: 0.75rem 0.75rem;
+        padding: 1.25rem 1rem;
     }
 
     .block-title {

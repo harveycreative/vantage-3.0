@@ -1,22 +1,17 @@
 /* ============================================
    MOUNTAIN SECTIONS JS
-   Parallax scrolling, content block visibility,
+   Smooth parallax scrolling, content block visibility,
    rotating text in blocks
    ============================================ */
 
 (function() {
-    // Helper: get element's top position relative to the page
-    function getPageTop(el) {
-        return el.getBoundingClientRect().top + window.scrollY;
-    }
-
-    // Block rotating text animation
-    const rotatingPhrases = document.querySelectorAll('.rotating-phrase');
-    let currentPhraseIndex = 0;
+    // --- Rotating text ---
+    var rotatingPhrases = document.querySelectorAll('.rotating-phrase');
+    var currentPhraseIndex = 0;
 
     function rotatePhrase() {
         rotatingPhrases[currentPhraseIndex].classList.remove('active');
-        setTimeout(() => {
+        setTimeout(function() {
             currentPhraseIndex = (currentPhraseIndex + 1) % rotatingPhrases.length;
             rotatingPhrases[currentPhraseIndex].classList.add('active');
         }, 500);
@@ -27,94 +22,132 @@
         setInterval(rotatePhrase, 3500);
     }
 
-    // Background side mountains scroll animation (Desktop only — hidden on mobile via CSS)
-    const leftMountain = document.getElementById('leftMountain');
-    const rightMountain = document.getElementById('rightMountain');
-    const firstMountainSection = document.getElementById('outcome');
+    // --- Cached layout values (recalculated on resize, not every scroll) ---
+    var leftMountain = document.getElementById('leftMountain');
+    var rightMountain = document.getElementById('rightMountain');
+    var firstMountainSection = document.getElementById('outcome');
+    var centerMountainMiddle = document.getElementById('centerMountainMiddle');
+    var mountainSections = document.querySelectorAll('.mountain-section');
 
-    function updateBackgroundMountains() {
-        // Side mountains are hidden on mobile via CSS, but we still update for desktop
-        if (window.innerWidth <= 768) return;
-        
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
-        
-        if (!firstMountainSection) return;
-        
-        const sectionTop = getPageTop(firstMountainSection);
-        const sectionHeight = firstMountainSection.offsetHeight;
-        
-        const scrollProgress = Math.max(0, Math.min(1, (scrollY - sectionTop + windowHeight) / (sectionHeight + windowHeight)));
-        
-        const startPosition = -100;
-        const endPosition = -600;
-        const currentPosition = startPosition + (scrollProgress * (endPosition - startPosition));
-        
-        if (leftMountain) leftMountain.style.bottom = `${currentPosition}px`;
-        if (rightMountain) rightMountain.style.bottom = `${currentPosition}px`;
-    }
+    var layout = {};
 
-    window.addEventListener('scroll', updateBackgroundMountains, { passive: true });
-    window.addEventListener('resize', updateBackgroundMountains);
-    updateBackgroundMountains();
+    function cacheLayout() {
+        var scrollY = window.scrollY;
 
-    // Middle mountain layer reveal animation
-    const centerMountainMiddle = document.getElementById('centerMountainMiddle');
-    const mountainSections = document.querySelectorAll('.mountain-section');
-
-    function updateMiddleMountainReveal() {
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
-        
-        if (mountainSections.length === 0) return;
-        
-        const firstSection = mountainSections[0];
-        const lastSection = mountainSections[mountainSections.length - 1];
-        
-        const sectionTop = getPageTop(firstSection);
-        const lastSectionTop = getPageTop(lastSection);
-        const bottomSectionBottom = lastSectionTop + lastSection.offsetHeight;
-        
-        const triggerPoint = sectionTop - (windowHeight / 2);
-        const endPoint = bottomSectionBottom - windowHeight;
-        
-        const totalRevealDistance = endPoint - triggerPoint;
-        const scrollProgress = Math.max(0, Math.min(1, (scrollY - triggerPoint) / totalRevealDistance));
-        
-        const revealPercent = scrollProgress * 100;
-        if (centerMountainMiddle) {
-            centerMountainMiddle.style.setProperty('--reveal-progress', `${revealPercent}%`);
+        if (firstMountainSection) {
+            var rect = firstMountainSection.getBoundingClientRect();
+            layout.sectionTop = rect.top + scrollY;
+            layout.sectionHeight = firstMountainSection.offsetHeight;
         }
+
+        if (mountainSections.length > 0) {
+            var first = mountainSections[0];
+            var last = mountainSections[mountainSections.length - 1];
+            var firstRect = first.getBoundingClientRect();
+            var lastRect = last.getBoundingClientRect();
+
+            layout.firstTop = firstRect.top + scrollY;
+            layout.lastBottom = lastRect.top + scrollY + last.offsetHeight;
+        }
+
+        layout.windowHeight = window.innerHeight;
+        layout.isMobile = window.innerWidth <= 768;
+
+        // Cache block positions
+        contentBlocks.forEach(function(block) {
+            if (block.section) {
+                var r = block.section.getBoundingClientRect();
+                block.sectionTop = r.top + scrollY;
+                block.sectionHeight = block.section.offsetHeight;
+            }
+        });
     }
 
-    window.addEventListener('scroll', updateMiddleMountainReveal, { passive: true });
-    updateMiddleMountainReveal();
+    // --- Side mountains parallax (GPU-composited via transform) ---
+    var sideMountainY = 0;
 
-    // Content blocks visibility animation
-    const contentBlocks = [
+    function updateSideMountains(scrollY) {
+        if (layout.isMobile || !firstMountainSection) return;
+
+        var progress = Math.max(0, Math.min(1,
+            (scrollY - layout.sectionTop + layout.windowHeight) /
+            (layout.sectionHeight + layout.windowHeight)
+        ));
+
+        // Use translateY instead of bottom for GPU compositing
+        var offset = progress * -500;
+        if (Math.abs(offset - sideMountainY) < 0.5) return; // skip if barely changed
+        sideMountainY = offset;
+
+        var val = 'translateY(' + offset + 'px)';
+        if (leftMountain) leftMountain.style.transform = val;
+        if (rightMountain) rightMountain.style.transform = val;
+    }
+
+    // --- Middle mountain reveal (CSS custom property, lightweight) ---
+    var lastReveal = -1;
+
+    function updateReveal(scrollY) {
+        if (mountainSections.length === 0 || !centerMountainMiddle) return;
+
+        var triggerPoint = layout.firstTop - (layout.windowHeight / 2);
+        var endPoint = layout.lastBottom - layout.windowHeight;
+        var totalDistance = endPoint - triggerPoint;
+
+        if (totalDistance <= 0) return;
+
+        var progress = Math.max(0, Math.min(1, (scrollY - triggerPoint) / totalDistance));
+        var percent = Math.round(progress * 1000) / 10; // round to 0.1%
+
+        if (percent === lastReveal) return; // skip if unchanged
+        lastReveal = percent;
+
+        centerMountainMiddle.style.setProperty('--reveal-progress', percent + '%');
+    }
+
+    // --- Content block visibility ---
+    var contentBlocks = [
         { element: document.getElementById('outcomeBlock'), section: document.getElementById('outcome'), triggered: false },
         { element: document.getElementById('howBlock'), section: document.getElementById('how'), triggered: false },
         { element: document.getElementById('whereBlock'), section: document.getElementById('where'), triggered: false }
     ];
 
-    function updateBlocksVisibility() {
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
-
-        contentBlocks.forEach(block => {
+    function updateBlocks(scrollY) {
+        contentBlocks.forEach(function(block) {
             if (!block.element || !block.section || block.triggered) return;
 
-            const sectionTop = getPageTop(block.section);
-            const sectionHeight = block.section.offsetHeight;
-            const sectionCenter = sectionTop + (sectionHeight / 2);
+            var sectionCenter = block.sectionTop + (block.sectionHeight / 2);
 
-            if (scrollY + (windowHeight / 2) > sectionCenter - 100) {
+            if (scrollY + (layout.windowHeight / 2) > sectionCenter - 100) {
                 block.element.classList.add('visible');
                 block.triggered = true;
             }
         });
     }
 
-    window.addEventListener('scroll', updateBlocksVisibility, { passive: true });
-    updateBlocksVisibility();
+    // --- Single rAF-batched scroll handler ---
+    var ticking = false;
+
+    function onScroll() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                var scrollY = window.scrollY;
+                updateSideMountains(scrollY);
+                updateReveal(scrollY);
+                updateBlocks(scrollY);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }
+
+    // --- Init ---
+    cacheLayout();
+    onScroll();
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function() {
+        cacheLayout();
+        onScroll();
+    });
 })();

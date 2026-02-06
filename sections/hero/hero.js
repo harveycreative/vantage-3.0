@@ -22,42 +22,5 @@
     }
 })();
 
-// Vanta.js TRUNK initialization (Hero + Pricing)
-// Requires: p5.js and vanta.trunk.min.js loaded before this script
-(function() {
-    let vantaHeroEffect;
-    let vantaPricingEffect;
-    
-    function initVanta() {
-        if (typeof VANTA === 'undefined') return;
-        
-        // Hero section Vanta effect — targets fixed background div
-        if (!vantaHeroEffect) {
-            vantaHeroEffect = VANTA.TRUNK({
-                el: "#vantaBg",
-                mouseControls: true,
-                touchControls: true,
-                gyroControls: false,
-                minHeight: 200.00,
-                minWidth: 200.00,
-                scale: 1.50,
-                scaleMobile: 1.50,
-                color: 0x14b1ab,
-                backgroundColor: 0xffffff,
-                spacing: 5.00,
-                chaos: 8.00,
-                speed: 0.2
-            });
-            
-            setTimeout(() => {
-                if (vantaHeroEffect && vantaHeroEffect.camera) {
-                    vantaHeroEffect.camera.position.y = 150;
-                }
-            }, 100);
-        }
-        
-        // Pricing section now uses the shared fixed #vantaBg background
-    }
-    
-    initVanta();
-})();
+// Vanta.js is now initialized inline in index.html for faster loading.
+// The effect instance is available at window.__vantaEffect if needed.

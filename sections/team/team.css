@@ -1,0 +1,322 @@
+/* ============================================
+   TEAM SECTION
+   Orbiting team members with lightning & bio cards
+   ============================================ */
+
+.team-orbit-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 600px;
+    margin: 2rem auto 4rem;
+}
+
+.team-center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    text-align: center;
+    line-height: 1.2;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.team-center-subtext {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+    letter-spacing: 0.025em;
+}
+
+.team-connection-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.team-members {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    animation: rotateTeam 60s linear infinite;
+    z-index: 15;
+}
+
+.team-members.paused {
+    animation-play-state: paused;
+}
+
+@keyframes rotateTeam {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Counter-rotate photos to stay upright during orbit */
+@keyframes counterRotatePhoto {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+.team-member {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    margin-top: -50px;
+    transform-origin: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 15;
+}
+
+/* Desktop orbit positions */
+.team-member:nth-child(1) { transform: rotate(0deg) translateY(-220px); }
+.team-member:nth-child(2) { transform: rotate(45deg) translateY(-220px); }
+.team-member:nth-child(3) { transform: rotate(90deg) translateY(-220px); }
+.team-member:nth-child(4) { transform: rotate(135deg) translateY(-220px); }
+.team-member:nth-child(5) { transform: rotate(180deg) translateY(-220px); }
+.team-member:nth-child(6) { transform: rotate(225deg) translateY(-220px); }
+.team-member:nth-child(7) { transform: rotate(270deg) translateY(-220px); }
+.team-member:nth-child(8) { transform: rotate(315deg) translateY(-220px); }
+
+/* Apply counter-rotation animation to keep photos upright */
+.team-member .member-photo {
+    animation: counterRotatePhoto 60s linear infinite;
+}
+
+/* Offset each photo's starting rotation to match their position */
+.team-member:nth-child(1) .member-photo { animation-delay: 0s; }
+.team-member:nth-child(2) .member-photo { animation-delay: -7.5s; }
+.team-member:nth-child(3) .member-photo { animation-delay: -15s; }
+.team-member:nth-child(4) .member-photo { animation-delay: -22.5s; }
+.team-member:nth-child(5) .member-photo { animation-delay: -30s; }
+.team-member:nth-child(6) .member-photo { animation-delay: -37.5s; }
+.team-member:nth-child(7) .member-photo { animation-delay: -45s; }
+.team-member:nth-child(8) .member-photo { animation-delay: -52.5s; }
+
+/* Pause counter-rotation when orbit is paused */
+.team-members.paused .member-photo {
+    animation-play-state: paused;
+}
+
+.member-photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #007c87 0%, #006672 100%);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 15;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.team-member:hover .member-photo,
+.team-member.active .member-photo {
+    width: 140px;
+    height: 140px;
+    margin-left: -20px;
+    margin-top: -20px;
+    border-width: 4px;
+    box-shadow: 0 12px 32px rgba(0, 124, 135, 0.4);
+}
+
+/* Randy's photo styling - 50% bigger */
+.randy-photo {
+    background-size: 150% !important;
+}
+
+/* Randy's hover image swap */
+.team-member:hover .randy-photo,
+.team-member.active .randy-photo {
+    background-image: url('../../assets/images/team/randy-3.png') !important;
+}
+
+/* Bio Card Tooltip */
+.team-bio-card {
+    position: absolute;
+    width: 280px;
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 20;
+}
+
+.team-bio-card.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Triangle pointers for different positions */
+.team-bio-card::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 12px;
+}
+
+.team-bio-card.position-right::before {
+    left: -24px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-color: transparent white transparent transparent;
+}
+
+.team-bio-card.position-left::before {
+    right: -24px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-color: transparent transparent transparent white;
+}
+
+.team-bio-card.position-top::before {
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-color: white transparent transparent transparent;
+}
+
+.team-bio-card.position-bottom::before {
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-color: transparent transparent white transparent;
+}
+
+.bio-name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+}
+
+.bio-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.875rem 0;
+}
+
+.bio-description {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .team-orbit-container {
+        height: 450px;
+        max-width: 450px;
+        margin: 1.5rem auto 3rem;
+    }
+    
+    .team-center-text { font-size: 1rem; }
+    .team-center-subtext { font-size: 0.75rem; margin-top: 0.375rem; }
+    
+    .team-member {
+        width: 70px;
+        height: 70px;
+        margin-left: -35px;
+        margin-top: -35px;
+    }
+    
+    .team-member:nth-child(1) { transform: rotate(0deg) translateY(-160px); }
+    .team-member:nth-child(2) { transform: rotate(45deg) translateY(-160px); }
+    .team-member:nth-child(3) { transform: rotate(90deg) translateY(-160px); }
+    .team-member:nth-child(4) { transform: rotate(135deg) translateY(-160px); }
+    .team-member:nth-child(5) { transform: rotate(180deg) translateY(-160px); }
+    .team-member:nth-child(6) { transform: rotate(225deg) translateY(-160px); }
+    .team-member:nth-child(7) { transform: rotate(270deg) translateY(-160px); }
+    .team-member:nth-child(8) { transform: rotate(315deg) translateY(-160px); }
+    
+    .team-member:hover .member-photo,
+    .team-member.active .member-photo {
+        width: 110px;
+        height: 110px;
+        margin-left: -20px;
+        margin-top: -20px;
+    }
+    
+    .team-bio-card { width: 240px; padding: 1.25rem; }
+    .bio-name { font-size: 1.25rem; }
+    
+    .team-bio-card::before { border-width: 10px; }
+    .team-bio-card.position-right::before { left: -20px; }
+    .team-bio-card.position-left::before { right: -20px; }
+    .team-bio-card.position-top::before { bottom: -20px; }
+    .team-bio-card.position-bottom::before { top: -20px; }
+}
+
+@media (max-width: 480px) {
+    .team-orbit-container {
+        height: 380px;
+        max-width: 380px;
+        margin: 1rem auto 2rem;
+    }
+    
+    .team-center-text { font-size: 0.9375rem; }
+    .team-center-subtext { font-size: 0.6875rem; margin-top: 0.25rem; }
+    
+    .team-member {
+        width: 60px;
+        height: 60px;
+        margin-left: -30px;
+        margin-top: -30px;
+    }
+    
+    .team-member:nth-child(1) { transform: rotate(0deg) translateY(-140px); }
+    .team-member:nth-child(2) { transform: rotate(45deg) translateY(-140px); }
+    .team-member:nth-child(3) { transform: rotate(90deg) translateY(-140px); }
+    .team-member:nth-child(4) { transform: rotate(135deg) translateY(-140px); }
+    .team-member:nth-child(5) { transform: rotate(180deg) translateY(-140px); }
+    .team-member:nth-child(6) { transform: rotate(225deg) translateY(-140px); }
+    .team-member:nth-child(7) { transform: rotate(270deg) translateY(-140px); }
+    .team-member:nth-child(8) { transform: rotate(315deg) translateY(-140px); }
+    
+    .team-member:hover .member-photo,
+    .team-member.active .member-photo {
+        width: 95px;
+        height: 95px;
+        margin-left: -17.5px;
+        margin-top: -17.5px;
+    }
+    
+    .team-bio-card { width: 220px; padding: 1rem; font-size: 0.875rem; }
+    .bio-name { font-size: 1rem; }
+    .bio-title { font-size: 0.75rem; }
+    .bio-description { font-size: 0.875rem; }
+}

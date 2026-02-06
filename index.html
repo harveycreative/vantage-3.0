@@ -10,16 +10,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Modular Section Styles -->
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/hero.css">
-    <link rel="stylesheet" href="assets/css/mountains.css">
-    <link rel="stylesheet" href="assets/css/principles.css">
-    <link rel="stylesheet" href="assets/css/how-we-work.css">
-    <link rel="stylesheet" href="assets/css/what-we-do.css">
-    <link rel="stylesheet" href="assets/css/team.css">
-    <link rel="stylesheet" href="assets/css/pricing.css">
-    <link rel="stylesheet" href="assets/css/cta.css">
+    <!-- Shared Base Styles -->
+    <link rel="stylesheet" href="shared/base.css">
+
+    <!-- Section Styles -->
+    <link rel="stylesheet" href="sections/hero/hero.css">
+    <link rel="stylesheet" href="sections/mountains/mountains.css">
+    <link rel="stylesheet" href="sections/principles/principles.css">
+    <link rel="stylesheet" href="sections/how-we-work/how-we-work.css">
+    <link rel="stylesheet" href="sections/what-we-do/what-we-do.css">
+    <link rel="stylesheet" href="sections/team/team.css">
+    <link rel="stylesheet" href="sections/pricing/pricing.css">
+    <link rel="stylesheet" href="sections/cta/cta.css">
 </head>
 <body>
 
@@ -29,8 +31,19 @@
     <header>
         <div class="container">
             <img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="logo">
-            <nav>
-                <a href="#contact">Book a call</a>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="mainNav">
+                <a href="#outcome">Our Approach</a>
+                <a href="#principles">Principles</a>
+                <a href="#how-we-work">How We Work</a>
+                <a href="#what-we-do">What We Do</a>
+                <a href="#team">Team</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact" class="nav-cta">Book a Call</a>
             </nav>
         </div>
     </header>
@@ -62,9 +75,11 @@
     </section>
 
     <!-- ============================================
-         MOUNTAIN SECTION 1: THE OUTCOME
+         MOUNTAIN SECTIONS WRAPPER
+         All 3 mountain sections + shared background layers
          ============================================ -->
-    <section class="mountain-section" id="outcome">
+    <div class="mountain-sections-wrapper">
+        <!-- Mountain layers — positioned relative to wrapper, spanning all sections -->
         <div class="side-mountains-container" id="sideMountains">
             <img src="assets/images/mountains/left-mountain.png" alt="Left Mountain" class="left-mountain" id="leftMountain">
             <img src="assets/images/mountains/righ-mountain.png" alt="Right Mountain" class="right-mountain" id="rightMountain">
@@ -74,65 +89,65 @@
             <img src="assets/images/mountains/center-mountain-middle.png" alt="Mountain Middle" class="center-mountain center-mountain-middle" id="centerMountainMiddle" style="z-index: 1;">
             <img src="assets/images/mountains/center-mountain-front.png" alt="Mountain Front" class="center-mountain" style="z-index: 2;">
         </div>
-        <div class="content-block" id="outcomeBlock">
-            <div class="block-title">The Outcome</div>
-            <div class="block-content">
-                <p>Not just more <span class="rotating-wrapper">
-                    <span class="rotating-phrase">leads.</span>
-                    <span class="rotating-phrase">customers.</span>
-                    <span class="rotating-phrase">opportunities.</span>
-                </span></p>
-                <p><span class="highlight-text">Better ones</span> — at the right price.</p>
-                <div class="block-divider"></div>
-                <ul>
-                    <li class="icon-demand">Predictable demand</li>
-                    <li class="icon-attribution">Clear attribution</li>
-                    <li class="icon-opportunities">Qualified opportunities</li>
-                </ul>
-            </div>
-            <a href="#how" class="block-cta">How we get there</a>
-        </div>
-    </section>
 
-    <!-- ============================================
-         MOUNTAIN SECTION 2: HOW WE GET THERE
-         ============================================ -->
-    <section class="mountain-section" id="how">
-        <div class="content-block" id="howBlock">
-            <div class="block-title">How We Get There</div>
-            <div class="block-content">
-                <p>We don't start with ads. <span class="highlight-text">We start with your business.</span></p>
-                <div class="block-divider"></div>
-                <p><strong>Marketing only works when it fits inside:</strong></p>
-                <ul>
-                    <li class="icon-margins">margins</li>
-                    <li class="icon-capacity">capacity</li>
-                    <li class="icon-systems">systems</li>
-                </ul>
+        <!-- Mountain Section 1: The Outcome -->
+        <section class="mountain-section" id="outcome">
+            <div class="content-block" id="outcomeBlock">
+                <div class="block-title">The Outcome</div>
+                <div class="block-content">
+                    <p>Not just more <span class="rotating-wrapper">
+                        <span class="rotating-phrase">leads.</span>
+                        <span class="rotating-phrase">customers.</span>
+                        <span class="rotating-phrase">opportunities.</span>
+                    </span></p>
+                    <p><span class="highlight-text">Better ones</span> — at the right price.</p>
+                    <div class="block-divider"></div>
+                    <ul>
+                        <li class="icon-demand">Predictable demand</li>
+                        <li class="icon-attribution">Clear attribution</li>
+                        <li class="icon-opportunities">Qualified opportunities</li>
+                    </ul>
+                </div>
+                <a href="#how" class="block-cta">How we get there</a>
             </div>
-            <a href="#where" class="block-cta">Where we start</a>
-        </div>
-    </section>
+        </section>
 
-    <!-- ============================================
-         MOUNTAIN SECTION 3: WHERE IT ACTUALLY BEGINS
-         ============================================ -->
-    <section class="mountain-section" id="where">
-        <div class="content-block" id="whereBlock">
-            <div class="block-title">Where It Actually Begins</div>
-            <div class="block-content">
-                <p>Before we spend a dollar on marketing, we reverse-engineer how <span class="highlight-text">your business makes money</span> — and whether marketing can responsibly accelerate it.</p>
-                <div class="block-divider"></div>
-                <p><strong>This is where:</strong></p>
-                <ul>
-                    <li class="icon-waste">waste is removed</li>
-                    <li class="icon-automation">automation is applied</li>
-                    <li class="icon-humans">humans stay in their wheelhouse</li>
-                </ul>
+        <!-- Mountain Section 2: How We Get There -->
+        <section class="mountain-section" id="how">
+            <div class="content-block" id="howBlock">
+                <div class="block-title">How We Get There</div>
+                <div class="block-content">
+                    <p>We don't start with ads. <span class="highlight-text">We start with your business.</span></p>
+                    <div class="block-divider"></div>
+                    <p><strong>Marketing only works when it fits inside:</strong></p>
+                    <ul>
+                        <li class="icon-margins">margins</li>
+                        <li class="icon-capacity">capacity</li>
+                        <li class="icon-systems">systems</li>
+                    </ul>
+                </div>
+                <a href="#where" class="block-cta">Where we start</a>
             </div>
-            <a href="#principles" class="block-cta">Our Principles</a>
-        </div>
-    </section>
+        </section>
+
+        <!-- Mountain Section 3: Where It Actually Begins -->
+        <section class="mountain-section" id="where">
+            <div class="content-block" id="whereBlock">
+                <div class="block-title">Where It Actually Begins</div>
+                <div class="block-content">
+                    <p>Before we spend a dollar on marketing, we reverse-engineer how <span class="highlight-text">your business makes money</span> — and whether marketing can responsibly accelerate it.</p>
+                    <div class="block-divider"></div>
+                    <p><strong>This is where:</strong></p>
+                    <ul>
+                        <li class="icon-waste">waste is removed</li>
+                        <li class="icon-automation">automation is applied</li>
+                        <li class="icon-humans">humans stay in their wheelhouse</li>
+                    </ul>
+                </div>
+                <a href="#principles" class="block-cta">Our Principles</a>
+            </div>
+        </section>
+    </div>
 
     <!-- ============================================
          PRINCIPLES SECTION
@@ -395,15 +410,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.trunk.min.js"></script>
 
-    <!-- Section Scripts (order matters: global first, then sections) -->
-    <script src="assets/js/global.js"></script>
-    <script src="assets/js/hero.js"></script>
-    <script src="assets/js/mountains.js"></script>
-    <script src="assets/js/principles.js"></script>
-    <script src="assets/js/how-we-work.js"></script>
-    <script src="assets/js/what-we-do.js"></script>
-    <script src="assets/js/team.js"></script>
-    <script src="assets/js/cta.js"></script>
+    <!-- Shared Global Scripts -->
+    <script src="shared/global.js"></script>
+
+    <!-- Section Scripts -->
+    <script src="sections/hero/hero.js"></script>
+    <script src="sections/mountains/mountains.js"></script>
+    <script src="sections/principles/principles.js"></script>
+    <script src="sections/how-we-work/how-we-work.js"></script>
+    <script src="sections/what-we-do/what-we-do.js"></script>
+    <script src="sections/team/team.js"></script>
+    <script src="sections/cta/cta.js"></script>
 
 </body>
 </html>

@@ -38,8 +38,11 @@
     font-family: var(--font-display);
     font-size: clamp(2rem, 4.5vw, 3.25rem);
     font-weight: 700;
-    color: var(--color-text);
     line-height: 1.2;
+    background: linear-gradient(135deg, var(--color-text) 30%, #007c87 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* --- Pillars Grid --- */
@@ -72,13 +75,16 @@
 }
 
 .wwd-pillar:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 16px 48px rgba(0, 124, 135, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
-    transform: translateY(-6px);
+    border-color: rgba(0, 124, 135, 0.35);
+    box-shadow: 0 20px 56px rgba(0, 124, 135, 0.14),
+                0 0 32px rgba(0, 124, 135, 0.08),
+                0 0 0 1px rgba(0, 124, 135, 0.1);
+    transform: translateY(-6px) scale(1.015);
+    background: linear-gradient(180deg, rgba(0, 124, 135, 0.025) 0%, #ffffff 25%);
 }
 
 .wwd-pillar.visible:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px) scale(1.01);
 }
 
 /* Animated top accent bar */
@@ -96,7 +102,7 @@
     width: 100%;
 }
 
-/* Watermark number */
+/* Watermark number — gradient treatment */
 .wwd-pillar::before {
     content: attr(data-pillar);
     position: absolute;
@@ -106,13 +112,18 @@
     font-size: 7rem;
     font-weight: 900;
     line-height: 1;
-    color: rgba(0, 124, 135, 0.04);
     pointer-events: none;
-    transition: color 0.35s ease;
+    background: linear-gradient(135deg, rgba(0, 124, 135, 0.06) 0%, rgba(0, 124, 135, 0.02) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: opacity 0.35s ease;
 }
 
 .wwd-pillar:hover::before {
-    color: rgba(0, 124, 135, 0.08);
+    background: linear-gradient(135deg, rgba(0, 124, 135, 0.12) 0%, rgba(0, 124, 135, 0.04) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 /* --- Icon --- */

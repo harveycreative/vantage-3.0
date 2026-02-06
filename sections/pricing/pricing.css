@@ -25,16 +25,45 @@
     z-index: 3;
 }
 
+#pricing .section-title {
+    background: linear-gradient(135deg, var(--color-text) 30%, #007c87 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .pricing-content {
     text-align: center;
     max-width: 700px;
     margin: 0 auto 3rem;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 124, 135, 0.08);
+    border-radius: 16px;
+    padding: 3rem 2.5rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.pricing-content:hover {
+    border-color: rgba(0, 124, 135, 0.2);
+    box-shadow: 0 16px 48px rgba(0, 124, 135, 0.08),
+                0 0 24px rgba(0, 124, 135, 0.04);
 }
 
 .pricing-content p {
     font-size: 1.125rem;
     line-height: 1.8;
     margin-bottom: 1.5rem;
+}
+
+.pricing-content p strong {
+    background: linear-gradient(135deg, var(--color-text) 30%, #007c87 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.25rem;
 }
 
 .pricing-content .emphasis {
@@ -67,8 +96,10 @@
 }
 
 .pricing-cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 124, 135, 0.3);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(0, 124, 135, 0.4),
+                0 0 30px rgba(0, 124, 135, 0.2),
+                0 0 0 1px rgba(0, 124, 135, 0.3);
     background: var(--color-accent-dark);
 }
 
@@ -82,7 +113,10 @@
 .pricing-cta-button.secondary:hover {
     background: var(--color-accent);
     color: white;
-    box-shadow: 0 8px 20px rgba(0, 124, 135, 0.3);
+    box-shadow: 0 16px 40px rgba(0, 124, 135, 0.4),
+                0 0 30px rgba(0, 124, 135, 0.2),
+                0 0 0 1px rgba(0, 124, 135, 0.3);
+    transform: translateY(-4px) scale(1.02);
 }
 
 /* ---- Responsive ---- */
@@ -90,6 +124,8 @@
     .pricing-content {
         max-width: 100%;
         margin: 0 auto 2rem;
+        padding: 2rem 1.5rem;
+        border-radius: 12px;
     }
     
     .pricing-content p { font-size: 1rem; }

@@ -220,8 +220,10 @@ section {
 .section-nav-button:hover {
     background: var(--color-accent);
     color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 124, 135, 0.25);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 36px rgba(0, 124, 135, 0.35),
+                0 0 24px rgba(0, 124, 135, 0.15),
+                0 0 0 1px rgba(0, 124, 135, 0.3);
 }
 
 /* Shared Components */
@@ -248,6 +250,34 @@ section {
 @keyframes highlightSweep {
     0% { background-size: 0% 100%; }
     100% { background-size: 100% 100%; }
+}
+
+/* ---- Shared visual DNA (portfolio-inspired) ---- */
+
+/* Reusable noise overlay for dark sections */
+.section-noise {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Gradient text utility: white → teal */
+.gradient-text {
+    background: linear-gradient(135deg, #ffffff 20%, #007c87 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Dark variant: dark → teal (for light sections) */
+.gradient-text-dark {
+    background: linear-gradient(135deg, var(--color-text) 30%, #007c87 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* ---- Responsive ---- */
@@ -365,6 +395,7 @@ section {
     nav.open a:nth-child(5) { transition-delay: 0.2s; }
     nav.open a:nth-child(6) { transition-delay: 0.24s; }
     nav.open a:nth-child(7) { transition-delay: 0.28s; }
+    nav.open a:nth-child(8) { transition-delay: 0.32s; }
 
     /* "Book a Call" CTA in mobile menu */
     nav .nav-cta {

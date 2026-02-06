@@ -117,24 +117,29 @@
 .hero-cta {
     background: var(--color-accent);
     color: white;
+    box-shadow: 0 4px 16px rgba(0, 124, 135, 0.2);
 }
 
 .hero-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 124, 135, 0.3);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(0, 124, 135, 0.4),
+                0 0 30px rgba(0, 124, 135, 0.2),
+                0 0 0 1px rgba(0, 124, 135, 0.3);
     background: var(--color-accent-dark);
 }
 
 .hero-cta-secondary {
     background: #0a0a0a;
     color: white;
-    border: 1px solid #0a0a0a;
+    border: 1px solid rgba(0, 124, 135, 0.15);
 }
 
 .hero-cta-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(10, 10, 10, 0.3);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(10, 10, 10, 0.4),
+                0 0 20px rgba(0, 124, 135, 0.12);
     background: #1a1a1a;
+    border-color: rgba(0, 124, 135, 0.3);
 }
 
 /* ---- Responsive ---- */

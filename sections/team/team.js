@@ -96,10 +96,10 @@
             ctx.lineWidth   = 2;
             ctx.shadowColor = 'rgba(0, 124, 135, 0.6)';
             ctx.shadowBlur  = 14 * lineAlpha;
-            ctx.beginPath();
+                ctx.beginPath();
             ctx.moveTo(cx, cy);
             ctx.lineTo(mx, my);
-            ctx.stroke();
+                ctx.stroke();
 
             ctx.fillStyle = `rgba(0, 124, 135, ${lineAlpha})`;
             ctx.beginPath();

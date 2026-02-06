@@ -74,8 +74,8 @@
             (layout.sectionHeight + layout.windowHeight)
         ));
 
-        // Use translateY instead of bottom for GPU compositing
-        var offset = progress * -500;
+        // Use translateY instead of bottom for GPU compositing (positive = down)
+        var offset = progress * 500;
         if (Math.abs(offset - sideMountainY) < 0.5) return; // skip if barely changed
         sideMountainY = offset;
 

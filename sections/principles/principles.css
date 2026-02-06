@@ -123,16 +123,35 @@
 .data-bar {
     width: 14px;
     height: 0;
-    background: linear-gradient(to top, var(--color-accent), rgba(0, 124, 135, 0.4));
     border-radius: 4px 4px 0 0;
     opacity: 0;
     transition: none;
+    position: relative;
+    overflow: hidden;
+    background: rgba(0, 124, 135, 0.1);
+}
+
+.data-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    background: linear-gradient(to top, var(--color-accent), rgba(0, 124, 135, 0.4));
+    border-radius: 4px 4px 0 0;
+    animation: barWave 6s ease-in-out infinite;
+    animation-delay: var(--d);
+    animation-play-state: paused;
 }
 
 .principle-card.visible .data-bar {
-    animation: barGrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-               barPulse 3s ease-in-out infinite;
-    animation-delay: var(--d), calc(var(--d) + 1s);
+    animation: barGrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--d);
+}
+
+.principle-card.visible .data-bar::after {
+    animation-play-state: running;
 }
 
 @keyframes barGrow {
@@ -140,9 +159,9 @@
     100% { height: var(--h); opacity: 1; }
 }
 
-@keyframes barPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.65; }
+@keyframes barWave {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(55%); }
 }
 
 .data-line-svg {
@@ -251,25 +270,35 @@
 
 .principle-card.visible .orbit-1 {
     animation: orbitAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards,
-               spin 8s linear 0.7s infinite;
+               orbitCW 6s ease-in-out 0.7s infinite;
 }
 
 .principle-card.visible .orbit-2 {
     animation: orbitAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards,
-               spinReverse 6s linear 0.8s infinite;
+               orbitCCW 6s ease-in-out 0.8s infinite;
 }
 
 .principle-card.visible .orbit-3 {
     animation: orbitAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards,
-               spin 4s linear 0.9s infinite;
+               orbitCW 6s ease-in-out 0.9s infinite;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+/* Orbit clockwise, pause at top (0deg), then continue */
+@keyframes orbitCW {
+    0%   { transform: rotate(0deg); }
+    40%  { transform: rotate(360deg); }
+    50%  { transform: rotate(360deg); }   /* hold aligned */
+    90%  { transform: rotate(720deg); }
+    100% { transform: rotate(720deg); }   /* hold aligned */
 }
 
-@keyframes spinReverse {
-    to { transform: rotate(-360deg); }
+/* Orbit counter-clockwise, pause at top (0deg), then continue */
+@keyframes orbitCCW {
+    0%   { transform: rotate(0deg); }
+    40%  { transform: rotate(-360deg); }
+    50%  { transform: rotate(-360deg); }  /* hold aligned */
+    90%  { transform: rotate(-720deg); }
+    100% { transform: rotate(-720deg); }  /* hold aligned */
 }
 
 .core-dot {

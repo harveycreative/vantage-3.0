@@ -1,31 +1,20 @@
 /* ============================================
    TEAM SECTION
-   Premium dark orbiting team with expanded bios
+   Premium light orbiting team with expanded bios
    ============================================ */
 
 .tm-section {
     position: relative;
     padding: 7rem 0 5rem;
-    background: #0a0a0a;
+    background: #ffffff;
     overflow: hidden;
 }
 
-/* Film-grain noise — portfolio-inspired */
-.tm-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    background-size: 256px 256px;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Radial glow behind orbit */
+/* Subtle radial glow behind orbit */
 .tm-bg-radial {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 55%, rgba(0, 124, 135, 0.06) 0%, transparent 60%);
+    background: radial-gradient(circle at 50% 55%, rgba(0, 124, 135, 0.04) 0%, transparent 60%);
     pointer-events: none;
 }
 
@@ -58,11 +47,7 @@
     font-size: clamp(1.75rem, 4vw, 2.75rem);
     font-weight: 700;
     line-height: 1.25;
-    background: linear-gradient(135deg, #ffffff 30%, #007c87 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background: linear-gradient(135deg, #ffffff 30%, #007c87 100%);
+    background: linear-gradient(135deg, var(--color-text) 30%, #007c87 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -104,7 +89,7 @@
 
 .tm-track-ring {
     fill: none;
-    stroke: rgba(0, 124, 135, 0.12);
+    stroke: rgba(0, 124, 135, 0.15);
     stroke-width: 1;
     stroke-dasharray: 6 8;
     opacity: 0;
@@ -135,10 +120,23 @@
     white-space: nowrap;
     position: relative;
     z-index: 2;
-    background: linear-gradient(135deg, #ffffff 20%, #007c87 100%);
+    background: linear-gradient(135deg, var(--color-text) 20%, #007c87 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+}
+
+.tm-hub-sub {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    -webkit-text-fill-color: transparent;
 }
 
 .tm-hub-ring {
@@ -149,14 +147,14 @@
     left: 50%;
 }
 
-.ring-1 {
+.tm-hub-ring.ring-1 {
     width: 160px;
     height: 160px;
     margin: -80px 0 0 -80px;
     opacity: 0;
 }
 
-.ring-2 {
+.tm-hub-ring.ring-2 {
     width: 200px;
     height: 200px;
     margin: -100px 0 0 -100px;
@@ -166,11 +164,11 @@
     opacity: 0;
 }
 
-.tm-orbit-stage.visible .ring-1 {
+.tm-orbit-stage.visible .tm-hub-ring.ring-1 {
     animation: hubRingIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
 }
 
-.tm-orbit-stage.visible .ring-2 {
+.tm-orbit-stage.visible .tm-hub-ring.ring-2 {
     animation: hubRingIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards,
                hubRingSpin 30s linear 1.2s infinite;
 }
@@ -292,13 +290,15 @@
     background-size: cover;
     background-position: center center;
     background-origin: border-box;
-    background-color: #1a2a2c;
-    border: 3px solid rgba(0, 124, 135, 0.4);
-    box-shadow: 0 0 0 0 rgba(0, 124, 135, 0), 0 4px 16px rgba(0, 0, 0, 0.4);
+    background-color: #e8f0f0;
+    border: 3px solid rgba(0, 124, 135, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 124, 135, 0);
+    filter: grayscale(100%);
     transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                 height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.3s ease,
-                box-shadow 0.4s ease;
+                box-shadow 0.4s ease,
+                filter 0.5s ease;
     flex-shrink: 0;
 }
 
@@ -309,7 +309,7 @@
     font-family: var(--font-body);
     font-size: 0.875rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--color-text-muted);
     white-space: nowrap;
     text-align: center;
     letter-spacing: 0.02em;
@@ -323,12 +323,13 @@
     width: 100px;
     height: 100px;
     border-color: var(--color-accent);
-    box-shadow: 0 0 20px 4px rgba(0, 124, 135, 0.35), 0 8px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 28px rgba(0, 124, 135, 0.2), 0 0 20px rgba(0, 124, 135, 0.1);
+    filter: grayscale(0%);
 }
 
 .tm-member.active .tm-name,
 .tm-member:hover .tm-name {
-    color: #ffffff;
+    color: var(--color-text);
 }
 
 /* Entrance animation per member */
@@ -350,17 +351,6 @@
 .tm-orbit-stage.visible .tm-member:nth-child(7) { transition-delay: 1.1s; }
 .tm-orbit-stage.visible .tm-member:nth-child(8) { transition-delay: 1.2s; }
 
-/* Randy photo adjustment */
-.randy-photo {
-    background-size: cover !important;
-    background-position: center center !important;
-}
-
-.tm-member:hover .randy-photo,
-.tm-member.active .randy-photo {
-    background-image: url('../../assets/images/team/randy-3.png') !important;
-}
-
 /* ============================================
    EXPANDED BIO PANEL
    Desktop: slides in from the right
@@ -368,26 +358,36 @@
    ============================================ */
 .tm-panel {
     width: 0;
+    height: 0;
     max-width: 380px;
     overflow: hidden;
     opacity: 0;
     transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.4s ease,
-                padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    background: rgba(20, 20, 20, 0.95);
-    border: 1px solid rgba(0, 124, 135, 0.2);
+                height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid transparent;
+    border-radius: 16px;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    box-shadow: none;
     padding: 0;
     position: relative;
     align-self: center;
     flex-shrink: 0;
+    min-width: 0;
 }
 
 .tm-panel.open {
     width: 380px;
+    height: auto;
     opacity: 1;
     padding: 2.5rem 2rem;
+    border-color: rgba(0, 124, 135, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.4s ease,
+                padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Close button */
@@ -396,8 +396,9 @@
     top: 1rem;
     right: 1rem;
     background: none;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 124, 135, 0.15);
+    border-radius: 50%;
+    color: var(--color-text-muted);
     width: 36px;
     height: 36px;
     font-size: 1.25rem;
@@ -410,9 +411,9 @@
 }
 
 .tm-panel-close:hover {
-    color: #ffffff;
+    color: var(--color-accent);
     border-color: var(--color-accent);
-    background: rgba(0, 124, 135, 0.15);
+    background: rgba(0, 124, 135, 0.06);
 }
 
 /* Panel photo */
@@ -422,9 +423,9 @@
     border-radius: 50%;
     background-size: cover;
     background-position: center center;
-    background-color: #1a2a2c;
+    background-color: #e8f0f0;
     border: 3px solid var(--color-accent);
-    box-shadow: 0 0 24px rgba(0, 124, 135, 0.25);
+    box-shadow: 0 0 24px rgba(0, 124, 135, 0.15);
     margin: 0 auto 1.5rem;
     opacity: 0;
     transform: scale(0.85);
@@ -441,7 +442,7 @@
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--color-text);
     text-align: center;
     margin: 0 0 0.35rem;
     line-height: 1.3;
@@ -469,15 +470,15 @@
 .tm-panel-bio {
     font-size: 0.9375rem;
     line-height: 1.75;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-muted);
     margin: 0;
-    text-align: center;
+    text-align: left;
 }
 
-/* --- Nav Button (light version) --- */
+/* --- Nav Button --- */
 .tm-nav-btn {
-    border-color: rgba(255, 255, 255, 0.3) !important;
-    color: #ffffff !important;
+    border-color: var(--color-accent) !important;
+    color: var(--color-accent) !important;
     background: transparent !important;
 }
 
@@ -506,18 +507,18 @@
     .tm-panel {
         max-width: 100%;
         width: 100% !important;
+        height: 0;
         opacity: 0;
-        max-height: 0;
         overflow: hidden;
-        transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                    opacity 0.4s ease,
-                    padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: opacity 0.3s ease;
     }
 
     .tm-panel.open {
-        max-height: 600px;
+        height: auto;
         opacity: 1;
         padding: 2.5rem 2rem;
+        transition: opacity 0.4s ease,
+                    padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 }
 
@@ -570,8 +571,8 @@
     .tm-member:nth-child(7) { transform: rotate(270deg) translateY(-160px); }
     .tm-member:nth-child(8) { transform: rotate(315deg) translateY(-160px); }
 
-    .ring-1 { width: 120px; height: 120px; margin: -60px 0 0 -60px; }
-    .ring-2 { width: 155px; height: 155px; margin: -77.5px 0 0 -77.5px; }
+    .tm-hub-ring.ring-1 { width: 120px; height: 120px; margin: -60px 0 0 -60px; }
+    .tm-hub-ring.ring-2 { width: 155px; height: 155px; margin: -77.5px 0 0 -77.5px; }
 
     .tm-hub-label { font-size: 1.25rem; }
 
@@ -626,8 +627,8 @@
     .tm-member:nth-child(7) { transform: rotate(270deg) translateY(-130px); }
     .tm-member:nth-child(8) { transform: rotate(315deg) translateY(-130px); }
 
-    .ring-1 { width: 100px; height: 100px; margin: -50px 0 0 -50px; }
-    .ring-2 { width: 130px; height: 130px; margin: -65px 0 0 -65px; }
+    .tm-hub-ring.ring-1 { width: 100px; height: 100px; margin: -50px 0 0 -50px; }
+    .tm-hub-ring.ring-2 { width: 130px; height: 130px; margin: -65px 0 0 -65px; }
 
     .tm-hub-label { font-size: 1.125rem; }
 

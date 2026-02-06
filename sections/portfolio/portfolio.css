@@ -197,6 +197,21 @@
     opacity: 1;
     transform: scale(1);
 }
+
+/* Vimeo thumbnail overlay */
+.pf-video-thumb {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.7;
+    transition: opacity 0.6s ease, transform 0.8s ease;
+    transform: scale(1.05);
+}
+.pf-card--video:hover .pf-video-thumb {
+    opacity: 1;
+    transform: scale(1);
+}
 .pf-card--video::after {
     content: '';
     position: absolute;
@@ -406,20 +421,17 @@
     50% { transform: translateX(8px); }
 }
 
-/* ---- Section nav button ---- */
+/* ---- Section nav button (match team style) ---- */
 .pf-nav-btn {
-    display: block;
-    text-align: center;
-    margin: 60px auto 0;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
-    text-decoration: none;
-    transition: color 0.3s;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+    background: transparent !important;
 }
-.pf-nav-btn:hover { color: #007c87; }
+.pf-nav-btn:hover {
+    border-color: var(--color-accent) !important;
+    background: var(--color-accent) !important;
+    color: #ffffff !important;
+}
 
 /* =============================================
    LIGHTBOX

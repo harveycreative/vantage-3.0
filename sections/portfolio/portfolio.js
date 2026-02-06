@@ -154,25 +154,12 @@
     window.addEventListener('scroll', animateCounters, { passive: true });
 
     /* --------------------------------------------------
-       5.  VIDEO HOVER PLAY
+       5.  VIDEO CARDS (hover state only — no local video)
        -------------------------------------------------- */
     const videoCards = section.querySelectorAll('.pf-card--video');
-    videoCards.forEach(function (card) {
-        const vid = card.querySelector('.pf-video');
-        if (!vid) return;
-
-        card.addEventListener('mouseenter', function () {
-            vid.play().catch(function () {});
-            card.classList.add('playing');
-        });
-        card.addEventListener('mouseleave', function () {
-            vid.pause();
-            card.classList.remove('playing');
-        });
-    });
 
     /* --------------------------------------------------
-       6.  LIGHTBOX
+       6.  LIGHTBOX (supports Vimeo embeds + local video)
        -------------------------------------------------- */
     // Create lightbox element
     const lb = document.createElement('div');
@@ -183,17 +170,46 @@
     const lbClose   = lb.querySelector('.pf-lightbox-close');
 
     function openLightbox(card) {
-        const vid = card.querySelector('.pf-video');
-        if (vid) {
-            const clone = vid.cloneNode(true);
-            clone.controls = true;
-            clone.muted = false;
-            clone.autoplay = true;
-            clone.style.width = '100%';
-            lbContent.innerHTML = '';
-            lbContent.appendChild(clone);
-            clone.play().catch(function () {});
+        lbContent.innerHTML = '';
+
+        // Check for Vimeo embed
+        var vimeoId = card.getAttribute('data-vimeo');
+        if (vimeoId) {
+            var iframe = document.createElement('iframe');
+            iframe.src = 'https://player.vimeo.com/video/' + vimeoId + '?autoplay=1&title=0&byline=0&portrait=0';
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+            lbContent.style.position = 'relative';
+            lbContent.style.width = '80vw';
+            lbContent.style.maxWidth = '1200px';
+            lbContent.style.paddingBottom = '56.25%'; /* 16:9 */
+            lbContent.style.height = '0';
+            lbContent.appendChild(iframe);
+        } else {
+            // Fallback: local video
+            var vid = card.querySelector('.pf-video');
+            if (vid) {
+                var clone = vid.cloneNode(true);
+                clone.controls = true;
+                clone.muted = false;
+                clone.autoplay = true;
+                clone.style.width = '100%';
+                lbContent.style.position = '';
+                lbContent.style.width = '';
+                lbContent.style.maxWidth = '';
+                lbContent.style.paddingBottom = '';
+                lbContent.style.height = '';
+                lbContent.appendChild(clone);
+                clone.play().catch(function () {});
+            }
         }
+
         lb.classList.add('open');
         document.body.style.overflow = 'hidden';
     }
@@ -201,7 +217,14 @@
     function closeLightbox() {
         lb.classList.remove('open');
         document.body.style.overflow = '';
-        setTimeout(function () { lbContent.innerHTML = ''; }, 400);
+        setTimeout(function () {
+            lbContent.innerHTML = '';
+            lbContent.style.position = '';
+            lbContent.style.width = '';
+            lbContent.style.maxWidth = '';
+            lbContent.style.paddingBottom = '';
+            lbContent.style.height = '';
+        }, 400);
     }
 
     videoCards.forEach(function (card) {

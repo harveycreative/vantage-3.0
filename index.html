@@ -1112,25 +1112,34 @@
                         
                         // Rainbow gradient for Randy (index 3), teal for others
                         if (closestIndex === 3) {
-                            // Create rainbow gradient from start to end of lightning bolt
+                            // Create smooth rainbow gradient from start to end of lightning bolt
                             const gradient = ctx.createLinearGradient(centerEdgeX, centerEdgeY, memberEdgeX, memberEdgeY);
-                            gradient.addColorStop(0, '#FF0000');    // Red
-                            gradient.addColorStop(0.2, '#FF7F00');  // Orange
-                            gradient.addColorStop(0.4, '#FFFF00');  // Yellow
-                            gradient.addColorStop(0.6, '#00FF00');  // Green
-                            gradient.addColorStop(0.8, '#0000FF');  // Blue
-                            gradient.addColorStop(1, '#9400D3');    // Violet
+                            
+                            // Red -> Yellow -> Blue gradient
+                            gradient.addColorStop(0, '#FF0000');     // Red
+                            gradient.addColorStop(0.15, '#FF3300');  // Red-Orange
+                            gradient.addColorStop(0.25, '#FF6600');  // Orange
+                            gradient.addColorStop(0.35, '#FFAA00');  // Orange-Yellow
+                            gradient.addColorStop(0.5, '#FFFF00');   // Yellow
+                            gradient.addColorStop(0.6, '#CCFF33');   // Yellow-Green
+                            gradient.addColorStop(0.7, '#66FF66');   // Light Green
+                            gradient.addColorStop(0.8, '#00CCFF');   // Cyan
+                            gradient.addColorStop(0.9, '#3366FF');   // Light Blue
+                            gradient.addColorStop(1, '#0000FF');     // Blue
                             
                             ctx.strokeStyle = gradient;
-                            ctx.shadowColor = '#FF00FF'; // Purple glow
+                            
+                            // Use rainbow color for glow based on bolt position
+                            const glowColors = ['#FF0000', '#FFFF00', '#0000FF'];
+                            ctx.shadowColor = glowColors[boltNum % 3];
                         } else {
                             ctx.strokeStyle = '#007c87';
                             ctx.shadowColor = '#007c87';
                         }
                         
-                        ctx.lineWidth = 2 * widthMultiplier;
-                        ctx.globalAlpha = (0.15 + 0.35 * intensity) * alphaMultiplier;
-                        ctx.shadowBlur = 12 * intensity * alphaMultiplier;
+                        ctx.lineWidth = 2.5 * widthMultiplier;
+                        ctx.globalAlpha = (0.2 + 0.4 * intensity) * alphaMultiplier;
+                        ctx.shadowBlur = 15 * intensity * alphaMultiplier;
                         ctx.stroke();
                     }
                     

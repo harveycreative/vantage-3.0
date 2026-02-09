@@ -62,10 +62,16 @@ header .container {
     align-items: center;
 }
 
+.logo-link {
+    display: flex;
+    align-items: center;
+    z-index: 1001;
+    position: relative;
+    cursor: pointer;
+}
+
 .logo {
     height: 32px;
-    position: relative;
-    z-index: 1001;
 }
 
 /* Desktop Nav */
@@ -278,6 +284,41 @@ section {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 900;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 124, 135, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease, background 0.25s ease;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--color-accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 124, 135, 0.4);
 }
 
 /* ---- Responsive ---- */

@@ -95,9 +95,46 @@
 document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        var target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        var href = this.getAttribute('href');
+        if (href === '#' || href === '#top') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            var target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
     });
 });
+
+// Logo — scroll to top
+(function () {
+    var logoLink = document.querySelector('.logo-link');
+    if (logoLink) {
+        logoLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+})();
+
+// Back to Top Button — show after scrolling past first viewport
+(function () {
+    var btn = document.getElementById('backToTop');
+    if (!btn) return;
+
+    function toggle() {
+        if (window.scrollY > window.innerHeight * 0.8) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    }
+
+    window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
+
+    btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+})();

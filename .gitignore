@@ -37,5 +37,8 @@ node_modules/
 npm-debug.log*
 package-lock.json
 
+# Build artifacts
+assets/compiled.css
+
 # Design source files (large PSDs - optional, uncomment to exclude)
 # design/psd/

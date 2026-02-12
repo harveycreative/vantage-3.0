@@ -9,28 +9,17 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/brand/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/brand/apple-touch-icon.png">
 
-    <!-- Preload Vanta.js dependencies for faster hero animation -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.trunk.min.js" as="script">
+    <!-- Preload critical above-fold images -->
+    <link rel="preload" href="assets/images/brand/Vantage-Method-Dark.png" as="image">
+    <link rel="preload" href="assets/images/mountains/center-mountain-front.webp" as="image">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Shared Base Styles -->
-    <link rel="stylesheet" href="shared/base.css">
-
-    <!-- Section Styles -->
-    <link rel="stylesheet" href="sections/hero/hero.css">
-    <link rel="stylesheet" href="sections/mountains/mountains.css">
-    <link rel="stylesheet" href="sections/principles/principles.css">
-    <link rel="stylesheet" href="sections/how-we-work/how-we-work.css">
-    <link rel="stylesheet" href="sections/what-we-do/what-we-do.css">
-    <link rel="stylesheet" href="sections/team/team.css">
-    <link rel="stylesheet" href="sections/portfolio/portfolio.css">
-    <link rel="stylesheet" href="sections/pricing/pricing.css">
-    <link rel="stylesheet" href="sections/cta/cta.css">
+    <!-- Compiled CSS (all sections concatenated and minified by build.js) -->
+    <link rel="stylesheet" href="assets/compiled.css">
     <!-- Inline splash screen styles (must load before anything else) -->
     <style>
         .loading-splash {
@@ -90,7 +79,7 @@
     <!-- Loading Splash Screen -->
     <div id="loadingSplash" class="loading-splash">
         <div class="loading-inner">
-            <img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="loading-logo">
+            <img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="loading-logo" fetchpriority="high">
             <div class="loading-bar"><div class="loading-bar-fill"></div></div>
             <span class="loading-pct" id="loadingPct">0%</span>
         </div>
@@ -104,7 +93,7 @@
          ============================================ -->
     <header>
         <div class="container">
-            <a href="#" class="logo-link" aria-label="Back to top"><img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="logo"></a>
+            <a href="#" class="logo-link" aria-label="Back to top"><img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="logo" fetchpriority="high"></a>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -148,13 +137,8 @@
 
     <!-- ============================================
          SCRIPTS
-         Vanta.js dependencies loaded first,
-         then modular section scripts
+         Vanta.js loaded dynamically by hero.js after first paint
          ============================================ -->
-    <!-- Vanta.js Dependencies (pinned version, preloaded in <head> for speed) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.trunk.min.js"></script>
-
     <!-- Shared Global Scripts -->
     <script src="shared/global.js"></script>
 
@@ -171,7 +155,7 @@
     <!-- reCAPTCHA v3 for GHL form submission — TODO: replace SITE_KEY with your GHL reCAPTCHA site key -->
     <script src="https://www.google.com/recaptcha/api.js?render=6LeDBFwpAAAAAJe8ux9-imrqZ2ueRsEtdiWoDDpX" async></script>
 
-    <!-- Dismiss loading splash once everything is ready -->
+    <!-- Dismiss loading splash once ready, or after 3s max -->
     <script>
     (function() {
         var splash = document.getElementById('loadingSplash');
@@ -182,8 +166,8 @@
         var displayPct = 0;
         var targetPct = 30;
         var animFrame;
+        var dismissed = false;
 
-        /* Smoothly animate the displayed percentage toward target */
         function animatePct() {
             if (displayPct < targetPct) {
                 displayPct = Math.min(displayPct + 1, targetPct);
@@ -193,21 +177,18 @@
             }
         }
 
-        /* Set a new target and start animating toward it */
         function bump(pct) {
             targetPct = Math.min(pct, 100);
             cancelAnimationFrame(animFrame);
             animatePct();
         }
 
-        /* Start at 30% */
         bump(30);
-
-        /* Scripts are loaded (we're at the bottom), bump to 70% */
         bump(70);
 
-        /* Wait for all images / fonts / Vanta canvas to be ready */
         function dismiss() {
+            if (dismissed) return;
+            dismissed = true;
             bump(100);
             setTimeout(function() {
                 splash.classList.add('hidden');
@@ -215,11 +196,15 @@
             }, 400);
         }
 
+        /* Dismiss on full load if it happens quickly */
         if (document.readyState === 'complete') {
             dismiss();
         } else {
             window.addEventListener('load', dismiss);
         }
+
+        /* Hard ceiling: dismiss after 3s no matter what */
+        setTimeout(dismiss, 3000);
     })();
     </script>
 

@@ -5,34 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vantage Method - Marketing Systems That Work</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/brand/favicon-32.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/images/brand/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/brand/apple-touch-icon.png">
 
-    <!-- Preload Vanta.js dependencies for faster hero animation -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.trunk.min.js" as="script">
+        <link rel="preload" href="assets/images/brand/Vantage-Method-Dark.png" as="image">
+    <link rel="preload" href="assets/images/mountains/center-mountain-front.webp" as="image">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Shared Base Styles -->
-    <link rel="stylesheet" href="shared/base.css">
-
-    <!-- Section Styles -->
-    <link rel="stylesheet" href="sections/hero/hero.css">
-    <link rel="stylesheet" href="sections/mountains/mountains.css">
-    <link rel="stylesheet" href="sections/principles/principles.css">
-    <link rel="stylesheet" href="sections/how-we-work/how-we-work.css">
-    <link rel="stylesheet" href="sections/what-we-do/what-we-do.css">
-    <link rel="stylesheet" href="sections/team/team.css">
-    <link rel="stylesheet" href="sections/portfolio/portfolio.css">
-    <link rel="stylesheet" href="sections/pricing/pricing.css">
-    <link rel="stylesheet" href="sections/cta/cta.css">
-    <!-- Inline splash screen styles (must load before anything else) -->
-    <style>
+        <link rel="stylesheet" href="assets/compiled.css">
+        <style>
         .loading-splash {
             position: fixed;
             inset: 0;
@@ -87,24 +71,19 @@
 </head>
 <body>
 
-    <!-- Loading Splash Screen -->
-    <div id="loadingSplash" class="loading-splash">
+        <div id="loadingSplash" class="loading-splash">
         <div class="loading-inner">
-            <img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="loading-logo">
+            <img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="loading-logo" fetchpriority="high">
             <div class="loading-bar"><div class="loading-bar-fill"></div></div>
             <span class="loading-pct" id="loadingPct">0%</span>
         </div>
     </div>
 
-    <!-- Fixed Vanta.js background — persists behind hero + mountains -->
-    <div id="vantaBg"></div>
+        <div id="vantaBg"></div>
 
-    <!-- ============================================
-         HEADER
-         ============================================ -->
-    <header>
+        <header>
         <div class="container">
-            <a href="#" class="logo-link" aria-label="Back to top"><img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="logo"></a>
+            <a href="#" class="logo-link" aria-label="Back to top"><img src="assets/images/brand/Vantage-Method-Dark.png" alt="Vantage Method" class="logo" fetchpriority="high"></a>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -123,11 +102,7 @@
         </div>
     </header>
 
-    <!-- ============================================
-         HERO SECTION
-         Full-screen intro with Vanta.js animation
-         ============================================ -->
-    <section class="hero">
+        <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1>
@@ -149,24 +124,18 @@
         </div>
     </section>
 
-    <!-- ============================================
-         MOUNTAIN SECTIONS WRAPPER
-         All 3 mountain sections + shared background layers
-         ============================================ -->
-    <div class="mountain-sections-wrapper">
-        <!-- Mountain layers — positioned relative to wrapper, spanning all sections -->
-        <div class="side-mountains-container" id="sideMountains">
+        <div class="mountain-sections-wrapper">
+                <div class="side-mountains-container" id="sideMountains">
             <img src="assets/images/mountains/left-mountain.webp" alt="Left Mountain" class="left-mountain" id="leftMountain">
             <img src="assets/images/mountains/righ-mountain.webp" alt="Right Mountain" class="right-mountain" id="rightMountain">
         </div>
         <div class="center-mountain-container">
             <img src="assets/images/mountains/center-mountain-back.webp" alt="Mountain Background" class="center-mountain" style="z-index: 0;">
             <img src="assets/images/mountains/center-mountain-middle.webp" alt="Mountain Middle" class="center-mountain center-mountain-middle" id="centerMountainMiddle" style="z-index: 1;">
-            <img src="assets/images/mountains/center-mountain-front.webp" alt="Mountain Front" class="center-mountain" style="z-index: 2;">
+            <img src="assets/images/mountains/center-mountain-front.webp" alt="Mountain Front" class="center-mountain" style="z-index: 2;" fetchpriority="high">
         </div>
 
-        <!-- Mountain Section 1: The Outcome -->
-        <section class="mountain-section" id="outcome">
+                <section class="mountain-section" id="outcome">
         <div class="content-block" id="outcomeBlock">
             <div class="block-title">The Outcome</div>
             <div class="block-content">
@@ -187,8 +156,7 @@
         </div>
     </section>
 
-    <!-- Mountain Section 2: How We Get There -->
-    <section class="mountain-section" id="how">
+        <section class="mountain-section" id="how">
         <div class="content-block" id="howBlock">
             <div class="block-title">How We Get There</div>
             <div class="block-content">
@@ -205,8 +173,7 @@
         </div>
     </section>
 
-    <!-- Mountain Section 3: Where It Actually Begins -->
-    <section class="mountain-section" id="where">
+        <section class="mountain-section" id="where">
         <div class="content-block" id="whereBlock">
             <div class="block-title">Where It Actually Begins</div>
             <div class="block-content">
@@ -224,11 +191,7 @@
     </section>
     </div>
 
-    <!-- ============================================
-         PRINCIPLES SECTION
-         Data First, Automate Everything, Sweet Spot
-         ============================================ -->
-    <section class="content-section" id="principles">
+        <section class="content-section" id="principles">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Our Principles</h2>
@@ -287,11 +250,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         HOW WE WORK SECTION
-         Dark immersive section with animated steps
-         ============================================ -->
-    <section class="hww-section" id="how-we-work">
+        <section class="hww-section" id="how-we-work">
         <div class="hww-bg-grid"></div>
         <div class="container">
             <div class="hww-header">
@@ -301,8 +260,7 @@
             </div>
 
             <div class="hww-steps">
-                <!-- Step 1 -->
-                <div class="hww-step" data-step="01">
+                                <div class="hww-step" data-step="01">
                     <div class="hww-step-visual">
                         <div class="hww-anim anim-blueprint">
                             <div class="bp-node bp-center"></div>
@@ -327,8 +285,7 @@
                     <div class="hww-connector"></div>
                 </div>
 
-                <!-- Step 2 -->
-                <div class="hww-step" data-step="02">
+                                <div class="hww-step" data-step="02">
                     <div class="hww-step-visual">
                         <div class="hww-anim anim-system">
                             <div class="sys-channel">
@@ -357,8 +314,7 @@
                     <div class="hww-connector"></div>
                 </div>
 
-                <!-- Step 3 -->
-                <div class="hww-step" data-step="03">
+                                <div class="hww-step" data-step="03">
                     <div class="hww-step-visual">
                         <div class="hww-anim anim-ai">
                             <div class="ai-core"></div>
@@ -383,11 +339,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         WHAT WE DO SECTION
-         Three pillars with animated reveals
-         ============================================ -->
-    <section class="wwd-section" id="what-we-do">
+        <section class="wwd-section" id="what-we-do">
         <div class="container">
             <div class="wwd-header">
                 <p class="wwd-eyebrow">What We Do</p>
@@ -395,8 +347,7 @@
             </div>
 
             <div class="wwd-pillars">
-                <!-- Pillar 1 -->
-                <div class="wwd-pillar" data-pillar="01">
+                                <div class="wwd-pillar" data-pillar="01">
                     <div class="wwd-pillar-accent"></div>
                     <div class="wwd-pillar-icon">
                         <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -415,8 +366,7 @@
                     <p class="wwd-pillar-note">The outcome is clarity — on what to automate, what to measure, and whether a partnership makes sense.</p>
                 </div>
 
-                <!-- Pillar 2 -->
-                <div class="wwd-pillar" data-pillar="02">
+                                <div class="wwd-pillar" data-pillar="02">
                     <div class="wwd-pillar-accent"></div>
                     <div class="wwd-pillar-icon">
                         <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -438,8 +388,7 @@
                     <p class="wwd-pillar-note">Marketing doesn't stop at traffic. It ends when a qualified opportunity reaches the business.</p>
                 </div>
 
-                <!-- Pillar 3 -->
-                <div class="wwd-pillar" data-pillar="03">
+                                <div class="wwd-pillar" data-pillar="03">
                     <div class="wwd-pillar-accent"></div>
                     <div class="wwd-pillar-icon">
                         <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -464,11 +413,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         TEAM SECTION
-         Premium dark orbiting team with expanded bios
-         ============================================ -->
-    <section class="tm-section" id="team">
+        <section class="tm-section" id="team">
         <div class="tm-bg-radial"></div>
         <div class="container">
             <div class="tm-header">
@@ -477,8 +422,7 @@
             </div>
 
             <div class="tm-layout" id="tmLayout">
-                <!-- Left: orbit -->
-                <div class="tm-orbit-stage" id="tmOrbitStage">
+                                <div class="tm-orbit-stage" id="tmOrbitStage">
                     <div class="tm-hub">
                         <div class="tm-hub-ring ring-1"></div>
                         <div class="tm-hub-ring ring-2"></div>
@@ -513,8 +457,7 @@
                     </div>
                 </div>
 
-                <!-- Right: expanded bio panel -->
-                <div class="tm-panel" id="tmPanel">
+                                <div class="tm-panel" id="tmPanel">
                     <button class="tm-panel-close" id="tmPanelClose" aria-label="Close">&times;</button>
                     <div class="tm-panel-photo" id="tmPanelPhoto"></div>
                     <h3 class="tm-panel-name" id="tmPanelName"></h3>
@@ -528,11 +471,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         PORTFOLIO SECTION
-         Horizontal scrolling mixed-media showcase
-         ============================================ -->
-    <section class="pf-section" id="portfolio">
+        <section class="pf-section" id="portfolio">
         <div class="pf-noise"></div>
         <div class="container">
             <div class="pf-header">
@@ -549,12 +488,10 @@
             </div>
         </div>
 
-        <!-- Full-width horizontal gallery -->
-        <div class="pf-gallery" id="pfGallery">
+                <div class="pf-gallery" id="pfGallery">
             <div class="pf-track" id="pfTrack">
 
-                <!-- 1. VIDEO — Warrior In Me -->
-                <div class="pf-card pf-card--wide pf-card--video" data-cat="video" data-vimeo="1153743575">
+                                <div class="pf-card pf-card--wide pf-card--video" data-cat="video" data-vimeo="1153743575">
                     <div class="pf-video-thumb" style="background-image: url('https://vumbnail.com/1153743575.jpg');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Video Production</span>
@@ -564,8 +501,7 @@
                     <div class="pf-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
                 </div>
 
-                <!-- 2. DESIGN — Chris Lamm Branding -->
-                <div class="pf-card pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/chris-lamm-branding.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Brand Identity</span>
@@ -574,8 +510,7 @@
                     </div>
                 </div>
 
-                <!-- 3. METRIC — ROI -->
-                <div class="pf-card pf-card--metric" data-cat="campaigns">
+                                <div class="pf-card pf-card--metric" data-cat="campaigns">
                     <div class="pf-metric-inner">
                         <span class="pf-metric-value" data-target="340" data-suffix="%">0%</span>
                         <span class="pf-metric-label">Return on Ad Spend</span>
@@ -584,8 +519,7 @@
                     </div>
                 </div>
 
-                <!-- 4. DESIGN — Harvey Collective -->
-                <div class="pf-card pf-card--wide pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--wide pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/harvey-collective-branding.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Brand Identity</span>
@@ -594,8 +528,7 @@
                     </div>
                 </div>
 
-                <!-- 5. VIDEO — WarTribe IceWeave -->
-                <div class="pf-card pf-card--tall pf-card--video" data-cat="video" data-vimeo="1134637731">
+                                <div class="pf-card pf-card--tall pf-card--video" data-cat="video" data-vimeo="1134637731">
                     <div class="pf-video-thumb" style="background-image: url('https://vumbnail.com/1134637731.jpg');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Product Video</span>
@@ -605,8 +538,7 @@
                     <div class="pf-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
                 </div>
 
-                <!-- 6. DESIGN — Instagram 2 -->
-                <div class="pf-card pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/Instagram 2.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Social Media</span>
@@ -615,8 +547,7 @@
                     </div>
                 </div>
 
-                <!-- 7. METRIC — Impressions -->
-                <div class="pf-card pf-card--metric pf-card--accent" data-cat="campaigns">
+                                <div class="pf-card pf-card--metric pf-card--accent" data-cat="campaigns">
                     <div class="pf-metric-inner">
                         <span class="pf-metric-value" data-target="2.4" data-suffix="M" data-decimal="1">0</span>
                         <span class="pf-metric-label">Monthly Impressions</span>
@@ -625,8 +556,7 @@
                     </div>
                 </div>
 
-                <!-- PHOTO 1 -->
-                <div class="pf-card pf-card--tall pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--tall pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/photos/1.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Photography</span>
@@ -635,8 +565,7 @@
                     </div>
                 </div>
 
-                <!-- 8. DESIGN — Next Ridge -->
-                <div class="pf-card pf-card--wide pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--wide pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/next-ridge-branding.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Brand Identity</span>
@@ -645,8 +574,7 @@
                     </div>
                 </div>
 
-                <!-- 9. DESIGN — Instagram E4 -->
-                <div class="pf-card pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/Instagram E4.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Social Media</span>
@@ -655,8 +583,7 @@
                     </div>
                 </div>
 
-                <!-- 10. METRIC — CAC -->
-                <div class="pf-card pf-card--metric" data-cat="campaigns">
+                                <div class="pf-card pf-card--metric" data-cat="campaigns">
                     <div class="pf-metric-inner">
                         <span class="pf-metric-value" data-target="47" data-suffix="%" data-prefix="-">0%</span>
                         <span class="pf-metric-label">Customer Acquisition Cost</span>
@@ -665,8 +592,7 @@
                     </div>
                 </div>
 
-                <!-- 11. VIDEO — Anna Hype -->
-                <div class="pf-card pf-card--wide pf-card--video" data-cat="video" data-vimeo="1111737267">
+                                <div class="pf-card pf-card--wide pf-card--video" data-cat="video" data-vimeo="1111737267">
                     <div class="pf-video-thumb" style="background-image: url('https://vumbnail.com/1111737267.jpg');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Content Production</span>
@@ -676,8 +602,7 @@
                     <div class="pf-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
                 </div>
 
-                <!-- PHOTO 2 -->
-                <div class="pf-card pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/photos/2.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Photography</span>
@@ -686,8 +611,7 @@
                     </div>
                 </div>
 
-                <!-- 12. DESIGN — Elite Tee -->
-                <div class="pf-card pf-card--tall pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--tall pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/elite-tee.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Product Design</span>
@@ -696,8 +620,7 @@
                     </div>
                 </div>
 
-                <!-- 13. DESIGN — Olsons Martial Arts -->
-                <div class="pf-card pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/olsons-martial-arts-branding.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Brand Identity</span>
@@ -706,8 +629,7 @@
                     </div>
                 </div>
 
-                <!-- 14. METRIC — ROAS -->
-                <div class="pf-card pf-card--metric pf-card--accent" data-cat="campaigns">
+                                <div class="pf-card pf-card--metric pf-card--accent" data-cat="campaigns">
                     <div class="pf-metric-inner">
                         <span class="pf-metric-value" data-target="12" data-suffix="x">0</span>
                         <span class="pf-metric-label">Return on Ad Spend</span>
@@ -716,8 +638,7 @@
                     </div>
                 </div>
 
-                <!-- PHOTO 3 -->
-                <div class="pf-card pf-card--wide pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--wide pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/photos/3.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Photography</span>
@@ -726,8 +647,7 @@
                     </div>
                 </div>
 
-                <!-- 15. DESIGN — Instagram 5 -->
-                <div class="pf-card pf-card--wide pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--wide pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/Instagram 5.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Social Media</span>
@@ -736,8 +656,7 @@
                     </div>
                 </div>
 
-                <!-- 16. DESIGN — True North -->
-                <div class="pf-card pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/true-north-branding.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Brand Identity</span>
@@ -746,8 +665,7 @@
                     </div>
                 </div>
 
-                <!-- PHOTO 4 -->
-                <div class="pf-card pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/photos/4.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Photography</span>
@@ -756,8 +674,7 @@
                     </div>
                 </div>
 
-                <!-- 17. METRIC — Conversion -->
-                <div class="pf-card pf-card--metric" data-cat="campaigns">
+                                <div class="pf-card pf-card--metric" data-cat="campaigns">
                     <div class="pf-metric-inner">
                         <span class="pf-metric-value" data-target="186" data-suffix="%">0%</span>
                         <span class="pf-metric-label">Conversion Rate Lift</span>
@@ -766,8 +683,7 @@
                     </div>
                 </div>
 
-                <!-- 18. DESIGN — Instagram M2 -->
-                <div class="pf-card pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/Instagram M2.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Social Media</span>
@@ -776,8 +692,7 @@
                     </div>
                 </div>
 
-                <!-- PHOTO 5 -->
-                <div class="pf-card pf-card--tall pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--tall pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/photos/5.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Photography</span>
@@ -786,8 +701,7 @@
                     </div>
                 </div>
 
-                <!-- 19. DESIGN — Instagram 7 -->
-                <div class="pf-card pf-card--tall pf-card--image" data-cat="design">
+                                <div class="pf-card pf-card--tall pf-card--image" data-cat="design">
                     <div class="pf-img" style="background-image: url('assets/images/design/Instagram 7.webp');"></div>
                     <div class="pf-card-overlay">
                         <span class="pf-card-tag">Social Media</span>
@@ -799,8 +713,7 @@
             </div>
         </div>
 
-        <!-- Scroll hint -->
-        <div class="pf-scroll-hint">
+                <div class="pf-scroll-hint">
             <span>Drag to explore</span>
             <svg width="32" height="16" viewBox="0 0 32 16"><path d="M0 8h28M22 2l6 6-6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
@@ -810,11 +723,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         PRICING SECTION
-         With Vanta.js background animation
-         ============================================ -->
-    <section class="content-section" id="pricing">
+        <section class="content-section" id="pricing">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Partnership & Pricing</h2>
@@ -831,14 +740,10 @@
         </div>
     </section>
 
-    <!-- ============================================
-         CTA / CONTACT SECTION
-         Start Here with question cards & mountains
-         ============================================ -->
-    <section class="cta-section" id="contact">
+        <section class="cta-section" id="contact">
         <div class="cta-mountains-container" id="ctaMountains">
-            <img src="assets/images/mountains/left-mountain.webp" alt="Left Mountain" class="cta-left-mountain">
-            <img src="assets/images/mountains/righ-mountain.webp" alt="Right Mountain" class="cta-right-mountain">
+            <img src="assets/images/mountains/left-mountain.webp" alt="Left Mountain" class="cta-left-mountain" loading="lazy">
+            <img src="assets/images/mountains/righ-mountain.webp" alt="Right Mountain" class="cta-right-mountain" loading="lazy">
         </div>
         <div class="container">
             <h2 class="cta-title">Start Here</h2>
@@ -857,14 +762,7 @@
                     <span class="question-text">Where are systems breaking today?</span>
                 </div>
             </div>
-            <!--
-                GHL CONFIGURATION — Replace these TODOs before deploying:
-                1. Set name="BUSINESS_NAME_GHL_ID" to your GHL custom field ID for Business Name
-                2. Set name="MESSAGE_GHL_ID" to your GHL custom field ID for "How can we help you?"
-                3. Set the formId hidden input value to your GHL form ID
-                4. Set the location_id hidden input value to your GHL location ID
-            -->
-            <form id="lead-form" class="cta-form" novalidate>
+                        <form id="lead-form" class="cta-form" novalidate>
                 <input type="hidden" name="formId" value="byDVwHVUFrZnh146iUFS">
                 <input type="hidden" name="location_id" value="1CRkPO5O8TwTWL8msQNK">
                 <div class="form-row">
@@ -959,25 +857,13 @@
         </div>
     </section>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 14V4M4 8l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
 
-    <!-- ============================================
-         SCRIPTS
-         Vanta.js dependencies loaded first,
-         then modular section scripts
-         ============================================ -->
-    <!-- Vanta.js Dependencies (pinned version, preloaded in <head> for speed) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.trunk.min.js"></script>
+            <script src="shared/global.js"></script>
 
-    <!-- Shared Global Scripts -->
-    <script src="shared/global.js"></script>
-
-    <!-- Section Scripts -->
-    <script src="sections/hero/hero.js"></script>
+        <script src="sections/hero/hero.js"></script>
     <script src="sections/mountains/mountains.js"></script>
     <script src="sections/principles/principles.js"></script>
     <script src="sections/how-we-work/how-we-work.js"></script>
@@ -986,11 +872,9 @@
     <script src="sections/portfolio/portfolio.js"></script>
     <script src="sections/cta/cta.js"></script>
 
-    <!-- reCAPTCHA v3 for GHL form submission — TODO: replace SITE_KEY with your GHL reCAPTCHA site key -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6LeDBFwpAAAAAJe8ux9-imrqZ2ueRsEtdiWoDDpX" async></script>
+        <script src="https://www.google.com/recaptcha/api.js?render=6LeDBFwpAAAAAJe8ux9-imrqZ2ueRsEtdiWoDDpX" async></script>
 
-    <!-- Dismiss loading splash once everything is ready -->
-    <script>
+        <script>
     (function() {
         var splash = document.getElementById('loadingSplash');
         var fill = splash ? splash.querySelector('.loading-bar-fill') : null;
@@ -1000,8 +884,8 @@
         var displayPct = 0;
         var targetPct = 30;
         var animFrame;
+        var dismissed = false;
 
-        /* Smoothly animate the displayed percentage toward target */
         function animatePct() {
             if (displayPct < targetPct) {
                 displayPct = Math.min(displayPct + 1, targetPct);
@@ -1011,21 +895,18 @@
             }
         }
 
-        /* Set a new target and start animating toward it */
         function bump(pct) {
             targetPct = Math.min(pct, 100);
             cancelAnimationFrame(animFrame);
             animatePct();
         }
 
-        /* Start at 30% */
         bump(30);
-
-        /* Scripts are loaded (we're at the bottom), bump to 70% */
         bump(70);
 
-        /* Wait for all images / fonts / Vanta canvas to be ready */
         function dismiss() {
+            if (dismissed) return;
+            dismissed = true;
             bump(100);
             setTimeout(function() {
                 splash.classList.add('hidden');
@@ -1033,11 +914,15 @@
             }, 400);
         }
 
+        /* Dismiss on full load if it happens quickly */
         if (document.readyState === 'complete') {
             dismiss();
         } else {
             window.addEventListener('load', dismiss);
         }
+
+        /* Hard ceiling: dismiss after 3s no matter what */
+        setTimeout(dismiss, 3000);
     })();
     </script>
 

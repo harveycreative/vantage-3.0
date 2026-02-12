@@ -40,18 +40,17 @@
     updateCtaMountains();
 
     // CTA Questions Slide-in Animation
-    const ctaButton = document.getElementById('ctaButton');
     const ctaQuestionCards = document.querySelectorAll('.cta-question-card');
     const ctaQuestionsContainer = document.getElementById('ctaQuestions');
     let questionsTriggered = false;
     
     function updateCtaQuestions() {
-        if (!ctaButton || ctaQuestionCards.length === 0) return;
-        
-        const buttonRect = ctaButton.getBoundingClientRect();
+        if (!ctaQuestionsContainer || ctaQuestionCards.length === 0) return;
+
+        const containerRect = ctaQuestionsContainer.getBoundingClientRect();
         const windowHeight = window.innerHeight;
-        
-        if (!questionsTriggered && buttonRect.top < windowHeight && buttonRect.bottom > 0) {
+
+        if (!questionsTriggered && containerRect.top < windowHeight * 0.85) {
             ctaQuestionCards.forEach((card, index) => {
                 setTimeout(() => {
                     card.classList.add('visible');
@@ -81,4 +80,120 @@
     
     window.addEventListener('scroll', updateCtaQuestions, { passive: true });
     updateCtaQuestions();
+})();
+
+/* ============================================
+   CONTACT FORM SUBMISSION
+   Posts to GHL form submission endpoint
+   with reCAPTCHA v3 token
+   ============================================ */
+(function () {
+    var form = document.getElementById('lead-form');
+    if (!form) return;
+
+    // TODO: Replace with your GHL reCAPTCHA v3 site key (must match the key in index.template.html)
+    var RECAPTCHA_SITE_KEY = '6LeDBFwpAAAAAJe8ux9-imrqZ2ueRsEtdiWoDDpX';
+
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var successEl = document.getElementById('formSuccess');
+    var errorEl = document.getElementById('formError');
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function clearErrors() {
+        form.querySelectorAll('.error').forEach(function (el) {
+            el.classList.remove('error');
+        });
+        form.querySelectorAll('.field-error').forEach(function (el) {
+            el.classList.remove('visible');
+        });
+    }
+
+    function showFieldError(input, message) {
+        input.classList.add('error');
+        var errEl = input.parentNode.querySelector('.field-error');
+        if (errEl) {
+            errEl.textContent = message;
+            errEl.classList.add('visible');
+        }
+    }
+
+    function validate() {
+        clearErrors();
+        var valid = true;
+
+        var firstName = form.querySelector('[name="first_name"]');
+        if (!firstName.value.trim()) {
+            showFieldError(firstName, 'First name is required.');
+            valid = false;
+        }
+
+        var lastName = form.querySelector('[name="last_name"]');
+        if (!lastName.value.trim()) {
+            showFieldError(lastName, 'Last name is required.');
+            valid = false;
+        }
+
+        var email = form.querySelector('[name="email"]');
+        if (!email.value.trim()) {
+            showFieldError(email, 'Email is required.');
+            valid = false;
+        } else if (!emailRe.test(email.value.trim())) {
+            showFieldError(email, 'Please enter a valid email.');
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (!validate()) return;
+
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+        errorEl.style.display = 'none';
+
+        try {
+            // Get reCAPTCHA v3 token
+            var captchaToken = '';
+            if (window.grecaptcha) {
+                captchaToken = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' });
+            }
+
+            var raw = new FormData(form);
+            var formDataObj = Object.fromEntries(raw.entries());
+
+            var payload = new FormData();
+            payload.set('formData', JSON.stringify(formDataObj));
+            payload.set('captchaV3', captchaToken);
+
+            var res = await fetch('https://backend.leadconnectorhq.com/forms/submit', {
+                method: 'POST',
+                body: payload
+            });
+
+            var json = await res.json();
+
+            if (!res.ok) {
+                throw new Error(json.message || 'Submission failed');
+            }
+
+            form.style.display = 'none';
+            successEl.style.display = 'flex';
+        } catch (err) {
+            console.error('Form submission error:', err);
+            errorEl.style.display = 'flex';
+        } finally {
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+        }
+    });
+
+    form.querySelectorAll('input, textarea').forEach(function (el) {
+        el.addEventListener('input', function () {
+            this.classList.remove('error');
+            var errEl = this.parentNode.querySelector('.field-error');
+            if (errEl) errEl.classList.remove('visible');
+        });
+    });
 })();

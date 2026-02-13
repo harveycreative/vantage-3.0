@@ -522,6 +522,15 @@
     color: #ffffff !important;
 }
 
+/* Desktop: panel opens without width transition — FLIP animation
+   on the orbit stage handles the smooth lateral slide instead */
+@media (min-width: 1101px) {
+    .tm-panel.open {
+        transition: opacity 0.4s ease 0.15s,
+            padding 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+}
+
 /* ============================================
    RESPONSIVE
    ============================================ */

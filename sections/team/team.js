@@ -143,6 +143,38 @@
         return window.innerWidth <= 1100;
     }
 
+    /* ---- FLIP helper: smoothly animate the stage's lateral shift ---- */
+    function flipStage(action) {
+        if (isMobileLayout()) { action(); return; }
+
+        var beforeX = stage.getBoundingClientRect().left;
+        action();
+        var afterX = stage.getBoundingClientRect().left;
+        var dx = beforeX - afterX;
+
+        if (dx === 0) return;
+
+        /* Invert: instantly place the stage at its old position */
+        stage.style.transition = 'none';
+        stage.style.transform = 'translateX(' + dx + 'px)';
+
+        /* Force the browser to paint the inverted position */
+        stage.offsetHeight;
+
+        /* Play: animate to the final position */
+        stage.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        stage.style.transform = 'translateX(0)';
+
+        /* Clean up inline styles when done */
+        stage.addEventListener('transitionend', function cleanup(e) {
+            if (e.propertyName === 'transform') {
+                stage.style.transition = '';
+                stage.style.transform = '';
+                stage.removeEventListener('transitionend', cleanup);
+            }
+        });
+    }
+
     /* ---- Open expanded panel ---- */
     function openPanel(member) {
         if (activeMember === member) {
@@ -163,7 +195,7 @@
         document.getElementById('tmPanelRole').textContent = member.dataset.title;
         document.getElementById('tmPanelBio').textContent  = member.dataset.bio;
 
-        panel.classList.add('open');
+        flipStage(function () { panel.classList.add('open'); });
 
         if (isMobileLayout()) {
             setTimeout(function () {
@@ -174,8 +206,14 @@
 
     /* ---- Close expanded panel ---- */
     function closePanel() {
+        /* Cancel any in-progress FLIP animation */
+        stage.style.transition = '';
+        stage.style.transform = '';
+
         members.forEach(m => m.classList.remove('active'));
-        panel.classList.remove('open');
+
+        flipStage(function () { panel.classList.remove('open'); });
+
         isPaused = false;
         ring.classList.remove('paused');
 

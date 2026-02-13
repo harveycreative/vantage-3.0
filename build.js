@@ -22,6 +22,7 @@ const CSS_FILES = [
     'sections/what-we-do/what-we-do.css',
     'sections/team/team.css',
     'sections/portfolio/portfolio.css',
+    'sections/social-proof/social-proof.css',
     'sections/pricing/pricing.css',
     'sections/cta/cta.css'
 ];

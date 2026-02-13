@@ -53,6 +53,16 @@
     background-clip: text;
 }
 
+/* Short credibility summary under the headline */
+.tm-subline {
+    margin: 1rem auto 0;
+    max-width: 860px;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(16, 24, 32, 0.7);
+}
+
 /* --- Layout wrapper (orbit + panel side-by-side on desktop) --- */
 .tm-layout {
     display: flex;

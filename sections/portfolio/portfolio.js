@@ -70,25 +70,36 @@
     /* --------------------------------------------------
        2.  FILTER PILLS
        -------------------------------------------------- */
+    function applyFilter(cat) {
+        cards.forEach(function (card) {
+            if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+
+        // Reset scroll
+        gallery.scrollLeft = 0;
+        revealCards();
+    }
+
     pills.forEach(function (pill) {
         pill.addEventListener('click', function () {
             pills.forEach(function (p) { p.classList.remove('active'); });
             pill.classList.add('active');
             const cat = pill.getAttribute('data-filter');
-
-            cards.forEach(function (card) {
-                if (cat === 'all' || card.getAttribute('data-cat') === cat) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-
-            // Reset scroll
-            gallery.scrollLeft = 0;
-            revealCards();
+            applyFilter(cat);
         });
     });
+
+    // Apply initial filter (based on the pill marked active in HTML)
+    (function () {
+        var active = section.querySelector('.pf-pill.active');
+        if (!active) return;
+        var cat = active.getAttribute('data-filter') || 'all';
+        applyFilter(cat);
+    })();
 
     /* --------------------------------------------------
        3.  SCROLL-REVEAL

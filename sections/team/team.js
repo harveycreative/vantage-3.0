@@ -1,26 +1,42 @@
 /* ============================================
    TEAM SECTION JS
-   Click-to-expand bio panel, orbit interaction,
-   glowing connection arc, scroll reveal
+   JS-driven orbit animation for reliable touch
+   detection on Mobile Safari, bio panel,
+   connection line, scroll reveal
    ============================================ */
 
 (function () {
-    const stage   = document.getElementById('tmOrbitStage');
-    const header  = document.querySelector('.tm-header');
-    const ring    = document.getElementById('tmRing');
-    const canvas  = document.getElementById('tmConnectionCanvas');
-    const panel   = document.getElementById('tmPanel');
+    const stage    = document.getElementById('tmOrbitStage');
+    const header   = document.querySelector('.tm-header');
+    const ring     = document.getElementById('tmRing');
+    const canvas   = document.getElementById('tmConnectionCanvas');
+    const panel    = document.getElementById('tmPanel');
     const closeBtn = document.getElementById('tmPanelClose');
     if (!stage || !ring || !canvas || !panel) return;
 
     const ctx     = canvas.getContext('2d');
     const members = ring.querySelectorAll('.tm-member');
+    const inners  = ring.querySelectorAll('.tm-inner');
 
-    /* ---- Canvas sizing ---- */
+    /* ---- JS-driven orbit state ---- */
+    var ringAngle = 0;          // degrees, 0–360
+    var isPaused  = false;
+    var lastTime  = 0;
+    var ORBIT_DURATION = 55000; // ms per full revolution (matches original 55s)
+
+    /* ---- Canvas sizing (DPR-aware for Retina) ---- */
+    let canvasW = 0, canvasH = 0;
+
     function resize() {
-        const r = stage.getBoundingClientRect();
-        canvas.width  = r.width;
-        canvas.height = r.height;
+        var r   = stage.getBoundingClientRect();
+        var dpr = window.devicePixelRatio || 1;
+        canvasW = r.width;
+        canvasH = r.height;
+        canvas.width  = canvasW * dpr;
+        canvas.height = canvasH * dpr;
+        canvas.style.width  = canvasW + 'px';
+        canvas.style.height = canvasH + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     resize();
     window.addEventListener('resize', resize);
@@ -47,23 +63,43 @@
     window.addEventListener('scroll', reveal, { passive: true });
     reveal();
 
-    /* ---- Orbit radius helper (matches CSS) ---- */
-    function orbitRadius() {
-        const w = window.innerWidth;
-        if (w <= 480) return 130;
-        if (w <= 768) return 160;
-        return 220;
+    /* ---- Get a member's current visual center (stage-relative) ---- */
+    function getMemberPos(member) {
+        var mr = member.getBoundingClientRect();
+        var sr = stage.getBoundingClientRect();
+        return {
+            x: (mr.left + mr.width / 2) - sr.left,
+            y: (mr.top + mr.height / 2) - sr.top
+        };
     }
 
-    /* ---- Connection line drawing ---- */
+    /* ---- Combined animation loop: orbit rotation + connection line ---- */
     let activeMember = null;
     let lineAlpha    = 0;
 
-    function drawFrame() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function drawFrame(now) {
+        /* ---- Orbit animation (JS-driven) ---- */
+        if (lastTime === 0) lastTime = now;
+        var dt = now - lastTime;
+        lastTime = now;
 
-        const cx = canvas.width  / 2;
-        const cy = canvas.height / 2;
+        if (!isPaused) {
+            ringAngle = (ringAngle + (dt / ORBIT_DURATION) * 360) % 360;
+        }
+
+        /* Apply ring rotation via JS transform */
+        ring.style.transform = 'translate(-50%, -50%) rotate(' + ringAngle + 'deg)';
+
+        /* Counter-rotate each member's inner to keep content upright */
+        for (var i = 0; i < inners.length; i++) {
+            inners[i].style.transform = 'rotate(' + -(ringAngle + i * 45) + 'deg)';
+        }
+
+        /* ---- Connection line ---- */
+        ctx.clearRect(0, 0, canvasW, canvasH);
+
+        var cx = canvasW / 2;
+        var cy = canvasH / 2;
 
         if (activeMember) {
             lineAlpha = Math.min(lineAlpha + 0.08, 1);
@@ -72,36 +108,26 @@
         }
 
         if (lineAlpha > 0 && activeMember) {
-            const idx    = parseInt(activeMember.dataset.idx, 10);
-            const cs     = window.getComputedStyle(ring);
-            const tf     = cs.transform;
-            let ringAngle = 0;
-            if (tf && tf !== 'none') {
-                const v = tf.split('(')[1].split(')')[0].split(',');
-                ringAngle = Math.atan2(parseFloat(v[1]), parseFloat(v[0]));
-            }
-            const baseAngle = (idx * 45) * (Math.PI / 180) - Math.PI / 2;
-            const angle     = baseAngle + ringAngle;
-            const r         = orbitRadius();
-            const mx = cx + Math.cos(angle) * r;
-            const my = cy + Math.sin(angle) * r;
+            var pos = getMemberPos(activeMember);
+            var mx  = pos.x;
+            var my  = pos.y;
 
-            const grad = ctx.createLinearGradient(cx, cy, mx, my);
+            var grad = ctx.createLinearGradient(cx, cy, mx, my);
             grad.addColorStop(0, 'rgba(0, 124, 135, 0)');
-            grad.addColorStop(0.3, `rgba(0, 124, 135, ${0.5 * lineAlpha})`);
-            grad.addColorStop(1, `rgba(0, 124, 135, ${0.7 * lineAlpha})`);
+            grad.addColorStop(0.3, 'rgba(0, 124, 135, ' + (0.5 * lineAlpha) + ')');
+            grad.addColorStop(1, 'rgba(0, 124, 135, ' + (0.7 * lineAlpha) + ')');
 
             ctx.save();
             ctx.strokeStyle = grad;
             ctx.lineWidth   = 2;
             ctx.shadowColor = 'rgba(0, 124, 135, 0.6)';
             ctx.shadowBlur  = 14 * lineAlpha;
-                ctx.beginPath();
+            ctx.beginPath();
             ctx.moveTo(cx, cy);
             ctx.lineTo(mx, my);
-                ctx.stroke();
+            ctx.stroke();
 
-            ctx.fillStyle = `rgba(0, 124, 135, ${lineAlpha})`;
+            ctx.fillStyle = 'rgba(0, 124, 135, ' + lineAlpha + ')';
             ctx.beginPath();
             ctx.arc(mx, my, 4, 0, Math.PI * 2);
             ctx.fill();
@@ -110,7 +136,7 @@
 
         requestAnimationFrame(drawFrame);
     }
-    drawFrame();
+    requestAnimationFrame(drawFrame);
 
     /* ---- Detect mobile (panel goes below) ---- */
     function isMobileLayout() {
@@ -119,30 +145,26 @@
 
     /* ---- Open expanded panel ---- */
     function openPanel(member) {
-        /* If clicking the same member, close */
         if (activeMember === member) {
             closePanel();
             return;
         }
 
-        /* Clear previous */
         members.forEach(m => m.classList.remove('active'));
 
         activeMember = member;
+        isPaused = true;
         ring.classList.add('paused');
         member.classList.add('active');
 
-        /* Populate panel */
-        const img = member.dataset.img;
+        var img = member.dataset.img;
         document.getElementById('tmPanelPhoto').style.backgroundImage = "url('" + img + "')";
         document.getElementById('tmPanelName').textContent = member.dataset.name;
         document.getElementById('tmPanelRole').textContent = member.dataset.title;
         document.getElementById('tmPanelBio').textContent  = member.dataset.bio;
 
-        /* Show panel */
         panel.classList.add('open');
 
-        /* On mobile, scroll to panel */
         if (isMobileLayout()) {
             setTimeout(function () {
                 panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -154,9 +176,9 @@
     function closePanel() {
         members.forEach(m => m.classList.remove('active'));
         panel.classList.remove('open');
+        isPaused = false;
         ring.classList.remove('paused');
 
-        /* On mobile, scroll back up to orbit */
         if (isMobileLayout()) {
             setTimeout(function () {
                 stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -168,13 +190,92 @@
 
     /* ---- Event listeners ---- */
 
-    /* Click on member to open panel */
-    members.forEach(function (member) {
-        member.addEventListener('click', function (e) {
+    /*
+       Hit detection uses getBoundingClientRect() on each member to find
+       the closest one to the tap/click point. With JS-driven transforms,
+       getBoundingClientRect() returns the actual rendered position on ALL
+       browsers, including Mobile Safari (which previously returned stale
+       positions for CSS-animated transforms running on the compositor).
+    */
+
+    /* Disable member pointer-events on touch devices to prevent
+       stale hit regions from intercepting touches */
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        members.forEach(function (m) { m.style.pointerEvents = 'none'; });
+    }
+
+    var handledByTouch = false;
+
+    function hitTestOrbit(clientX, clientY) {
+        var bestIdx  = -1;
+        var bestDist = Infinity;
+
+        for (var i = 0; i < members.length; i++) {
+            var rect = members[i].getBoundingClientRect();
+            var mcx  = rect.left + rect.width / 2;
+            var mcy  = rect.top  + rect.height / 2;
+            var dx   = clientX - mcx;
+            var dy   = clientY - mcy;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < bestDist) {
+                bestDist = dist;
+                bestIdx  = i;
+            }
+        }
+
+        /* Only select if tap was within reasonable distance of a member */
+        var maxDist = (window.innerWidth <= 480) ? 40 : (window.innerWidth <= 768) ? 50 : 55;
+        if (bestIdx >= 0 && bestDist < maxDist) return bestIdx;
+        return -1;
+    }
+
+    /* --- Touch: track start position to detect taps vs scrolls --- */
+    var touchStartX = 0, touchStartY = 0;
+
+    document.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function (e) {
+        var touch = e.changedTouches[0];
+
+        /* Ignore scrolls/swipes */
+        if (Math.abs(touch.clientX - touchStartX) > 10 ||
+            Math.abs(touch.clientY - touchStartY) > 10) return;
+
+        /* Ignore taps on panel or close button */
+        if (e.target.closest('.tm-panel-close')) return;
+        if (e.target.closest('.tm-panel')) return;
+
+        /* Check if tap is within the orbit stage area */
+        var stageRect = stage.getBoundingClientRect();
+        if (touch.clientX < stageRect.left || touch.clientX > stageRect.right ||
+            touch.clientY < stageRect.top  || touch.clientY > stageRect.bottom) {
+            if (activeMember) closePanel();
+            return;
+        }
+
+        /* Proximity-based hit test using actual rendered positions */
+        var idx = hitTestOrbit(touch.clientX, touch.clientY);
+        if (idx >= 0) {
             e.preventDefault();
+            handledByTouch = true;
+            openPanel(members[idx]);
+        }
+    });
+
+    /* --- Click: desktop mouse fallback --- */
+    stage.addEventListener('click', function (e) {
+        if (handledByTouch) { handledByTouch = false; return; }
+        if (e.target.closest('.tm-panel') || e.target.closest('.tm-panel-close')) return;
+
+        var idx = hitTestOrbit(e.clientX, e.clientY);
+        if (idx >= 0) {
             e.stopPropagation();
-            openPanel(member);
-        });
+            openPanel(members[idx]);
+        }
     });
 
     /* Close button */
@@ -186,9 +287,9 @@
         });
     }
 
-    /* Click outside to close (optional convenience) */
+    /* Click outside to close (desktop) */
     document.addEventListener('click', function (e) {
-        if (activeMember && !e.target.closest('.tm-member') && !e.target.closest('.tm-panel')) {
+        if (activeMember && !e.target.closest('.tm-member') && !e.target.closest('.tm-panel') && !e.target.closest('.tm-orbit-stage')) {
             closePanel();
         }
     });

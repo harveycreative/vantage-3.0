@@ -63,34 +63,57 @@
 
     // Translate vertical wheel into horizontal scroll
     gallery.addEventListener('wheel', function (e) {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-            e.preventDefault();
-            gallery.scrollLeft += e.deltaY * 1.5;
-        }
+        // Only convert wheel→horizontal when it would actually scroll horizontally.
+        if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+        if (gallery.scrollWidth <= gallery.clientWidth) return;
+
+        var max = gallery.scrollWidth - gallery.clientWidth;
+        var atStart = gallery.scrollLeft <= 0;
+        var atEnd = gallery.scrollLeft >= max - 1;
+        var goingRight = e.deltaY > 0;
+        var goingLeft = e.deltaY < 0;
+
+        // If we're at an edge and the user is trying to scroll past it,
+        // let the page scroll vertically (avoid the "stuck" feeling).
+        if ((atStart && goingLeft) || (atEnd && goingRight)) return;
+
+        e.preventDefault();
+        gallery.scrollLeft += e.deltaY * 1.5;
     }, { passive: false });
 
     /* --------------------------------------------------
        2.  FILTER PILLS
        -------------------------------------------------- */
+    function applyFilter(cat) {
+        cards.forEach(function (card) {
+            if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+
+        // Reset scroll
+        gallery.scrollLeft = 0;
+        revealCards();
+    }
+
     pills.forEach(function (pill) {
         pill.addEventListener('click', function () {
             pills.forEach(function (p) { p.classList.remove('active'); });
             pill.classList.add('active');
             const cat = pill.getAttribute('data-filter');
-
-            cards.forEach(function (card) {
-                if (cat === 'all' || card.getAttribute('data-cat') === cat) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-
-            // Reset scroll
-            gallery.scrollLeft = 0;
-            revealCards();
+            applyFilter(cat);
         });
     });
+
+    // Apply initial filter (based on the pill marked active in HTML)
+    (function () {
+        var active = section.querySelector('.pf-pill.active');
+        if (!active) return;
+        var cat = active.getAttribute('data-filter') || 'all';
+        applyFilter(cat);
+    })();
 
     /* --------------------------------------------------
        3.  SCROLL-REVEAL

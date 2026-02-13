@@ -66,6 +66,19 @@
     font-size: 1.25rem;
 }
 
+.pricing-list {
+    margin: 1.125rem auto 0;
+    padding-left: 1.25rem;
+    max-width: 560px;
+    text-align: left;
+    color: rgba(10, 10, 10, 0.78);
+    line-height: 1.7;
+}
+
+.pricing-list li {
+    margin: 0.4rem 0;
+}
+
 .pricing-content .emphasis {
     display: block;
     font-size: 1.25rem;

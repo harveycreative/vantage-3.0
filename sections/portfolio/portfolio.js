@@ -18,11 +18,11 @@
     /* --------------------------------------------------
        1.  DRAG-TO-SCROLL
        -------------------------------------------------- */
-    let isDragging = false, startX = 0, scrollLeft = 0, velocity = 0, lastX = 0, rafId = null;
+    let isDragging = false, hasMoved = false, startX = 0, scrollLeft = 0, velocity = 0, lastX = 0, rafId = null;
 
     function onPointerDown(e) {
         isDragging = true;
-        gallery.classList.add('dragging');
+        hasMoved = false;
         startX = e.pageX || e.touches[0].pageX;
         scrollLeft = gallery.scrollLeft;
         lastX = startX;
@@ -31,8 +31,13 @@
     }
     function onPointerMove(e) {
         if (!isDragging) return;
-        e.preventDefault();
         const x = e.pageX || (e.touches && e.touches[0].pageX);
+        if (!hasMoved && Math.abs(x - startX) > 5) {
+            hasMoved = true;
+            gallery.classList.add('dragging');
+        }
+        if (!hasMoved) return;
+        e.preventDefault();
         const walk = (x - startX) * 1.4;
         gallery.scrollLeft = scrollLeft - walk;
         velocity = x - lastX;

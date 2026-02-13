@@ -61,13 +61,6 @@
     gallery.addEventListener('touchmove', onPointerMove, { passive: false });
     gallery.addEventListener('touchend', onPointerUp);
 
-    // Translate vertical wheel into horizontal scroll
-    gallery.addEventListener('wheel', function (e) {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-            e.preventDefault();
-            gallery.scrollLeft += e.deltaY * 1.5;
-        }
-    }, { passive: false });
 
     /* --------------------------------------------------
        2.  FILTER PILLS
